@@ -1,25 +1,32 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">It works! 🎉</h1>
+    <h1 class="govuk-heading-xl">GOV.UK OpenAPI Linting Service </h1>
 
-    <p class="govuk-body">
-      Your application is ready - so long as this page rendered without any errors you're good to go.
-    </p>
+  <div class="govuk-form-group" name="which-linter">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">
+          Which ruleset would you like to test your OpenAPI document against?
+        </h1>
+      </legend>
+      <div class="govuk-radios" data-module="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="which-ruleset" name="which-ruleset" type="radio" value="Security ruleset">
+          <label class="govuk-label govuk-radios__label" for="security-ruleset">
+            Security ruleset
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="which-ruleset" name="which-ruleset" type="radio" value="UK government ruleset">
+          <label class="govuk-label govuk-radios__label" for="gov-ruleset">
+            UK government ruleset
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
 
-    <%= govuk_summary_list(
-      rows: [
-        { key: { text: "Rails version" }, value: { text:  Rails.version } },
-        { key: { text: "Ruby version" }, value: { text:  RUBY_VERSION } },
-        { key: {
-          text: "GOV.UK Frontend" },
-          value: {
-            text: JSON
-              .parse(File.read(Rails.root.join("package.json")))
-              .dig("dependencies", "govuk-frontend")
-              .tr("^", "")
-          }
-        }
-      ]
-    ) %>
+  <button class="govuk-button" data-module="govuk-button">Continue</button>
+
   </div>
 </div>
