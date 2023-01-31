@@ -1,4 +1,4 @@
 en:
   service:
-    name: GOV.UK Frontend on Rails
+    name: GOV.UK OpenAPI Linting Service
     email: my-service@email
