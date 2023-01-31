@@ -73,6 +73,7 @@ gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 
 group :test, :development do
+  gem "pry-nav"
   gem "rspec"
   gem "rspec-rails"
 end

@@ -1,0 +1,2 @@
+module LinterHelper
+end
