@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">GOV.UK OpenAPI Linting Service</h1>
 
-    <%= form_tag(new_linter_path, method: :get) do %>
+    <%= form_tag(new_ruleset_path, method: :get) do %>
       <div class="govuk-form-group" name="which-linter">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -16,7 +16,7 @@
               <%= label_tag("security_ruleset", "Security ruleset", class: "govuk-label govuk-radios__label", for: "security-ruleset") %>
             </div>
             <div class="govuk-radios__item">
-              <%= text_field_tag("which_ruleset", "uk_government_ruleset", class: "govuk-radios__input", type: "radio", name: "which_ruleset") %>
+              <%= text_field_tag("which_ruleset", "government_ruleset", class: "govuk-radios__input", type: "radio", name: "which_ruleset") %>
               <%= label_tag("gov-ruleset", "UK government ruleset", class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
             </div>
           </div>

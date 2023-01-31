@@ -46,10 +46,10 @@ end
 
 group :development do
   gem 'annotate', require: false
-  gem 'solargraph', require: false
-  gem 'solargraph-rails', require: false
   gem 'prettier_print', require: false
   gem 'rubocop-govuk', require: false
+  gem 'solargraph', require: false
+  gem 'solargraph-rails', require: false
   gem 'syntax_tree', require: false
   gem 'syntax_tree-haml', require: false
   gem 'syntax_tree-rbs', require: false
@@ -66,6 +66,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem "rails-controller-testing"
   gem "selenium-webdriver"
   gem "webdrivers"
 end
