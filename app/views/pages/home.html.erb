@@ -1,32 +1,30 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">GOV.UK OpenAPI Linting Service </h1>
+    <h1 class="govuk-heading-xl">GOV.UK OpenAPI Linting Service</h1>
 
-  <div class="govuk-form-group" name="which-linter">
-    <fieldset class="govuk-fieldset">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h1 class="govuk-fieldset__heading">
-          Which ruleset would you like to test your OpenAPI document against?
-        </h1>
-      </legend>
-      <div class="govuk-radios" data-module="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="which-ruleset" name="which-ruleset" type="radio" value="Security ruleset">
-          <label class="govuk-label govuk-radios__label" for="security-ruleset">
-            Security ruleset
-          </label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="which-ruleset" name="which-ruleset" type="radio" value="UK government ruleset">
-          <label class="govuk-label govuk-radios__label" for="gov-ruleset">
-            UK government ruleset
-          </label>
-        </div>
+    <%= form_tag("/submit_ruleset", method: :post) do %>
+      <div class="govuk-form-group" name="which-linter">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Which ruleset would you like to test your OpenAPI document against?
+            </h1>
+          </legend>
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <%= text_field("which-ruleset", "Security ruleset", class: "govuk-radios__input", type: "radio", name: "which-ruleset" ) %>
+              <%= label_tag("security-ruleset", "Security ruleset", class: "govuk-label govuk-radios__label", for: "security-ruleset") %>
+            </div>
+            <div class="govuk-radios__item">
+              <%= text_field("which-ruleset", "UK government ruleset", class: "govuk-radios__input", type: "radio", name: "which-ruleset") %>
+              <%= label_tag("gov-ruleset", "UK government ruleset", class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
+            </div>
+          </div>
+        </fieldset>
       </div>
-    </fieldset>
-  </div>
 
-  <button class="govuk-button" data-module="govuk-button">Continue</button>
+      <%= submit_tag("Continue", class: "govuk-button", data: { module: "govuk-button" }) %>
+    <% end %>
 
   </div>
 </div>
