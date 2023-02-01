@@ -5,7 +5,7 @@ describe CrunchApi do
 
   # Remove the x from xit and put the .json file in the root of the project
   # if you want to test the output
-  it "just outputs the linter results as a string" do
+  xit "just outputs the linter results as a string" do
     crunch = CrunchApi.new
     puts crunch.lint('ons-vat.json')
   end
