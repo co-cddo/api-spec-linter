@@ -77,3 +77,6 @@ group :test, :development do
   gem "rspec"
   gem "rspec-rails"
 end
+
+# A Ruby gem to load environment variables from `.env`.
+gem 'dotenv-rails', groups: [:development, :test]
