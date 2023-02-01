@@ -1,11 +1,11 @@
-name: "Run tests"
+name: "Run tests and lints"
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
 jobs:
-  test:
+  test_and_lint:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -30,6 +30,12 @@ jobs:
 
       - name: Set up database schema
         run: bin/rails db:schema:load
+
+      - name: Run yarn
+        run: yarn
+
+      - name: Lints
+        run: bin/lint
 
       - name: Run tests
         run: bin/rake
