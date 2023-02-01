@@ -80,3 +80,6 @@ end
 
 # A Ruby gem to load environment variables from `.env`.
 gem 'dotenv-rails', groups: [:development, :test]
+
+# A Ruby rest client gem used for calling the 42Crunch API
+gem 'rest-client'
