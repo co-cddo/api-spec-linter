@@ -7,7 +7,7 @@ describe "RulesetController", type: :request do
     it "renders a page with a form for the security ruleset" do
       get new_ruleset_path(which_ruleset: "security_ruleset")
 
-      expect(response).to render_template(RulesetController::SECURITY_RULESET)
+      expect(response).to render_template("security_ruleset")
     end
 
     it "renders a page with a form for the government ruleset" do
