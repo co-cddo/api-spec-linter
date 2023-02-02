@@ -4,5 +4,13 @@
     <h1 class="govuk-heading-xl">Check your OpenAPI documents for security issues</h1>
 
   </div>
-  <%= render "form" %>
+
+  <% if @crunch_results.present? %>
+    <div class="govuk-grid-column-two-thirds">
+     <div><%= JSON.pretty_generate(@crunch_results) %></div>
+   </div>
+  <% else %>
+   <%= render "form" %>
+  <% end %>
+
 </div>
