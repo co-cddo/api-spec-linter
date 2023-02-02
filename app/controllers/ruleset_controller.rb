@@ -13,9 +13,23 @@ class RulesetController < ApplicationController
       return render @ruleset_name
     end
 
-    # Here we can call our 42 crunch or spectral service
+    #render json: { message: 'File uploaded successfully', content: ruleset_params[:oas_file].tempfile.path }
 
-    render json: { message: 'File uploaded successfully' }
+    begin
+      crunch = Linters::CrunchAPI.new
+      file = ruleset_params[:oas_file].tempfile
+      @crunch_results = crunch.lint(file)
+    rescue StandardError => e
+      puts e.message
+      # TODO: We don't want to reveal the full 42Crunch error message
+      # but we might for example give the user a reference number here
+      # so that we can find the full error in the logs.
+      #flash[:error] = "Unable to run linter on the uploaded file"
+      flash[:error] = e.message
+      return render @ruleset_name
+    end
+
+    render json: { message: 'File uploaded successfully', content: ruleset_params[:oas_file].tempfile.path }
   end
 
   private

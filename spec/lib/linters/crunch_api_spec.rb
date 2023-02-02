@@ -7,7 +7,8 @@ describe CrunchApi do
   # if you want to test the output
   xit "just outputs the linter results as a string" do
     crunch = CrunchApi.new
-    puts crunch.lint('ons-vat.json')
+    file = File.new('ons-vat.json')
+    puts crunch.lint(file)
   end
 
 end
