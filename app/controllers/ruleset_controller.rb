@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# TODO: Separate this out into a controller per ruleset
 class RulesetController < ApplicationController
 
   before_action :set_ruleset_type, only: [:new, :create]
@@ -14,8 +16,10 @@ class RulesetController < ApplicationController
     end
 
     # Here we can call our 42 crunch or spectral service
-
-    render json: { message: 'File uploaded successfully' }
+    if @ruleset_name == 'government_ruleset'
+      linter_output = Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json
+      render(json: linter_output)
+    end
   end
 
   private
