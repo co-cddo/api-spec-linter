@@ -36,7 +36,7 @@ class RulesetController < ApplicationController
       if @ruleset_name == 'security_ruleset' # Call 42Crunch service
         @crunch_results = Linters::CrunchApi.new.lint_to_json(ruleset_params[:oas_file].tempfile)
       elsif @ruleset_name == 'government_ruleset' # Call Spectral service
-        @spectral_results = Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json
+        @spectral_results = JSON.parse(Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json)
       end
     rescue StandardError => e
       puts e.message
