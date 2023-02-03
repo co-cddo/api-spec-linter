@@ -29,10 +29,10 @@ module Linters
       begin
         create_response += RestClient.post( @base_url + "/api/v1/apis",
         { # Body of the request
-          :cid => ENV['COLLECTION_ID'], # Collection id, returned by "Create a collection"
-          :name => File.basename(file.path, ".*"), # API Display Name
-          :yaml => false, # Set to true if the specification file was converted to JSON from YAML
-          :specfile => file # Raw OAS file in JSON format - YAML is not supported
+          cid: ENV['COLLECTION_ID'], # Collection id, returned by "Create a collection"
+          name: File.basename(file.path, ".*"), # API Display Name
+          yaml: false, # Set to true if the specification file was converted to JSON from YAML
+          specfile: file # Raw OAS file in JSON format - YAML is not supported
         },
         { # Request headers
         'X-API-KEY': ENV['CRUNCH_API_KEY']
