@@ -17,7 +17,7 @@
             </tr>
           </thead>
           <tbody class="govuk-table__body">
-          <%= @spectral_results.each do | result |%>
+          <% @spectral_results.each do | result |%>
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header"><%= result['code'] %></th>
               <td class="govuk-table__cell"><%= result['range']['start']['line'] %></td>
