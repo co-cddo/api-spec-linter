@@ -1,30 +1,15 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">GOV.UK OpenAPI Linting Service</h1>
+    <p>Info about what this service is providing</p>
 
-    <%= form_tag(new_ruleset_path, method: :get) do %>
-      <div class="govuk-form-group" name="which-linter">
-        <fieldset class="govuk-fieldset">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
-              Which ruleset would you like to test your OpenAPI document against?
-            </h1>
-          </legend>
-          <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-              <%= text_field_tag("which_ruleset", "security_ruleset", class: "govuk-radios__input", type: "radio", name: "which_ruleset" ) %>
-              <%= label_tag("security_ruleset", "Security ruleset", class: "govuk-label govuk-radios__label", for: "security-ruleset") %>
-            </div>
-            <div class="govuk-radios__item">
-              <%= text_field_tag("which_ruleset", "government_ruleset", class: "govuk-radios__input", type: "radio", name: "which_ruleset") %>
-              <%= label_tag("gov-ruleset", "UK government ruleset", class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-
-      <%= submit_tag("Continue", class: "govuk-button", data: { module: "govuk-button" }) %>
-    <% end %>
-
+    <p>
+      <a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="govuk-button" draggable="false" href="/ruleset" data-govuk-button-module-started="true">
+        Start now
+        <svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" focusable="false" aria-hidden="true">
+          <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+        </svg>
+      </a>
+    </p>
   </div>
 </div>

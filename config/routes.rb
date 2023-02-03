@@ -2,11 +2,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   # post '/linter', to: "linter#new"
-  resources :ruleset, only: [:new, :create]
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :ruleset, only: %i[new create index]
 
   scope via: :all do
     get "/404", to: "errors#not_found"
