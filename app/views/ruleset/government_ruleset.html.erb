@@ -5,7 +5,34 @@
 
   <% if @spectral_results.present? %>
     <div class="govuk-grid-column-two-thirds">
-     <div><%= JSON.pretty_generate(@spectral_results) %></div>
+        <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-table__caption--m">Linting Results</caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Code</th>
+              <th scope="col" class="govuk-table__header">Line</th>
+              <th scope="col" class="govuk-table__header">Character</th>
+              <th scope="col" class="govuk-table__header">Problem</th>
+              <th scope="col" class="govuk-table__header">Remedy</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+          <%= @spectral_results.each do | result |%>
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header"><%= result['code'] %></th>
+              <td class="govuk-table__cell"><%= result['range']['start']['line'] %></td>
+              <td class="govuk-table__cell"><%= result['range']['start']['character'] %></td>
+              <td class="govuk-table__cell"><%= result['message'] %></td>
+              <td class="govuk-table__cell"><a href="https://www.gov.uk/guidance/gds-api-technical-and-data-standards">Details</a></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+        <a href="<% root_path %>" role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
+          Select Another Linter
+        </a>
+
    </div>
   <% else %>
    <%= render "form" %>
