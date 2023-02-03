@@ -15,7 +15,7 @@ module Linters
     #
     # @param file [File] the file to be linted
     # @return [String] the raw JSON response
-    def lint(file)
+    def lint_to_json(file)
 
       # Initialize local variables
       create_response = String.new
