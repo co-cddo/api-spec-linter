@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class RulesetController < ApplicationController
-
-  before_action :set_ruleset_type, only: [:new, :create]
+  before_action :set_ruleset_type, only: %i[new create]
 
   def new
     render @ruleset_name
@@ -9,13 +8,13 @@ class RulesetController < ApplicationController
 
   def create
     if ruleset_params[:oas_file].nil?
-      flash[:error] = 'Please upload a file'
+      flash[:error] = "Please upload a file"
       return render @ruleset_name
     end
 
     # Here we can call our 42 crunch or spectral service
 
-    render json: { message: 'File uploaded successfully' }
+    render json: { message: "File uploaded successfully" }
   end
 
   private
