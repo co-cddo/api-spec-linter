@@ -2,8 +2,7 @@
 
 # TODO: Separate this out into a controller per ruleset
 class RulesetController < ApplicationController
-
-  before_action :set_ruleset_type, only: [:new, :create]
+  before_action :set_ruleset_type, only: %i[new create]
 
   def new
     render @ruleset_name
@@ -11,7 +10,7 @@ class RulesetController < ApplicationController
 
   def create
     if ruleset_params[:oas_file].nil?
-      flash[:error] = 'Please upload a file'
+      flash[:error] = "Please upload a file"
       return render @ruleset_name
     end
 
@@ -20,6 +19,7 @@ class RulesetController < ApplicationController
       linter_output = Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json
       render(json: linter_output)
     end
+    
   end
 
   private
