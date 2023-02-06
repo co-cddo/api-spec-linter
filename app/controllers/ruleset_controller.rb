@@ -34,7 +34,24 @@ class RulesetController < ApplicationController
     # we don't crash out if the API or CLI calls fail.
     begin
       if @ruleset_name == 'security_ruleset' # Call 42Crunch service
-        @crunch_results = Linters::CrunchApi.new.lint_to_json(ruleset_params[:oas_file].tempfile)
+        if ENV['BYPASS_API'] == 'true'
+          crunch_results = File.read('fakecrunchresults.json')
+        else
+          crunch_results = Linters::CrunchApi.new.lint_to_json(ruleset_params[:oas_file].tempfile)
+        end
+        crunch_json = JSON.parse(crunch_results)
+        @score = crunch_json['score']
+        @openapi = crunch_json['openapiState']
+        @counter = crunch_json['issueCounter']
+        @criticality = crunch_json['criticality']
+        @issues = Array.new
+        crunch_json['data']['issues'].each do |issue|
+          lines = Array.new
+          issue[1]['issues'].each do | occurrence|
+            lines.push(occurrence['pointer'])
+          end
+          @issues.push([issue[1]['criticality'],issue[1]['description'], lines])
+        end
       elsif @ruleset_name == 'government_ruleset' # Call Spectral service
         @spectral_results = JSON.parse(Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json)
       end
