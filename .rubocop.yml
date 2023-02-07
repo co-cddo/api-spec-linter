@@ -16,4 +16,4 @@ Style/NumericLiterals:
 
 AllCops:
   Exclude:
-    - spec/rails_helper.rb
+    - spec/**/*

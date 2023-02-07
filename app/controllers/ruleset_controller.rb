@@ -56,7 +56,7 @@ class RulesetController < ApplicationController
         @spectral_results = JSON.parse(Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json)
       end
     rescue StandardError => e
-      puts e.message
+      Rails.logger.debug e.message
       # TODO: We don't want to reveal the full 42Crunch or Spectral error message
       # to the user but we might for example give the user a reference number here
       # so that we can find the full error in the logs.
@@ -64,9 +64,7 @@ class RulesetController < ApplicationController
       flash[:error] = e.message
     end
 
-    # Render a view based on which ruleset was selected
-    return render @ruleset_name
-
+    render @ruleset_name
   end
 
   private
