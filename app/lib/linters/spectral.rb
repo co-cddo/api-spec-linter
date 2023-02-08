@@ -8,12 +8,12 @@ module Linters
     end
 
     def lint_to_json
-
       stdout_str, stderr_str = system_command.capture3("npx spectral lint -f json #{file.path}")
       raise SpectralLinterError if stderr_str.present?
       stdout_str
-    rescue StandardError => e
-      Rails.logger.error("npx spectral command failed: #{e.message}")
+    rescue StandardError
+      Rails.logger.error("npx spectral command failed: #{stderr_str}")
+      Rails.logger.error(stdout_str)
       raise SpectralLinterError, "npx spectral command failed"
     end
 
