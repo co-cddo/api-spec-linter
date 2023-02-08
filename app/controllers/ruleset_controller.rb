@@ -37,7 +37,7 @@ class RulesetController < ApplicationController
         if ENV['BYPASS_API'] == 'true'
           crunch_results = File.read('fakecrunchresults.json')
         else
-          crunch_results = Linters::CrunchApi.new.lint_to_json(ruleset_params[:oas_file].tempfile)
+          crunch_results = Linters::CrunchApi.new(file: ruleset_params[:oas_file]).lint_to_json
         end
         crunch_json = JSON.parse(crunch_results)
         @score = crunch_json['score']

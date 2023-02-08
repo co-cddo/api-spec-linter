@@ -5,17 +5,16 @@ module Linters
   # A class called Crunch
   class CrunchApi
 
-    attr_accessor :base_url
-
-    def initialize()
-      @base_url = "https://platform.42crunch.com"
+    def initialize(file:, base_url: "https://platform.42crunch.com")
+      @file = file
+      @base_url = base_url
     end
 
     # Lints an unploaded file with 42crunch.
     #
     # @param file [File] the file to be linted
     # @return [String] the raw JSON response
-    def lint_to_json(file)
+    def lint_to_json
 
       # Initialize local variables
       create_response = String.new
@@ -30,9 +29,9 @@ module Linters
         create_response += RestClient.post( @base_url + "/api/v1/apis",
         { # Body of the request
           cid: ENV['COLLECTION_ID'], # Collection id, returned by "Create a collection"
-          name: File.basename(file.path, ".*"), # API Display Name
+          name: File.basename(@file.path, ".*"), # API Display Name
           yaml: false, # Set to true if the specification file was converted to JSON from YAML
-          specfile: file # Raw OAS file in JSON format - YAML is not supported
+          specfile: @file # Raw OAS file in JSON format - YAML is not supported
         },
         { # Request headers
         'X-API-KEY': ENV['CRUNCH_API_KEY']
