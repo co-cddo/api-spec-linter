@@ -36,10 +36,15 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-gem "open3", "~> 0.1.2"
-
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+
+# add in additional gems below this line
+gem 'dotenv-rails', groups: [:development, :test]
+gem "govuk-components"
+gem "govuk_design_system_formbuilder"
+gem "open3", "~> 0.1.2"
+gem 'rest-client'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -72,17 +77,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-gem "govuk-components"
-gem "govuk_design_system_formbuilder"
 
 group :test, :development do
   gem "pry-nav"
   gem "rspec"
   gem "rspec-rails"
 end
-
-# A Ruby gem to load environment variables from `.env`.
-gem 'dotenv-rails', groups: [:development, :test]
-
-# A Ruby rest client gem used for calling the 42Crunch API
-gem 'rest-client'

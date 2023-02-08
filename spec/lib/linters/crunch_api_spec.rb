@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-include Linters
+# include Linters
 
 describe CrunchApi do
 
