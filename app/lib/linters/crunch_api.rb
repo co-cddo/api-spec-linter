@@ -19,7 +19,7 @@ module Linters
       # Post the file to 42Crunch according to their API v1 "Create an API (from file)" spec
       # https://www.postman.com/get-42crunch/workspace/42crunch-api/request/13761657-335bcb36-c68f-43a1-823d-741b62b55bc6
       begin
-        create_response = RestClient.post( @base_url + "/api/v1/apis",
+        create_response = RestClient.post( URI.join(@base_url, "/api/v1/apis"),
         { # Body of the request
           cid: ENV['COLLECTION_ID'], # Collection id, returned by "Create a collection"
           name: File.basename(@file.path, ".*"), # API Display Name
