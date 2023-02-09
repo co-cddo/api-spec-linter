@@ -53,9 +53,7 @@ class RulesetController < ApplicationController
       @spectral_results = JSON.parse(Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json)
     end
 
-    # Render a view based on which ruleset was selected
-    return render @ruleset_name
-
+    render @ruleset_name
   end
 
   private
