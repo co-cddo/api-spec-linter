@@ -51,7 +51,7 @@ module Linters
       # API V1 "Retrieve and visualize a security audit report" spec
       # https://www.postman.com/get-42crunch/workspace/42crunch-api/request/13761657-85a4551d-8350-4744-ba62-e4289103ec81
       begin
-        report_response = RestClient.get(@base_url + "/api/v1/apis/" + created_api_id + "/assessmentreport",
+        report_response = RestClient.get(URI.join(@base_url, "/api/v1/apis/", created_api_id + "/", "assessmentreport").to_s,
         { # Request headers
         'X-API-KEY': ENV['CRUNCH_API_KEY']
         })
