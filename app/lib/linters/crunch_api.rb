@@ -5,29 +5,21 @@ module Linters
   # A class called Crunch
   class CrunchApi
 
-    attr_accessor :base_url
-
-    def initialize()
-      @base_url = "https://platform.42crunch.com"
+    def initialize(file:, base_url: ENV['CRUNCH_BASE_URL'])
+      @file = file
+      @base_url = base_url
     end
 
     # Lints an unploaded file with 42crunch.
     #
     # @param file [File] the file to be linted
     # @return [String] the raw JSON response
-    def lint_to_json(file)
-
-      # Initialize local variables
-      create_response = String.new
-      created_api_id = String.new
-      report_response = String.new
-      report_data = String.new
-      decoded_report = String.new
+    def lint_to_json
 
       # Post the file to 42Crunch according to their API v1 "Create an API (from file)" spec
       # https://www.postman.com/get-42crunch/workspace/42crunch-api/request/13761657-335bcb36-c68f-43a1-823d-741b62b55bc6
       begin
-        create_response += RestClient.post( @base_url + "/api/v1/apis",
+        create_response = RestClient.post(URI.join(@base_url, "/api/v1/apis").to_s,
         { # Body of the request
           cid: ENV['COLLECTION_ID'], # Collection id, returned by "Create a collection"
           name: File.basename(file.path, ".*"), # API Display Name
@@ -59,7 +51,7 @@ module Linters
       # API V1 "Retrieve and visualize a security audit report" spec
       # https://www.postman.com/get-42crunch/workspace/42crunch-api/request/13761657-85a4551d-8350-4744-ba62-e4289103ec81
       begin
-        report_response += RestClient.get(@base_url + "/api/v1/apis/" + created_api_id + "/assessmentreport",
+        report_response = RestClient.get(URI.join(@base_url, "/api/v1/apis/", created_api_id + "/", "assessmentreport").to_s,
         { # Request headers
         'X-API-KEY': ENV['CRUNCH_API_KEY']
         })
@@ -91,6 +83,11 @@ module Linters
       return decoded_report_data
 
     end
+
+
+    private
+
+    attr_reader :file
 
   end
 

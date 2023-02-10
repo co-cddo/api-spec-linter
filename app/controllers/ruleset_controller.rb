@@ -30,38 +30,27 @@ class RulesetController < ApplicationController
       return render @ruleset_name
     end
 
-    # Make the API calls in a begin/rescue block so that
-    # we don't crash out if the API or CLI calls fail.
-    begin
-      if @ruleset_name == 'security_ruleset' # Call 42Crunch service
-        if ENV['BYPASS_API'] == 'true'
-          crunch_results = File.read('fakecrunchresults.json')
-        else
-          crunch_results = Linters::CrunchApi.new.lint_to_json(ruleset_params[:oas_file].tempfile)
-        end
-        crunch_json = JSON.parse(crunch_results)
-        @score = crunch_json['score']
-        @openapi = crunch_json['openapiState']
-        @counter = crunch_json['issueCounter']
-        @criticality = crunch_json['criticality']
-        @issues = Array.new
-        crunch_json['data']['issues'].each do |issue|
-          lines = Array.new
-          issue[1]['issues'].each do | occurrence|
-            lines.push(occurrence['pointer'])
-          end
-          @issues.push([issue[1]['criticality'],issue[1]['description'], lines])
-        end
-      elsif @ruleset_name == 'government_ruleset' # Call Spectral service
-        @spectral_results = JSON.parse(Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json)
+    if @ruleset_name == 'security_ruleset' # Call 42Crunch service
+      if ENV['BYPASS_API'] == 'true'
+        crunch_results = File.read('fakecrunchresults.json')
+      else
+        crunch_results = Linters::CrunchApi.new(file: ruleset_params[:oas_file]).lint_to_json
       end
-    rescue StandardError => e
-      Rails.logger.debug e.message
-      # TODO: We don't want to reveal the full 42Crunch or Spectral error message
-      # to the user but we might for example give the user a reference number here
-      # so that we can find the full error in the logs.
-      #flash[:error] = "Unable to run linter on the uploaded file"
-      flash[:error] = e.message
+      crunch_json = JSON.parse(crunch_results)
+      @score = crunch_json['score']
+      @openapi = crunch_json['openapiState']
+      @counter = crunch_json['issueCounter']
+      @criticality = crunch_json['criticality']
+      @issues = Array.new
+      crunch_json['data']['issues'].each do |issue|
+        lines = Array.new
+        issue[1]['issues'].each do | occurrence|
+          lines.push(occurrence['pointer'])
+        end
+        @issues.push([issue[1]['criticality'],issue[1]['description'], lines])
+      end
+    elsif @ruleset_name == 'government_ruleset' # Call Spectral service
+      @spectral_results = JSON.parse(Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json)
     end
 
     render @ruleset_name
