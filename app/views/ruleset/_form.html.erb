@@ -8,7 +8,7 @@
       <%= file_field_tag "oas_file", class: "govuk-file-upload", label: { text: "Upload an OpenAPI document" }, id: "oas_file", name: "oas_file" %>
       <br>
       <br>
-      <%= hidden_field_tag "which_ruleset", @ruleset_name %>
+      <%= hidden_field_tag "ruleset_name", @ruleset_name %>
       <%= submit_tag "Submit", class: "govuk-button", data: {module: "govuk-button" } %>
     <% end %>
   </div>
