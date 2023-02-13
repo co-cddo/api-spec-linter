@@ -49,7 +49,7 @@ module Linters
 
       # Create an API for the file we initialized this class with then
       # parse the JSON response to get the ID needed to get the linting results
-      created_api_id = JSON.parse(create_api())["desc"]["id"]
+      created_api_id = JSON.parse(create_api).dig("desc","id")
 
       # We need a second request to retrieve the actual report.
       # If we try to get the report too quickly 42crunch will return a 404 error
