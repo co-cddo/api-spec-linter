@@ -45,6 +45,7 @@ gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "open3", "~> 0.1.2"
 gem 'rest-client'
+gem 'retries'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

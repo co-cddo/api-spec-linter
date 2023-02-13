@@ -236,6 +236,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    retries (0.0.5)
     reverse_markdown (2.1.1)
       nokogiri
     rexml (3.2.5)
@@ -377,6 +378,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.2)
   rails-controller-testing
   rest-client
+  retries
   rspec
   rspec-rails
   rubocop-govuk
