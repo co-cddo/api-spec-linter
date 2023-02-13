@@ -4,7 +4,6 @@ class GovernmentRulesetController < ApplicationController
   before_action :validate_file_upload!, only: :create
 
   def new
-    render 'new'
   end
 
   def create
