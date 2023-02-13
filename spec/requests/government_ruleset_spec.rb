@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SpectralController, type: :controller do
+RSpec.describe GovernmentRulesetController, type: :controller do
   describe "GET #new" do
     it "renders the new template" do
       get :new

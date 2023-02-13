@@ -7,7 +7,7 @@ class RulesetController < ApplicationController
 
   def new
     if @ruleset_name == 'government_ruleset'
-      return redirect_to '/spectral/new'
+      return redirect_to '/government_ruleset/new'
     end
 
     render @ruleset_name

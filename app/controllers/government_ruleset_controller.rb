@@ -1,5 +1,5 @@
 
-class SpectralController < ApplicationController
+class GovernmentRulesetController < ApplicationController
   before_action :clear_errors
   before_action :validate_file_upload!, only: :create
 

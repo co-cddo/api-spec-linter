@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   root to: "pages#home"
 
-  # post '/linter', to: "linter#new"
   resources :ruleset, only: %i[new create index]
-  resources :spectral, only: %i[new create]
+  resources :government_ruleset, only: %i[new create]
 
   scope via: :all do
     get "/404", to: "errors#not_found"
