@@ -4,13 +4,13 @@ class SpectralController < ApplicationController
   before_action :validate_file_upload!, only: :create
 
   def new
-    render 'government_ruleset'
+    render 'new'
   end
 
   def create
     @spectral_results = JSON.parse(Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json)
 
-    render 'government_ruleset'
+    render 'show'
   end
 
   private

@@ -1,0 +1,21 @@
+<div class="govuk-grid-column-two-thirds">
+
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="file-upload-1">
+      Upload an OpenAPI document
+    </label>
+    <%= form_tag("/spectral", method: :post, multipart: true) do %>
+      <%= file_field_tag "oas_file", class: "govuk-file-upload", label: { text: "Upload an OpenAPI document" }, id: "oas_file", name: "oas_file" %>
+      <br>
+      <br>
+      <%= hidden_field_tag "which_ruleset", @ruleset_name %>
+      <%= submit_tag "Submit", class: "govuk-button", data: {module: "govuk-button" } %>
+    <% end %>
+  </div>
+  <%# this is a temp error solution just so we can get some kind of feedback for now %>
+  <% if flash[:error] %>
+    <div class="govuk-error-message">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+</div>

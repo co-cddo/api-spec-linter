@@ -6,6 +6,10 @@ class RulesetController < ApplicationController
   before_action :clear_errors
 
   def new
+    if @ruleset_name == 'government_ruleset'
+      return redirect_to '/spectral/new'
+    end
+
     render @ruleset_name
   end
 
