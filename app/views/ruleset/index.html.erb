@@ -12,11 +12,11 @@
           </legend>
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
-              <%= text_field_tag("which_ruleset", "security_ruleset", class: "govuk-radios__input", type: "radio", name: "which_ruleset" ) %>
+              <%= text_field_tag("ruleset_name", "security_ruleset", class: "govuk-radios__input", type: "radio", name: "ruleset_name" ) %>
               <%= label_tag("security_ruleset", "Security ruleset", class: "govuk-label govuk-radios__label", for: "security-ruleset") %>
             </div>
             <div class="govuk-radios__item">
-              <%= text_field_tag("which_ruleset", "government_ruleset", class: "govuk-radios__input", type: "radio", name: "which_ruleset") %>
+              <%= text_field_tag("ruleset_name", "government_ruleset", class: "govuk-radios__input", type: "radio", name: "ruleset_name") %>
               <%= label_tag("gov-ruleset", "UK government ruleset", class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
             </div>
           </div>
