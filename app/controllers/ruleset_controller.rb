@@ -2,10 +2,14 @@
 
 # TODO: Separate this out into a controller per ruleset
 class RulesetController < ApplicationController
-  before_action :set_ruleset_type, only: %i[new create]
+  before_action :set_ruleset_name, only: %i[new create]
   before_action :clear_errors
 
   def new
+    if @ruleset_name == 'government_ruleset'
+      return redirect_to '/government_ruleset/new'
+    end
+
     render @ruleset_name
   end
 
@@ -58,12 +62,12 @@ class RulesetController < ApplicationController
 
   private
 
-  def set_ruleset_type
-    @ruleset_name = ruleset_params[:which_ruleset]
+  def set_ruleset_name
+    @ruleset_name = ruleset_params[:ruleset_name]
   end
 
   def ruleset_params
-    params.permit(:oas_file, :which_ruleset)
+    params.permit(:oas_file, :ruleset_name)
   end
 
   def clear_errors

@@ -4,7 +4,7 @@
     <label class="govuk-label" for="file-upload-1">
       Upload an OpenAPI document
     </label>
-    <%= form_tag("/ruleset", method: :post, multipart: true) do %>
+    <%= form_tag("/government_ruleset", method: :post, multipart: true) do %>
       <%= file_field_tag "oas_file", class: "govuk-file-upload", label: { text: "Upload an OpenAPI document" }, id: "oas_file", name: "oas_file" %>
       <br>
       <br>
