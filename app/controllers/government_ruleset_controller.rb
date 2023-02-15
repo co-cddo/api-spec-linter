@@ -1,7 +1,9 @@
 
 class GovernmentRulesetController < ApplicationController
+  include RulesetValidations
+
+  before_action :validate_file_upload!, only: [:create]
   before_action :clear_errors
-  before_action :validate_file_upload!, only: :create
 
   def new
   end

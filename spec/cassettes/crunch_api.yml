@@ -1,0 +1,386 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://platform.42crunch.com/api/v1/apis
+    body:
+      encoding: ASCII-8BIT
+      string: "------RubyFormBoundaryiAAEGJVZNA6SCMsX\r\nContent-Disposition: form-data;
+        name=\"cid\"\r\n\r\neca44692-6dcb-439b-b20d-c597ff2dfd7e\r\n------RubyFormBoundaryiAAEGJVZNA6SCMsX\r\nContent-Disposition:
+        form-data; name=\"name\"\r\n\r\nRackMultipart20230215-34470-f3go60\r\n------RubyFormBoundaryiAAEGJVZNA6SCMsX\r\nContent-Disposition:
+        form-data; name=\"yaml\"\r\n\r\nfalse\r\n------RubyFormBoundaryiAAEGJVZNA6SCMsX\r\nContent-Disposition:
+        form-data; name=\"specfile\"; filename=\"land-registry.json\"\r\nContent-Type:
+        application/json\r\n\r\n{\r\n  \"openapi\": \"3.0.2\",\r\n  \"info\": {\r\n
+        \   \"version\": \"0.1.0\",\r\n    \"title\": \"Payment API\",\r\n    \"description\":
+        \"HM Land Registry Digital Street Proof of Concept\",\r\n    \"contact\":
+        {\r\n      \"name\": \"HM Land Registry\"\r\n    },\r\n    \"license\": {\r\n
+        \     \"name\": \"MIT\",\r\n      \"url\": \"https://opensource.org/licenses/MIT\"\r\n
+        \   }\r\n  },\r\n  \"paths\": {\r\n    \"/titles\": {\r\n      \"get\": {\r\n
+        \       \"summary\": \"Retrieve a list of Titles\",\r\n        \"operationId\":
+        \"get_titles\",\r\n        \"tags\": [\r\n          \"Titles\"\r\n        ],\r\n
+        \       \"responses\": {\r\n          \"200\": {\r\n            \"description\":
+        \"Expected response to a valid request\",\r\n            \"content\": {\r\n
+        \             \"application/json\": {\r\n                \"schema\": {\r\n
+        \                 \"type\": \"array\",\r\n                  \"items\": {\r\n
+        \                   \"$ref\": \"#/components/schemas/TitleTransfer\"\r\n                  }\r\n
+        \               }\r\n              }\r\n            }\r\n          },\r\n
+        \         \"500\": {\r\n            \"$ref\": \"#/components/responses/500\"\r\n
+        \         }\r\n        }\r\n      }\r\n    },\r\n    \"/titles/{title_number}\":
+        {\r\n      \"get\": {\r\n        \"summary\": \"Retrieve a specific Title\",\r\n
+        \       \"operationId\": \"get_title\",\r\n        \"tags\": [\r\n          \"Titles\"\r\n
+        \       ],\r\n        \"parameters\": [\r\n          {\r\n            \"$ref\":
+        \"#/components/parameters/TitleNumber\"\r\n          }\r\n        ],\r\n        \"responses\":
+        {\r\n          \"200\": {\r\n            \"description\": \"Expected response
+        to a valid request\",\r\n            \"content\": {\r\n              \"application/json\":
+        {\r\n                \"schema\": {\r\n                  \"$ref\": \"#/components/schemas/TitleTransfer\"\r\n
+        \               }\r\n              }\r\n            }\r\n          },\r\n
+        \         \"500\": {\r\n            \"$ref\": \"#/components/responses/500\"\r\n
+        \         }\r\n        }\r\n      }\r\n    },\r\n    \"/titles/{title_number}/confirm-payment\":
+        {\r\n      \"put\": {\r\n        \"summary\": \"Tells the network that payment
+        has been received\",\r\n        \"operationId\": \"confirm_payment_for_title\",\r\n
+        \       \"tags\": [\r\n          \"Payment\"\r\n        ],\r\n        \"parameters\":
+        [\r\n          {\r\n            \"$ref\": \"#/components/parameters/TitleNumber\"\r\n
+        \         }\r\n        ],\r\n        \"responses\": {\r\n          \"200\":
+        {\r\n            \"description\": \"Expected response to a valid request\"\r\n
+        \         },\r\n          \"500\": {\r\n            \"$ref\": \"#/components/responses/500\"\r\n
+        \         }\r\n        }\r\n      }\r\n    }\r\n  },\r\n  \"components\":
+        {\r\n    \"schemas\": {\r\n      \"TitleTransfer\": {\r\n        \"required\":
+        [\r\n          \"title_number\",\r\n          \"states\",\r\n          \"status\"\r\n
+        \       ],\r\n        \"properties\": {\r\n          \"title_number\": {\r\n
+        \           \"type\": \"string\",\r\n            \"pattern\": \"^([A-Z]{0,3}[1-9][0-9]{0,5}|[0-9]{1,6}[ZT])$\",\r\n
+        \           \"example\": \"ZQV888860\"\r\n          },\r\n          \"title\":
+        {\r\n            \"allOf\": [\r\n              {\r\n                \"$ref\":
+        \"#/components/schemas/Title\"\r\n              }\r\n            ],\r\n            \"nullable\":
+        true\r\n          },\r\n          \"proposed_title\": {\r\n            \"allOf\":
+        [\r\n              {\r\n                \"$ref\": \"#/components/schemas/Title\"\r\n
+        \             }\r\n            ],\r\n            \"nullable\": true\r\n          },\r\n
+        \         \"sales_agreement\": {\r\n            \"allOf\": [\r\n              {\r\n
+        \               \"$ref\": \"#/components/schemas/SalesAgreement\"\r\n              }\r\n
+        \           ],\r\n            \"nullable\": true\r\n          },\r\n          \"states\":
+        {\r\n            \"type\": \"object\",\r\n            \"additionalProperties\":
+        {\r\n              \"$ref\": \"#/components/schemas/StateSummary\"\r\n            },\r\n
+        \           \"example\": {\r\n              \"land_title\": {\r\n                \"state_status\":
+        \"issued\",\r\n                \"timestamp\": \"2018-11-07T10:25:29+00:00\"\r\n
+        \             },\r\n              \"sales_agreement\": {\r\n                \"state_status\":
+        \"created\",\r\n                \"timestamp\": \"2018-11-08T10:25:29+00:00\"\r\n
+        \             },\r\n              \"request_issuance\": {\r\n                \"state_status\":
+        \"approved\",\r\n                \"timestamp\": \"2018-11-06T10:25:29+00:00\"\r\n
+        \             }\r\n            }\r\n          },\r\n          \"status\":
+        {\r\n            \"type\": \"string\",\r\n            \"example\": \"land_title_issued\"\r\n
+        \         }\r\n        }\r\n      },\r\n      \"StateSummary\": {\r\n        \"required\":
+        [\r\n          \"state_status\",\r\n          \"timestamp\"\r\n        ],\r\n
+        \       \"properties\": {\r\n          \"state_status\": {\r\n            \"type\":
+        \"string\",\r\n            \"example\": \"approved\"\r\n          },\r\n          \"timestamp\":
+        {\r\n            \"type\": \"string\",\r\n            \"format\": \"date-time\",\r\n
+        \           \"example\": \"2018-11-07T10:25:29+00:00\"\r\n          }\r\n
+        \       }\r\n      },\r\n      \"Title\": {\r\n        \"properties\": {\r\n
+        \         \"address\": {\r\n            \"$ref\": \"#/components/schemas/TitleAddress\"\r\n
+        \         },\r\n          \"owner\": {\r\n            \"$ref\": \"#/components/schemas/Owner\"\r\n
+        \         },\r\n          \"delegated_owner\": {\r\n            \"$ref\":
+        \"#/components/schemas/X500\"\r\n          },\r\n          \"last_sold_value\":
+        {\r\n            \"type\": \"number\",\r\n            \"format\": \"double\",\r\n
+        \           \"example\": 124999.99\r\n          },\r\n          \"last_sold_value_currency_code\":
+        {\r\n            \"type\": \"string\",\r\n            \"pattern\": \"^[A-Z]{3}$\",\r\n
+        \           \"example\": \"GBP\"\r\n          },\r\n          \"charges\":
+        {\r\n            \"type\": \"array\",\r\n            \"items\": {\r\n              \"$ref\":
+        \"#/components/schemas/Charge\"\r\n            }\r\n          },\r\n          \"restrictions\":
+        {\r\n            \"type\": \"array\",\r\n            \"items\": {\r\n              \"anyOf\":
+        [\r\n                {\r\n                  \"$ref\": \"#/components/schemas/Restriction\"\r\n
+        \               },\r\n                {\r\n                  \"$ref\": \"#/components/schemas/ChargeRestriction\"\r\n
+        \               }\r\n              ]\r\n            }\r\n          }\r\n        }\r\n
+        \     },\r\n      \"SalesAgreement\": {\r\n        \"required\": [\r\n          \"buyer\",\r\n
+        \         \"buyer_conveyancer\",\r\n          \"creation_date\",\r\n          \"completion_date\",\r\n
+        \         \"contract_rate\",\r\n          \"purchase_price\",\r\n          \"purchase_price_currency_code\",\r\n
+        \         \"deposit\",\r\n          \"deposit_currency_code\",\r\n          \"balance\",\r\n
+        \         \"balance_currency_code\",\r\n          \"guarantee\",\r\n          \"payment_settler\"\r\n
+        \       ],\r\n        \"properties\": {\r\n          \"buyer\": {\r\n            \"$ref\":
+        \"#/components/schemas/Owner\"\r\n          },\r\n          \"buyer_conveyancer\":
+        {\r\n            \"$ref\": \"#/components/schemas/X500\"\r\n          },\r\n
+        \         \"creation_date\": {\r\n            \"type\": \"string\",\r\n            \"format\":
+        \"date\",\r\n            \"example\": \"2018-11-07\"\r\n          },\r\n          \"completion_date\":
+        {\r\n            \"type\": \"string\",\r\n            \"format\": \"date-time\",\r\n
+        \           \"example\": \"2018-11-07T10:25:29+00:00\"\r\n          },\r\n
+        \         \"contract_rate\": {\r\n            \"type\": \"number\",\r\n            \"format\":
+        \"double\",\r\n            \"example\": 4.8\r\n          },\r\n          \"purchase_price\":
+        {\r\n            \"type\": \"number\",\r\n            \"format\": \"double\",\r\n
+        \           \"example\": 124999.99\r\n          },\r\n          \"purchase_price_currency_code\":
+        {\r\n            \"type\": \"string\",\r\n            \"pattern\": \"^[A-Z]{3}$\",\r\n
+        \           \"example\": \"GBP\"\r\n          },\r\n          \"deposit\":
+        {\r\n            \"type\": \"number\",\r\n            \"format\": \"double\",\r\n
+        \           \"example\": 12499.98\r\n          },\r\n          \"deposit_currency_code\":
+        {\r\n            \"type\": \"string\",\r\n            \"pattern\": \"^[A-Z]{3}$\",\r\n
+        \           \"example\": \"GBP\"\r\n          },\r\n          \"contents_price\":
+        {\r\n            \"type\": \"number\",\r\n            \"format\": \"double\",\r\n
+        \           \"example\": 124999.99,\r\n            \"nullable\": true\r\n
+        \         },\r\n          \"contents_price_currency_code\": {\r\n            \"type\":
+        \"string\",\r\n            \"pattern\": \"^[A-Z]{3}$\",\r\n            \"example\":
+        \"GBP\",\r\n            \"nullable\": true\r\n          },\r\n          \"balance\":
+        {\r\n            \"type\": \"number\",\r\n            \"format\": \"double\",\r\n
+        \           \"example\": 112500.01,\r\n            \"readOnly\": true\r\n
+        \         },\r\n          \"balance_currency_code\": {\r\n            \"type\":
+        \"string\",\r\n            \"pattern\": \"^[A-Z]{3}$\",\r\n            \"example\":
+        \"GBP\",\r\n            \"readOnly\": true\r\n          },\r\n          \"guarantee\":
+        {\r\n            \"type\": \"string\",\r\n            \"enum\": [\r\n              \"full\",\r\n
+        \             \"limited\"\r\n            ],\r\n            \"example\": \"full\"\r\n
+        \         },\r\n          \"payment_settler\": {\r\n            \"$ref\":
+        \"#/components/schemas/X500\"\r\n          },\r\n          \"latest_update_date\":
+        {\r\n            \"type\": \"string\",\r\n            \"format\": \"date-time\",\r\n
+        \           \"example\": \"2018-11-07T10:25:29+00:00\"\r\n          }\r\n
+        \       }\r\n      },\r\n      \"Charge\": {\r\n        \"required\": [\r\n
+        \         \"date\",\r\n          \"lender\",\r\n          \"amount\",\r\n
+        \         \"amount_currency_code\"\r\n        ],\r\n        \"properties\":
+        {\r\n          \"date\": {\r\n            \"type\": \"string\",\r\n            \"format\":
+        \"date-time\",\r\n            \"example\": \"2018-11-07T10:25:29+00:00\"\r\n
+        \         },\r\n          \"lender\": {\r\n            \"$ref\": \"#/components/schemas/X500\"\r\n
+        \         },\r\n          \"amount\": {\r\n            \"type\": \"number\",\r\n
+        \           \"format\": \"double\",\r\n            \"example\": 124999.99\r\n
+        \         },\r\n          \"amount_currency_code\": {\r\n            \"type\":
+        \"string\",\r\n            \"pattern\": \"^[A-Z]{3}$\",\r\n            \"example\":
+        \"GBP\"\r\n          }\r\n        }\r\n      },\r\n      \"RestrictionType\":
+        {\r\n        \"required\": [\r\n          \"restriction_type\"\r\n        ],\r\n
+        \       \"properties\": {\r\n          \"restriction_type\": {\r\n            \"type\":
+        \"string\",\r\n            \"enum\": [\r\n              \"ORES\",\r\n              \"CBCR\"\r\n
+        \           ],\r\n            \"example\": \"CBCR\"\r\n          }\r\n        },\r\n
+        \       \"discriminator\": {\r\n          \"propertyName\": \"restriction_type\",\r\n
+        \         \"mapping\": {\r\n            \"ORES\": \"Restriction\",\r\n            \"CBCR\":
+        \"ChargeRestriction\"\r\n          }\r\n        }\r\n      },\r\n      \"RestrictionBase\":
+        {\r\n        \"required\": [\r\n          \"restriction_id\",\r\n          \"restriction_text\",\r\n
+        \         \"consenting_party\",\r\n          \"date\"\r\n        ],\r\n        \"properties\":
+        {\r\n          \"restriction_id\": {\r\n            \"type\": \"string\"\r\n
+        \         },\r\n          \"restriction_text\": {\r\n            \"type\":
+        \"string\",\r\n            \"example\": \"A string of text containing infills.
+        This restriction is of type **RT** and was created at **RD**.\"\r\n          },\r\n
+        \         \"consenting_party\": {\r\n            \"$ref\": \"#/components/schemas/X500\"\r\n
+        \         },\r\n          \"signed_actions\": {\r\n            \"type\": \"array\",\r\n
+        \           \"items\": {\r\n              \"type\": \"string\",\r\n              \"enum\":
+        [\r\n                \"add\",\r\n                \"remove\"\r\n              ]\r\n
+        \           },\r\n            \"readOnly\": true,\r\n            \"nullable\":
+        true\r\n          },\r\n          \"date\": {\r\n            \"type\": \"string\",\r\n
+        \           \"format\": \"date-time\",\r\n            \"example\": \"2018-11-07T10:25:29+00:00\"\r\n
+        \         }\r\n        }\r\n      },\r\n      \"Restriction\": {\r\n        \"allOf\":
+        [\r\n          {\r\n            \"$ref\": \"#/components/schemas/RestrictionType\"\r\n
+        \         },\r\n          {\r\n            \"$ref\": \"#/components/schemas/RestrictionBase\"\r\n
+        \         }\r\n        ]\r\n      },\r\n      \"ChargeRestriction\": {\r\n
+        \       \"allOf\": [\r\n          {\r\n            \"$ref\": \"#/components/schemas/RestrictionType\"\r\n
+        \         },\r\n          {\r\n            \"$ref\": \"#/components/schemas/RestrictionBase\"\r\n
+        \         }\r\n        ],\r\n        \"required\": [\r\n          \"charge\"\r\n
+        \       ],\r\n        \"properties\": {\r\n          \"charge\": {\r\n            \"$ref\":
+        \"#/components/schemas/Charge\"\r\n          }\r\n        }\r\n      },\r\n
+        \     \"Person\": {\r\n        \"required\": [\r\n          \"identity\",\r\n
+        \         \"first_name\",\r\n          \"last_name\",\r\n          \"email_address\",\r\n
+        \         \"phone_number\",\r\n          \"type\",\r\n          \"address\"\r\n
+        \       ],\r\n        \"properties\": {\r\n          \"identity\": {\r\n            \"type\":
+        \"integer\",\r\n            \"format\": \"int32\",\r\n            \"description\":
+        \"Number to uniquely identify people across organisations\"\r\n          },\r\n
+        \         \"first_name\": {\r\n            \"type\": \"string\",\r\n            \"example\":
+        \"Natasha\"\r\n          },\r\n          \"last_name\": {\r\n            \"type\":
+        \"string\",\r\n            \"example\": \"Powell\"\r\n          },\r\n          \"email_address\":
+        {\r\n            \"type\": \"string\",\r\n            \"format\": \"email\",\r\n
+        \           \"example\": \"natasha.powell@example.com\"\r\n          },\r\n
+        \         \"phone_number\": {\r\n            \"type\": \"string\",\r\n            \"example\":
+        \"07700900123\"\r\n          },\r\n          \"type\": {\r\n            \"type\":
+        \"string\",\r\n            \"enum\": [\r\n              \"individual\",\r\n
+        \             \"company\",\r\n              \"overseas company\",\r\n              \"non
+        government organisation\"\r\n            ]\r\n          },\r\n          \"address\":
+        {\r\n            \"$ref\": \"#/components/schemas/PersonAddress\"\r\n          }\r\n
+        \       }\r\n      },\r\n      \"Owner\": {\r\n        \"allOf\": [\r\n          {\r\n
+        \           \"$ref\": \"#/components/schemas/Person\"\r\n          }\r\n        ]\r\n
+        \     },\r\n      \"TitleAddress\": {\r\n        \"required\": [\r\n          \"house_name_number\",\r\n
+        \         \"street\",\r\n          \"town_city\",\r\n          \"county\",\r\n
+        \         \"country\",\r\n          \"postcode\"\r\n        ],\r\n        \"properties\":
+        {\r\n          \"house_name_number\": {\r\n            \"type\": \"string\",\r\n
+        \           \"example\": 2\r\n          },\r\n          \"street\": {\r\n
+        \           \"type\": \"string\",\r\n            \"example\": \"William Prance
+        Road\"\r\n          },\r\n          \"town_city\": {\r\n            \"type\":
+        \"string\",\r\n            \"example\": \"Plymouth\"\r\n          },\r\n          \"county\":
+        {\r\n            \"type\": \"string\",\r\n            \"example\": \"Devon\"\r\n
+        \         },\r\n          \"country\": {\r\n            \"type\": \"string\",\r\n
+        \           \"enum\": [\r\n              \"England\",\r\n              \"Wales\"\r\n
+        \           ]\r\n          },\r\n          \"postcode\": {\r\n            \"type\":
+        \"string\",\r\n            \"pattern\": \"^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW])
+        ?[0-9][ABD-HJLNP-UW-Z]{2})$\",\r\n            \"example\": \"PL6 5WS\"\r\n
+        \         }\r\n        }\r\n      },\r\n      \"PersonAddress\": {\r\n        \"required\":
+        [\r\n          \"house_name_number\",\r\n          \"street\",\r\n          \"town_city\",\r\n
+        \         \"county\",\r\n          \"country\",\r\n          \"postcode\"\r\n
+        \       ],\r\n        \"properties\": {\r\n          \"house_name_number\":
+        {\r\n            \"type\": \"string\",\r\n            \"example\": 143\r\n
+        \         },\r\n          \"street\": {\r\n            \"type\": \"string\",\r\n
+        \           \"example\": \"Cowgate\"\r\n          },\r\n          \"town_city\":
+        {\r\n            \"type\": \"string\",\r\n            \"example\": \"Edinburgh\"\r\n
+        \         },\r\n          \"county\": {\r\n            \"type\": \"string\",\r\n
+        \           \"example\": \"Midlothian\"\r\n          },\r\n          \"country\":
+        {\r\n            \"type\": \"string\",\r\n            \"example\": \"Scotland\"\r\n
+        \         },\r\n          \"postcode\": {\r\n            \"type\": \"string\",\r\n
+        \           \"example\": \"EH1 1JS\"\r\n          }\r\n        }\r\n      },\r\n
+        \     \"X500\": {\r\n        \"type\": \"object\",\r\n        \"required\":
+        [\r\n          \"organisation\",\r\n          \"locality\",\r\n          \"country\"\r\n
+        \       ],\r\n        \"additionalProperties\": false,\r\n        \"properties\":
+        {\r\n          \"organisation\": {\r\n            \"type\": \"string\",\r\n
+        \           \"pattern\": \"^([A-Z]{1}[^\\\\r\\\\n\\\\t\\\\f\\\\v\\\\,\\\\=\\\\$\\\\\\\"\\\\'\\\\\\\\]{0,126}\\\\S)$\",\r\n
+        \           \"example\": \"Generic Conveyancing Company\"\r\n          },\r\n
+        \         \"locality\": {\r\n            \"type\": \"string\",\r\n            \"pattern\":
+        \"^([A-Z]{1}[^\\\\r\\\\n\\\\t\\\\f\\\\v\\\\,\\\\=\\\\$\\\\\\\"\\\\'\\\\\\\\]{0,62}\\\\S)$\",\r\n
+        \           \"example\": \"Plymouth\"\r\n          },\r\n          \"country\":
+        {\r\n            \"type\": \"string\",\r\n            \"pattern\": \"^([A-Z]{2})$\",\r\n
+        \           \"example\": \"GB\"\r\n          },\r\n          \"state\": {\r\n
+        \           \"type\": \"string\",\r\n            \"pattern\": \"^([A-Z]{1}[^\\\\r\\\\n\\\\t\\\\f\\\\v\\\\,\\\\=\\\\$\\\\\\\"\\\\'\\\\\\\\]{0,126}\\\\S)$\",\r\n
+        \           \"example\": \"Devon\"\r\n          },\r\n          \"organisational_unit\":
+        {\r\n            \"type\": \"string\",\r\n            \"pattern\": \"^([A-Z]{1}[^\\\\r\\\\n\\\\t\\\\f\\\\v\\\\,\\\\=\\\\$\\\\\\\"\\\\'\\\\\\\\]{0,126}\\\\S)$\",\r\n
+        \           \"example\": \"Digital\"\r\n          },\r\n          \"common_name\":
+        {\r\n            \"type\": \"string\",\r\n            \"pattern\": \"^([A-Z]{1}[^\\\\r\\\\n\\\\t\\\\f\\\\v\\\\,\\\\=\\\\$\\\\\\\"\\\\'\\\\\\\\]{0,126}\\\\S)$\",\r\n
+        \           \"example\": \"Generic Conveyancing Company\"\r\n          }\r\n
+        \       }\r\n      },\r\n      \"Error\": {\r\n        \"required\": [\r\n
+        \         \"code\",\r\n          \"message\"\r\n        ],\r\n        \"properties\":
+        {\r\n          \"code\": {\r\n            \"type\": \"integer\",\r\n            \"format\":
+        \"int32\"\r\n          },\r\n          \"message\": {\r\n            \"type\":
+        \"string\"\r\n          }\r\n        }\r\n      }\r\n    },\r\n    \"parameters\":
+        {\r\n      \"TitleNumber\": {\r\n        \"name\": \"title_number\",\r\n        \"in\":
+        \"path\",\r\n        \"required\": true,\r\n        \"description\": \"The
+        unique ID of a Title\",\r\n        \"schema\": {\r\n          \"type\": \"string\",\r\n
+        \         \"pattern\": \"^([A-Z]{0,3}[1-9][0-9]{0,5}|[0-9]{1,6}[ZT])$\"\r\n
+        \       }\r\n      }\r\n    },\r\n    \"responses\": {\r\n      \"500\": {\r\n
+        \       \"description\": \"Internal Server Error\",\r\n        \"content\":
+        {\r\n          \"application/json\": {\r\n            \"schema\": {\r\n              \"$ref\":
+        \"#/components/schemas/Error\"\r\n            }\r\n          }\r\n        }\r\n
+        \     }\r\n    },\r\n    \"links\": {\r\n      \"GetTitle\": {\r\n        \"operationId\":
+        \"get_title\",\r\n        \"parameters\": {\r\n          \"title_number\":
+        \"$response.body#/title_number\"\r\n        }\r\n      }\r\n    }\r\n  }\r\n}\r\n------RubyFormBoundaryiAAEGJVZNA6SCMsX--\r\n"
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.0p0
+      X-Api-Key:
+      - fe934510-6ff0-4b39-ae9a-61c41e8f1e85
+      Content-Length:
+      - '18004'
+      Content-Type:
+      - multipart/form-data; boundary=----RubyFormBoundaryiAAEGJVZNA6SCMsX
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - platform.42crunch.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 15 Feb 2023 07:16:40 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Content-Type:
+      - application/json
+      X-42c-Transactionid:
+      - b5c020f6-5952-449a-94aa-18483dd22484-29616fd9-4f14-4e79-a4d3-264a2bb46435
+      Content-Length:
+      - '263'
+    body:
+      encoding: UTF-8
+      string: '{"desc":{"id":"74060b19-4def-4111-810b-06c11f26c71a","cid":"","name":"","technicalName":"","specfile":null,"yaml":false,"revisionOasCounter":0,"lock":false,"lockReason":""},"revision":null,"branch":null,"assessment":null,"scan":null,"protection":null,"tags":null}'
+  recorded_at: Wed, 15 Feb 2023 07:16:40 GMT
+- request:
+    method: get
+    uri: https://platform.42crunch.com/api/v1/apis/74060b19-4def-4111-810b-06c11f26c71a/assessmentreport
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.0p0
+      X-Api-Key:
+      - fe934510-6ff0-4b39-ae9a-61c41e8f1e85
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - platform.42crunch.com
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Wed, 15 Feb 2023 07:16:41 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Content-Type:
+      - application/json
+      X-42c-Transactionid:
+      - cff0d61c-c17e-4d7b-ba92-815a99143620-4c73cc1f-6650-4b75-9c46-97c19f637135
+      Content-Length:
+      - '47'
+    body:
+      encoding: UTF-8
+      string: '{"code":5, "message":"no result", "details":[]}'
+  recorded_at: Wed, 15 Feb 2023 07:16:41 GMT
+- request:
+    method: get
+    uri: https://platform.42crunch.com/api/v1/apis/74060b19-4def-4111-810b-06c11f26c71a/assessmentreport
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.0p0
+      X-Api-Key:
+      - fe934510-6ff0-4b39-ae9a-61c41e8f1e85
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - platform.42crunch.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 15 Feb 2023 07:16:42 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - deny
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Content-Type:
+      - application/json
+      X-42c-Platform-Version:
+      - 1.26.2
+      X-42c-Transactionid:
+      - 7b2dd83e-8499-4089-abef-f1999c5d5914-09c43e51-016f-4a51-bc97-0880cafd2ff8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"tid":"dcd09028-52ac-4b12-a230-0614e2da3bf4", "aid":"74060b19-4def-4111-810b-06c11f26c71a",
+        "cid":"", "date":"2023-02-15T07:16:41Z", "data":"eyJpbmRleCI6WyIiLCIvY29tcG9uZW50cyIsIi9jb21wb25lbnRzL2xpbmtzL0dldFRpdGxlIiwiL2NvbXBvbmVudHMvcGFyYW1ldGVycy9UaXRsZU51bWJlciIsIi9jb21wb25lbnRzL3NjaGVtYXMvRXJyb3IiLCIvY29tcG9uZW50cy9zY2hlbWFzL1BlcnNvbkFkZHJlc3MvcHJvcGVydGllcy9ob3VzZV9uYW1lX251bWJlci9leGFtcGxlIiwiL2NvbXBvbmVudHMvc2NoZW1hcy9UaXRsZUFkZHJlc3MvcHJvcGVydGllcy9ob3VzZV9uYW1lX251bWJlci9leGFtcGxlIiwiL2NvbXBvbmVudHMvc2NoZW1hcy9UaXRsZVRyYW5zZmVyIiwiL3BhdGhzL34xdGl0bGVzL2dldCIsIi9wYXRocy9+MXRpdGxlcy9nZXQvcmVzcG9uc2VzIiwiL3BhdGhzL34xdGl0bGVzL2dldC9yZXNwb25zZXMvMjAwL2NvbnRlbnQvYXBwbGljYXRpb25+MWpzb24vc2NoZW1hIiwiL3BhdGhzL34xdGl0bGVzfjF7dGl0bGVfbnVtYmVyfS9nZXQiLCIvcGF0aHMvfjF0aXRsZXN+MXt0aXRsZV9udW1iZXJ9L2dldC9yZXNwb25zZXMiLCIvcGF0aHMvfjF0aXRsZXN+MXt0aXRsZV9udW1iZXJ9fjFjb25maXJtLXBheW1lbnQvcHV0IiwiL3BhdGhzL34xdGl0bGVzfjF7dGl0bGVfbnVtYmVyfX4xY29uZmlybS1wYXltZW50L3B1dC9yZXNwb25zZXMiLCIvcGF0aHMvfjF0aXRsZXN+MXt0aXRsZV9udW1iZXJ9fjFjb25maXJtLXBheW1lbnQvcHV0L3Jlc3BvbnNlcy8yMDAiXSwiYXNzZXNzbWVudFZlcnNpb24iOiIzLjEuNiIsImFzc2Vzc21lbnRSZXBvcnRWZXJzaW9uIjoiMS4wLjEiLCJjb21taXQiOiIzYTIxZjY1NWNmMTM5MDBhNjRkYjk1ZDU4MmZmMDVjZmU3ZGYxMzNlLU4iLCJvYXNWZXJzaW9uIjoiMy4wLjIiLCJhcGlWZXJzaW9uIjoiMC4xLjAiLCJmaWxlSWQiOiI4ZjJmODc0Ny0zYmUxLTQxY2EtOTdiNy02Yjg0NzJhYmZkMTQiLCJhcGlJZCI6IiIsIm9wZW5hcGlTdGF0ZSI6InZhbGlkIiwic2NvcmUiOjM4Ljk2NjY2NjY2NjY2NjYyLCJ2YWxpZCI6dHJ1ZSwiY3JpdGljYWxpdHkiOjUsImlzc3VlQ291bnRlciI6MjMsIndhcm5pbmdzIjp7Imlzc3VlcyI6eyJ2My13YXJuaW5nLWdsb2JhbC1saW5rLXVudXNlZCI6eyJkZXNjcmlwdGlvbiI6IlJldXNhYmxlIGxpbmsgZGVmaW5pdGlvbiBpcyBub3QgdXNlZCBpbiB0aGUgT3BlbkFQSSBkZWZpbml0aW9uIiwidG90YWxJc3N1ZXMiOjEsImlzc3VlcyI6W3sicG9pbnRlciI6Miwic3BlY2lmaWNEZXNjcmlwdGlvbiI6IlRoZSByZXVzYWJsZSBsaW5rICdHZXRUaXRsZScgaXMgbm90IHVzZWQgaW4gdGhlIE9wZW5BUEkgZGVmaW5pdGlvbiJ9XSwidG9vTWFueUVycm9yIjpmYWxzZX0sInYzLXdhcm5pbmctc2FtcGxlLXVuZGVmaW5lZCI6eyJkZXNjcmlwdGlvbiI6Ik5vIHNhbXBsZSB2YWx1ZXMgb3IgZXhhbXBsZXMgd2VyZSBwcm92aWRlZCBmb3IgQVBJIENvbmZvcm1hbmNlIFNjYW4iLCJ0b3RhbElzc3VlcyI6MSwiaXNzdWVzIjpbeyJwb2ludGVyIjozLCJzcGVjaWZpY0Rlc2NyaXB0aW9uIjoiTm8gc2FtcGxlIGRlZmluZWQgaW4gdGhlICdQYXJhbWV0ZXInIG9iamVjdCJ9XSwidG9vTWFueUVycm9yIjpmYWxzZX0sInYzLXdhcm5pbmctc2NoZW1hLWV4YW1wbGUtaW1wcm9wZXIiOnsiZGVzY3JpcHRpb24iOiJWYWx1ZSBvZiB0aGUgc2NoZW1hIGV4YW1wbGUgaXMgbm90IGNvbnNpc3RlbnQgd2l0aCB0aGUgc2NoZW1hIiwidG90YWxJc3N1ZXMiOjIsImlzc3VlcyI6W3sicG9pbnRlciI6NSwic3BlY2lmaWNEZXNjcmlwdGlvbiI6IiJ9LHsicG9pbnRlciI6Niwic3BlY2lmaWNEZXNjcmlwdGlvbiI6IiJ9XSwidG9vTWFueUVycm9yIjpmYWxzZX0sInYzLXdhcm5pbmctc2VydmVycy1yZXF1aXJlZCI6eyJkZXNjcmlwdGlvbiI6IkF0IGxlYXN0IG9uZSBzZXJ2ZXIgc2hvdWxkIGJlIGRlZmluZWQiLCJ0b3RhbElzc3VlcyI6MSwiaXNzdWVzIjpbeyJwb2ludGVyIjowLCJzcGVjaWZpY0Rlc2NyaXB0aW9uIjoiIn1dLCJ0b29NYW55RXJyb3IiOmZhbHNlfX19LCJtaW5pbWFsUmVwb3J0IjpmYWxzZSwibWF4RW50cmllc1Blcklzc3VlIjozMCwibWF4SW1wYWN0ZWRQZXJFbnRyeSI6MzAsInNlY3VyaXR5Ijp7Imlzc3VlQ291bnRlciI6Niwic2NvcmUiOjAsImNyaXRpY2FsaXR5Ijo1LCJpc3N1ZXMiOnsidjMtZ2xvYmFsLWh0dHAtY2xlYXIiOnsiZGVzY3JpcHRpb24iOiJBUEkgYWNjZXB0cyBIVFRQIHJlcXVlc3RzIGluIHRoZSBjbGVhciIsImlzc3VlcyI6W3sic2NvcmUiOjAsInBvaW50ZXIiOjAsInRvb01hbnlJbXBhY3RlZCI6ZmFsc2UsInBvaW50ZXJzQWZmZWN0ZWQiOls4LDExLDEzXSwiY3JpdGljYWxpdHkiOjMsInJlcXVlc3QiOnRydWV9XSwiaXNzdWVDb3VudGVyIjoxLCJzY29yZSI6MCwiY3JpdGljYWxpdHkiOjMsInRvb01hbnlFcnJvciI6ZmFsc2V9LCJ2My1nbG9iYWwtc2VjdXJpdHkiOnsiZGVzY3JpcHRpb24iOiJHbG9iYWwgc2VjdXJpdHkgZmllbGQgaXMgbm90IGRlZmluZWQiLCJpc3N1ZXMiOlt7InNjb3JlIjowLCJwb2ludGVyIjowLCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJwb2ludGVyc0FmZmVjdGVkIjpbOCwxMSwxM10sImNyaXRpY2FsaXR5Ijo1LCJyZXF1ZXN0Ijp0cnVlfV0sImlzc3VlQ291bnRlciI6MSwic2NvcmUiOjAsImNyaXRpY2FsaXR5Ijo1LCJ0b29NYW55RXJyb3IiOmZhbHNlfSwidjMtZ2xvYmFsLXNlY3VyaXR5ZGVmaW5pdGlvbnMtdW5kZWZpbmVkIjp7ImRlc2NyaXB0aW9uIjoiVGhlIHNlY3VyaXR5RGVmaW5pdGlvbnMgc2VjdGlvbiBpcyBub3QgZGVmaW5lZCIsImlzc3VlcyI6W3sic2NvcmUiOi0wLCJwb2ludGVyIjoxLCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJjcml0aWNhbGl0eSI6NCwicmVxdWVzdCI6dHJ1ZX1dLCJpc3N1ZUNvdW50ZXIiOjEsInNjb3JlIjowLCJjcml0aWNhbGl0eSI6NCwidG9vTWFueUVycm9yIjpmYWxzZX0sInYzLW9wZXJhdGlvbi1zZWN1cml0eSI6eyJkZXNjcmlwdGlvbiI6IlNlY3VyaXR5IGZpZWxkIG9mIHRoZSBvcGVyYXRpb24gaXMgbm90IGRlZmluZWQiLCJpc3N1ZXMiOlt7InNjb3JlIjotMTAsInBvaW50ZXIiOjgsInRvb01hbnlJbXBhY3RlZCI6ZmFsc2UsImNyaXRpY2FsaXR5Ijo1LCJyZXF1ZXN0Ijp0cnVlfSx7InNjb3JlIjotMTAsInBvaW50ZXIiOjExLCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJjcml0aWNhbGl0eSI6NSwicmVxdWVzdCI6dHJ1ZX0seyJzY29yZSI6LTEwLCJwb2ludGVyIjoxMywidG9vTWFueUltcGFjdGVkIjpmYWxzZSwiY3JpdGljYWxpdHkiOjUsInJlcXVlc3QiOnRydWV9XSwiaXNzdWVDb3VudGVyIjozLCJzY29yZSI6LTMwLCJjcml0aWNhbGl0eSI6NSwidG9vTWFueUVycm9yIjpmYWxzZX19LCJzdWJncm91cElzc3VlQ291bnRlciI6eyJhdXRoZW50aWNhdGlvbiI6eyJub25lIjowLCJpbmZvIjowLCJsb3ciOjAsIm1lZGl1bSI6MCwiaGlnaCI6MSwiY3JpdGljYWwiOjR9LCJhdXRob3JpemF0aW9uIjp7Im5vbmUiOjAsImluZm8iOjAsImxvdyI6MCwibWVkaXVtIjowLCJoaWdoIjowLCJjcml0aWNhbCI6MH0sInRyYW5zcG9ydCI6eyJub25lIjowLCJpbmZvIjowLCJsb3ciOjAsIm1lZGl1bSI6MSwiaGlnaCI6MCwiY3JpdGljYWwiOjB9fX0sImRhdGEiOnsiaXNzdWVDb3VudGVyIjoxNywic2NvcmUiOjM4Ljk2NjY2NjY2NjY2NjYzLCJjcml0aWNhbGl0eSI6NCwiaXNzdWVzIjp7InYzLXJlc3BvbnNlLTQwNCI6eyJkZXNjcmlwdGlvbiI6IjQwNCByZXNwb25zZSBzaG91bGQgYmUgZGVmaW5lZCBmb3IgYWxsIEdFVCwgUFVULCBIRUFELCBhbmQgREVMRVRFIG9wZXJhdGlvbnMiLCJpc3N1ZXMiOlt7InNjb3JlIjotMS40LCJwb2ludGVyIjo5LCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJjcml0aWNhbGl0eSI6MywicmVzcG9uc2UiOnRydWV9LHsic2NvcmUiOi0wLjI4LCJwb2ludGVyIjoxMiwidG9vTWFueUltcGFjdGVkIjpmYWxzZSwiY3JpdGljYWxpdHkiOjMsInJlc3BvbnNlIjp0cnVlfSx7InNjb3JlIjotMC4yMzMzMzMzMzMzMzMzMzMzNiwicG9pbnRlciI6MTQsInRvb01hbnlJbXBhY3RlZCI6ZmFsc2UsImNyaXRpY2FsaXR5IjozLCJyZXNwb25zZSI6dHJ1ZX1dLCJpc3N1ZUNvdW50ZXIiOjMsInNjb3JlIjotMS45MTMzMzMzMzMzMzMzMzMzLCJjcml0aWNhbGl0eSI6MywidG9vTWFueUVycm9yIjpmYWxzZX0sInYzLXJlc3BvbnNlLTQwNiI6eyJkZXNjcmlwdGlvbiI6IjQwNiByZXNwb25zZSBzaG91bGQgYmUgZGVmaW5lZCBmb3IgYWxsIEdFVCwgUE9TVCwgUFVULCBQQVRDSCwgYW5kIERFTEVURSBvcGVyYXRpb25zIiwiaXNzdWVzIjpbeyJzY29yZSI6LTEuNCwicG9pbnRlciI6OSwidG9vTWFueUltcGFjdGVkIjpmYWxzZSwiY3JpdGljYWxpdHkiOjMsInJlc3BvbnNlIjp0cnVlfSx7InNjb3JlIjotMC4yOCwicG9pbnRlciI6MTIsInRvb01hbnlJbXBhY3RlZCI6ZmFsc2UsImNyaXRpY2FsaXR5IjozLCJyZXNwb25zZSI6dHJ1ZX0seyJzY29yZSI6LTAuMjMzMzMzMzMzMzMzMzMzMzYsInBvaW50ZXIiOjE0LCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJjcml0aWNhbGl0eSI6MywicmVzcG9uc2UiOnRydWV9XSwiaXNzdWVDb3VudGVyIjozLCJzY29yZSI6LTEuOTEzMzMzMzMzMzMzMzMzMywiY3JpdGljYWxpdHkiOjMsInRvb01hbnlFcnJvciI6ZmFsc2V9LCJ2My1yZXNwb25zZS00MTUiOnsiZGVzY3JpcHRpb24iOiI0MTUgcmVzcG9uc2Ugc2hvdWxkIGJlIGRlZmluZWQgZm9yIG9wZXJhdGlvbnMgcmVjZWl2aW5nIGEgYm9keSAoUE9TVCwgUFVULCBQQVRDSCkiLCJpc3N1ZXMiOlt7InNjb3JlIjotMC4yMzMzMzMzMzMzMzMzMzMzNiwicG9pbnRlciI6MTQsInRvb01hbnlJbXBhY3RlZCI6ZmFsc2UsImNyaXRpY2FsaXR5IjozLCJyZXNwb25zZSI6dHJ1ZX1dLCJpc3N1ZUNvdW50ZXIiOjEsInNjb3JlIjotMC4yMzMzMzMzMzMzMzMzMzMzNiwiY3JpdGljYWxpdHkiOjMsInRvb01hbnlFcnJvciI6ZmFsc2V9LCJ2My1yZXNwb25zZS00MjkiOnsiZGVzY3JpcHRpb24iOiI0MjkgcmVzcG9uc2Ugc2hvdWxkIGJlIGRlZmluZWQgZm9yIGFsbCBvcGVyYXRpb25zIiwiaXNzdWVzIjpbeyJzY29yZSI6LTEuNCwicG9pbnRlciI6OSwidG9vTWFueUltcGFjdGVkIjpmYWxzZSwiY3JpdGljYWxpdHkiOjMsInJlc3BvbnNlIjp0cnVlfSx7InNjb3JlIjotMC4yOCwicG9pbnRlciI6MTIsInRvb01hbnlJbXBhY3RlZCI6ZmFsc2UsImNyaXRpY2FsaXR5IjozLCJyZXNwb25zZSI6dHJ1ZX0seyJzY29yZSI6LTAuMjMzMzMzMzMzMzMzMzMzMzYsInBvaW50ZXIiOjE0LCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJjcml0aWNhbGl0eSI6MywicmVzcG9uc2UiOnRydWV9XSwiaXNzdWVDb3VudGVyIjozLCJzY29yZSI6LTEuOTEzMzMzMzMzMzMzMzMzMywiY3JpdGljYWxpdHkiOjMsInRvb01hbnlFcnJvciI6ZmFsc2V9LCJ2My1yZXNwb25zZS1kZWZhdWx0LXVuZGVmaW5lZCI6eyJkZXNjcmlwdGlvbiI6Ik5vIGRlZmF1bHQgcmVzcG9uc2UgZGVmaW5lZCBmb3IgdGhlIG9wZXJhdGlvbiIsImlzc3VlcyI6W3sic2NvcmUiOi0xLjQsInBvaW50ZXIiOjksInRvb01hbnlJbXBhY3RlZCI6ZmFsc2UsImNyaXRpY2FsaXR5IjozLCJyZXNwb25zZSI6dHJ1ZX0seyJzY29yZSI6LTAuMjgsInBvaW50ZXIiOjEyLCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJjcml0aWNhbGl0eSI6MywicmVzcG9uc2UiOnRydWV9LHsic2NvcmUiOi0wLjIzMzMzMzMzMzMzMzMzMzM2LCJwb2ludGVyIjoxNCwidG9vTWFueUltcGFjdGVkIjpmYWxzZSwiY3JpdGljYWxpdHkiOjMsInJlc3BvbnNlIjp0cnVlfV0sImlzc3VlQ291bnRlciI6Mywic2NvcmUiOi0xLjkxMzMzMzMzMzMzMzMzMzMsImNyaXRpY2FsaXR5IjozLCJ0b29NYW55RXJyb3IiOmZhbHNlfSwidjMtcmVzcG9uc2Utc2NoZW1hLXVuZGVmaW5lZCI6eyJkZXNjcmlwdGlvbiI6IlJlc3BvbnNlIHRoYXQgc2hvdWxkIGNvbnRhaW4gYSBib2R5IGhhcyBubyBzY2hlbWEgZGVmaW5lZCIsImlzc3VlcyI6W3sic2NvcmUiOi0xLjYzMzMzMzMzMzMzMzMzMzMsInBvaW50ZXIiOjE1LCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJjcml0aWNhbGl0eSI6MywicmVzcG9uc2UiOnRydWV9XSwiaXNzdWVDb3VudGVyIjoxLCJzY29yZSI6LTEuNjMzMzMzMzMzMzMzMzMzMywiY3JpdGljYWxpdHkiOjMsInRvb01hbnlFcnJvciI6ZmFsc2V9LCJ2My1zY2hlbWEtcmVzcG9uc2UtYXJyYXktbWF4aXRlbXMiOnsiZGVzY3JpcHRpb24iOiJBcnJheSBzY2hlbWEgaW4gYSByZXNwb25zZSBoYXMgbm8gbWF4aW11bSBudW1iZXIgb2YgaXRlbXMgZGVmaW5lZCIsImlzc3VlcyI6W3sic2NvcmUiOi00Ljg5OTk5OTk5OTk5OTk5OTUsInBvaW50ZXIiOjEwLCJ0b29NYW55SW1wYWN0ZWQiOmZhbHNlLCJjcml0aWNhbGl0eSI6NCwicmVzcG9uc2UiOnRydWV9XSwiaXNzdWVDb3VudGVyIjoxLCJzY29yZSI6LTQuODk5OTk5OTk5OTk5OTk5NSwiY3JpdGljYWxpdHkiOjQsInRvb01hbnlFcnJvciI6ZmFsc2V9LCJ2My1zY2hlbWEtcmVzcG9uc2Utbm90eXBlIjp7ImRlc2NyaXB0aW9uIjoiU2NoZW1hIGluIGEgcmVzcG9uc2UgZG9lcyBub3QgZGVmaW5lIHRoZSB0eXBlIG9mIEpTT04gdmFsdWVzIiwiaXNzdWVzIjpbeyJzY29yZSI6LTE0LjcsInBvaW50ZXIiOjcsInRvb01hbnlJbXBhY3RlZCI6ZmFsc2UsImNyaXRpY2FsaXR5IjozLCJyZXNwb25zZSI6dHJ1ZX0seyJzY29yZSI6LTEuOTEzMzMzMzMzMzMzMzMzMywicG9pbnRlciI6NCwidG9vTWFueUltcGFjdGVkIjpmYWxzZSwiY3JpdGljYWxpdHkiOjMsInJlc3BvbnNlIjp0cnVlfV0sImlzc3VlQ291bnRlciI6Miwic2NvcmUiOi0xNi42MTMzMzMzMzMzMzMzMzMsImNyaXRpY2FsaXR5IjozLCJ0b29NYW55RXJyb3IiOmZhbHNlfX0sInN1Ymdyb3VwSXNzdWVDb3VudGVyIjp7InBhcmFtZXRlcnMiOnsibm9uZSI6MCwiaW5mbyI6MCwibG93IjowLCJtZWRpdW0iOjAsImhpZ2giOjAsImNyaXRpY2FsIjowfSwicmVzcG9uc2VIZWFkZXIiOnsibm9uZSI6MCwiaW5mbyI6MCwibG93IjowLCJtZWRpdW0iOjAsImhpZ2giOjAsImNyaXRpY2FsIjowfSwicmVzcG9uc2VEZWZpbml0aW9uIjp7Im5vbmUiOjAsImluZm8iOjAsImxvdyI6MCwibWVkaXVtIjoxNCwiaGlnaCI6MCwiY3JpdGljYWwiOjB9LCJzY2hlbWEiOnsibm9uZSI6MCwiaW5mbyI6MCwibG93IjowLCJtZWRpdW0iOjIsImhpZ2giOjEsImNyaXRpY2FsIjowfSwicGF0aHMiOnsibm9uZSI6MCwiaW5mbyI6MCwibG93IjowLCJtZWRpdW0iOjAsImhpZ2giOjAsImNyaXRpY2FsIjowfX19LCJpc3N1ZXNLZXkiOlsidjMtZ2xvYmFsLXNlY3VyaXR5IiwidjMtZ2xvYmFsLWh0dHAtY2xlYXIiLCJ2My1zY2hlbWEtcmVzcG9uc2UtYXJyYXktbWF4aXRlbXMiLCJ2My1yZXNwb25zZS00MTUiLCJ2My1yZXNwb25zZS1zY2hlbWEtdW5kZWZpbmVkIiwidjMtd2FybmluZy1nbG9iYWwtbGluay11bnVzZWQiLCJ2My13YXJuaW5nLXNlcnZlcnMtcmVxdWlyZWQiLCJ2My13YXJuaW5nLXNjaGVtYS1leGFtcGxlLWltcHJvcGVyIiwidjMtb3BlcmF0aW9uLXNlY3VyaXR5IiwidjMtc2NoZW1hLXJlc3BvbnNlLW5vdHlwZSIsInYzLXJlc3BvbnNlLTQyOSIsInYzLXJlc3BvbnNlLTQwNiIsInYzLXdhcm5pbmctc2FtcGxlLXVuZGVmaW5lZCIsInYzLWdsb2JhbC1zZWN1cml0eWRlZmluaXRpb25zLXVuZGVmaW5lZCIsInYzLXJlc3BvbnNlLWRlZmF1bHQtdW5kZWZpbmVkIiwidjMtcmVzcG9uc2UtNDA0Il0sInN1bW1hcnkiOnsib2FzVmVyc2lvbiI6IjMuMC4yIiwiYXBpVmVyc2lvbiI6IjAuMS4wIiwiYmFzZXBhdGgiOiIiLCJhcGlOYW1lIjoiUGF5bWVudCBBUEkiLCJkZXNjcmlwdGlvbiI6IkhNIExhbmQgUmVnaXN0cnkgRGlnaXRhbCBTdHJlZXQgUHJvb2Ygb2YgQ29uY2VwdCIsImVuZHBvaW50cyI6W10sInBhdGhDb3VudGVyIjoxLCJvcGVyYXRpb25Db3VudGVyIjozLCJwYXJhbWV0ZXJDb3VudGVyIjoyLCJyZXF1ZXN0Qm9keUNvdW50ZXIiOjAsInJlcXVlc3RDb250ZW50VHlwZSI6e30sInJlc3BvbnNlQ29udGVudFR5cGUiOnsiYXBwbGljYXRpb24vanNvbiI6NX0sImNvbXBvbmVudHNTY2hlbWFzQ291bnRlciI6MTUsImNvbXBvbmVudHNSZXNwb25zZXNDb3VudGVyIjoxLCJjb21wb25lbnRzUGFyYW1ldGVyc0NvdW50ZXIiOjEsImNvbXBvbmVudHNFeGFtcGxlc0NvdW50ZXIiOjAsImNvbXBvbmVudHNSZXF1ZXN0Qm9kaWVzQ291bnRlciI6MCwiY29tcG9uZW50c0hlYWRlcnNDb3VudGVyIjowLCJjb21wb25lbnRzU2VjdXJpdHlTY2hlbWVzQ291bnRlciI6MCwiY29tcG9uZW50c0xpbmtzQ291bnRlciI6MSwiY29tcG9uZW50c0NhbGxiYWNrc0NvdW50ZXIiOjB9fQ==",
+        "type":"JSON", "enc":"base64", "attr":{"data":{"auditVersion":"3.1.6", "error":"false",
+        "errors":"0", "grade":"3.896666666666662e+01", "isValid":"true", "last":"1676445401",
+        "numCriticals":"4", "numErrors":"23", "numHighs":"2", "numInfos":"0", "numLows":"0",
+        "numMediums":"17", "oasStatus":"1", "oasVersion":"3.0.2", "sqgPass":"false"}},
+        "log":""}'
+  recorded_at: Wed, 15 Feb 2023 07:16:42 GMT
+recorded_with: VCR 6.1.0

@@ -1,0 +1,72 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Check your OpenAPI documents for security issues</h1>
+  </div>
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        API Security Check Complete
+      </h1>
+      <div class="govuk-panel__body">
+        Score: <strong><%= @score.round(2) %></strong>
+      </div>
+    </div>
+    <br/><br/>
+    <h2 class="govuk-heading-m">Summary</h2>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          OpenAPI Validity:
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @openapi.capitalize %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Issue Count:
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @counter %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Criticality:
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @criticality %>
+        </dd>
+      </div>
+    </dl>
+
+    <br/><br/>
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-table__caption--m">Results</caption>
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Criticality</th>
+        <th scope="col" class="govuk-table__header">Issue</th>
+        <th scope="col" class="govuk-table__header">Line Numbers</th>
+        <th scope="col" class="govuk-table__header">Remedy</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      <% @issues.each do |issue| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><%= issue[0] %></td>
+          <td class="govuk-table__cell"><%= issue[1] %></td>
+          <td class="govuk-table__cell"><%= issue[2].join(", ") %></td>
+          <td class="govuk-table__cell">
+            <a href="https://cddo-api-spec-tech-docs.herokuapp.com/api-linting-remediation.html">Details</a></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <%= govuk_link_to "Select Another Linter", root_path %>
+
+  </div>
+</div>
