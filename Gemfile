@@ -77,7 +77,9 @@ group :test do
   gem "rails-controller-testing"
   gem "selenium-webdriver"
   gem 'simplecov', require: false
+  gem "vcr"
   gem "webdrivers"
+  gem "webmock"
 end
 
 group :test, :development do

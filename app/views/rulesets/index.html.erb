@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">GOV.UK OpenAPI Linting Service</h1>
 
-    <%= form_tag(new_ruleset_path, method: :get) do %>
+    <%= form_tag(rulesets_path, method: :post) do %>
       <div class="govuk-form-group" name="which-linter">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">

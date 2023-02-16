@@ -6,7 +6,9 @@ module Linters
   # A class called Crunch
   class CrunchApi
 
-    def initialize(file:, base_url: ENV['CRUNCH_BASE_URL'])
+    CRUNCH_BASE_URL = ENV.fetch('CRUNCH_BASE_URL', 'https://platform.42crunch.com')
+
+    def initialize(file:, base_url: CRUNCH_BASE_URL)
       @file = file
       @base_url = base_url
     end
