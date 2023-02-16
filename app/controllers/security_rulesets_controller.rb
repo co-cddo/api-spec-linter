@@ -14,9 +14,9 @@ class SecurityRulesetsController < ApplicationController
     @openapi = crunch_hash['openapiState']
     @counter = crunch_hash['issueCounter']
     @criticality = crunch_hash['criticality']
-    @issues = crunch_hash['data']['issues'].map do |issue|
-      lines = issue[1]['issues'].pluck('pointer')
-      [issue[1]['criticality'],issue[1]['description'], lines]
+    @issues = crunch_hash['data']['issues'].map do |_key, issue|
+      lines = issue['issues'].pluck('pointer')
+      [issue['criticality'],issue['description'], lines]
     end
 
     render 'show'
