@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe GovernmentRulesetController, type: :request do
+RSpec.describe GovernmentRulesetsController, type: :request do
   describe "GET #new" do
     it "renders the new template" do
       get new_government_ruleset_path

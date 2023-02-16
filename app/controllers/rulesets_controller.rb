@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # TODO: Separate this out into a controller per ruleset
-class RulesetController < ApplicationController
+class RulesetsController < ApplicationController
   before_action :set_ruleset_name, only: %i[create]
   before_action :clear_errors
 

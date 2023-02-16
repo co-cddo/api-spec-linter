@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SecurityRulesetController, type: :request do
+RSpec.describe SecurityRulesetsController, type: :request do
   describe "GET #new" do
     it "renders the new template" do
       get new_security_ruleset_path

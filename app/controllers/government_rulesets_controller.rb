@@ -1,5 +1,5 @@
 
-class GovernmentRulesetController < ApplicationController
+class GovernmentRulesetsController < ApplicationController
   include RulesetValidations
 
   before_action :validate_file_upload!, only: [:create]

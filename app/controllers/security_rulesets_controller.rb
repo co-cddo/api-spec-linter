@@ -1,5 +1,5 @@
 
-class SecurityRulesetController < ApplicationController
+class SecurityRulesetsController < ApplicationController
   include RulesetValidations
 
   before_action :validate_file_upload!, only: [:create]
