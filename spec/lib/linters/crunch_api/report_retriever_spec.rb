@@ -18,7 +18,7 @@ describe Linters::CrunchApi::ReportRetriever do
 
     context 'when the crunch API returns a 200' do
       it 'returns the response from the API' do
-        report_retriever = described_class.new(rest_client: rest_client, base_url: crunch_base_url)
+        report_retriever = described_class.new(rest_client:, base_url: crunch_base_url)
 
         expect(report_retriever.retrieve_report_for_api(api_id)).to eq('test_report')
         expect(rest_client).to have_received(:get).with(url, { 'X-API-KEY': api_key })

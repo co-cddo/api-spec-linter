@@ -8,7 +8,7 @@ module Linters
     CRUNCH_API_KEY = ENV['CRUNCH_API_KEY']
 
     class Fetch
-      def initialize(api_creator: ApiCreator.new, report_retriever: ReportRetriever.new, file:)
+      def initialize(file:, api_creator: ApiCreator.new, report_retriever: ReportRetriever.new)
         @api_creator = api_creator
         @report_retriever = report_retriever
         @file = file

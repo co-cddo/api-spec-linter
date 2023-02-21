@@ -14,7 +14,7 @@ RSpec.describe Linters::CrunchApi::ApiCreator do
       stub_const('Linters::CrunchApi::CRUNCH_API_KEY', api_key)
     end
 
-    subject { described_class.new(rest_client: rest_client, base_url: crunch_base_url) }
+    subject { described_class.new(rest_client:, base_url: crunch_base_url) }
 
     context 'when crunch returns a 200' do
       it 'posts the file to the 42Crunch API and returns the ID of the created API' do

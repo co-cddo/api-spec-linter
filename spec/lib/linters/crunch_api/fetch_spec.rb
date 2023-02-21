@@ -4,12 +4,18 @@ RSpec.describe Linters::CrunchApi::Fetch do
   describe '#lint_to_json' do
     let(:file) { double('file') }
     let(:api_creator) { spy('api_creator', create_api_for_file: 'api_id') }
-    let(:report_retriever) { spy('report_retriever', retrieve_report_for_api: { data: Base64.encode64('test data') }.to_json) }
+    let(:report_retriever) do
+      spy(
+        'report_retriever',
+        retrieve_report_for_api: {
+          data: Base64.encode64('test data')
+        }.to_json)
+    end
     let(:subject) do
       described_class.new(
-        api_creator: api_creator,
-        report_retriever: report_retriever,
-        file: file
+        api_creator:,
+        report_retriever:,
+        file:
       )
     end
 
@@ -21,9 +27,9 @@ RSpec.describe Linters::CrunchApi::Fetch do
     context 'when an API is created and a report is retrieved' do
       it 'creates an API and retrieves the report' do
         described_class.new(
-          api_creator: api_creator,
-          report_retriever: report_retriever,
-          file: file
+          api_creator:,
+          report_retriever:,
+          file:
         )
 
         expect(subject.lint_to_json).to eq('test data')
