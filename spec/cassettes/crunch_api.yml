@@ -306,50 +306,6 @@ http_interactions:
       - platform.42crunch.com
   response:
     status:
-      code: 404
-      message: Not Found
-    headers:
-      Date:
-      - Wed, 15 Feb 2023 07:16:41 GMT
-      Server:
-      - Apache
-      X-Frame-Options:
-      - deny
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
-      Strict-Transport-Security:
-      - max-age=63072000; includeSubDomains
-      Content-Type:
-      - application/json
-      X-42c-Transactionid:
-      - cff0d61c-c17e-4d7b-ba92-815a99143620-4c73cc1f-6650-4b75-9c46-97c19f637135
-      Content-Length:
-      - '47'
-    body:
-      encoding: UTF-8
-      string: '{"code":5, "message":"no result", "details":[]}'
-  recorded_at: Wed, 15 Feb 2023 07:16:41 GMT
-- request:
-    method: get
-    uri: https://platform.42crunch.com/api/v1/apis/74060b19-4def-4111-810b-06c11f26c71a/assessmentreport
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - "*/*"
-      User-Agent:
-      - rest-client/2.1.0 (darwin22 arm64) ruby/3.2.0p0
-      X-Api-Key:
-      - fe934510-6ff0-4b39-ae9a-61c41e8f1e85
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Host:
-      - platform.42crunch.com
-  response:
-    status:
       code: 200
       message: OK
     headers:

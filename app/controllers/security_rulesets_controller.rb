@@ -27,7 +27,7 @@ class SecurityRulesetsController < ApplicationController
   def crunch42_data
     return File.read('fakecrunchresults.json') if ENV['BYPASS_API'] == 'true'
 
-    Linters::CrunchApi.new(file: ruleset_params[:oas_file]).lint_to_json
+    Linters::CrunchApi::Fetch.new(file: ruleset_params[:oas_file]).lint_to_json
   end
 
   def ruleset_params
