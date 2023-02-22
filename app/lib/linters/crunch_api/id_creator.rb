@@ -2,7 +2,7 @@ module Linters
   module CrunchApi
 
     # Post the file to 42Crunch according to their API v1 "Create an API (from file)" spec
-    class ApiCreator
+    class IdCreator
       COLLECTION_ID = ENV['COLLECTION_ID']
 
       def initialize(rest_client: RestClient, base_url: CRUNCH_BASE_URL)

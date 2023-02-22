@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Linters::CrunchApi::ApiCreator do
+RSpec.describe Linters::CrunchApi::IdCreator do
   describe '#create_api_for_file' do
     let(:rest_client) { class_spy(RestClient, post: { desc: { id: 'api123' } }.to_json) }
     let(:file) { File.new('spec/fixtures/files/valid_file.json') }
@@ -9,7 +9,7 @@ RSpec.describe Linters::CrunchApi::ApiCreator do
     let(:crunch_base_url) { 'https://api.crunch.com' }
 
     before do
-      stub_const('Linters::CrunchApi::ApiCreator::COLLECTION_ID', collection_id)
+      stub_const('Linters::CrunchApi::IdCreator::COLLECTION_ID', collection_id)
       stub_const('Linters::CrunchApi::CRUNCH_BASE_URL', crunch_base_url)
       stub_const('Linters::CrunchApi::CRUNCH_API_KEY', api_key)
     end

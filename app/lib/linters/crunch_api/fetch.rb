@@ -4,12 +4,9 @@ require 'base64'
 module Linters
 
   module CrunchApi
-    CRUNCH_BASE_URL = ENV.fetch('CRUNCH_BASE_URL', 'https://platform.42crunch.com')
-    CRUNCH_API_KEY = ENV['CRUNCH_API_KEY']
-
     # A class for fetching a crunch 42 report and returning it as a Hash
     class Fetch
-      def initialize(file:, api_creator: ApiCreator.new, report_retriever: ReportRetriever.new)
+      def initialize(file:, api_creator: IdCreator.new, report_retriever: ReportRetriever.new)
         @api_creator = api_creator
         @report_retriever = report_retriever
         @file = file
