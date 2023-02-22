@@ -1,5 +1,7 @@
 module Linters
   module CrunchApi
+
+    # Post the file to 42Crunch according to their API v1 "Create an API (from file)" spec
     class ApiCreator
       COLLECTION_ID = ENV['COLLECTION_ID']
 
@@ -12,10 +14,10 @@ module Linters
         response = rest_client.post(
           URI.join(base_url, "/api/v1/apis").to_s,
           {
-            cid: COLLECTION_ID,
-            name: File.basename(file.path, ".*"),
-            yaml: false,
-            specfile: file
+            cid: COLLECTION_ID,  # Collection id, returned by "Create a collection"
+            name: File.basename(file.path, ".*"), # API Display Name
+            yaml: false, # Set to true if the specification file was converted to JSON from YAML
+            specfile: file # Raw OAS file in JSON format - YAML is not supported
           },
           {
             'X-API-KEY': CRUNCH_API_KEY

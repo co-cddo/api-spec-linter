@@ -1,5 +1,8 @@
 module Linters
   module CrunchApi
+
+    # Use the created API ID to get the linting results from 42Crunch using their
+    # API V1 "Retrieve and visualize a security audit report" spec
     class ReportRetriever
       def initialize(rest_client: RestClient, base_url: CRUNCH_BASE_URL)
         @rest_client = rest_client
