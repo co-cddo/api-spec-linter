@@ -1,0 +1,31 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Check your OpenAPI documents for security issues</h1>
+  </div>
+  <div class="govuk-grid-column-full">
+
+      <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="file-upload-1">
+            Upload an OpenAPI document
+          </label>
+          <%= form_tag(uploads_path, method: :post, multipart: true) do %>
+            <%= file_field_tag "oas_file", class: "govuk-file-upload", label: { text: "Upload an OpenAPI document" }, id: "oas_file", name: "oas_file",  accept: "application/json" %>
+            <br>
+            <br>
+            <%= hidden_field_tag "ruleset_name", @ruleset_name %>
+            <%= submit_tag "Submit", class: "govuk-button", data: {module: "govuk-button" } %>
+          <% end %>
+        </div>
+        <%# this is a temp error solution just so we can get some kind of feedback for now %>
+        <% if flash[:error] %>
+          <div class="govuk-error-message">
+            <%= flash[:error] %>
+          </div>
+        <% end %>
+      </div>
+
+  </div>
+</div>
+

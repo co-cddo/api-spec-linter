@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root to: "pages#home"
 
+  resources :uploads, only: %i[index create]
   resources :rulesets, only: %i[index create]
-  resource :government_ruleset, only: %i[new create]
-  resource :security_ruleset, only: %i[new create]
+  resource :government_ruleset, only: %i[show create]
+  resource :security_ruleset, only: %i[show create]
 
   scope via: :all do
     get "/404", to: "errors#not_found"

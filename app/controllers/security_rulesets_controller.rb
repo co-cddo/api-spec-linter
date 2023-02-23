@@ -1,14 +1,9 @@
 
 class SecurityRulesetsController < ApplicationController
   include RulesetValidations
-
-  before_action :validate_file_upload!, only: [:create]
   before_action :clear_errors
 
-  def new
-  end
-
-  def create
+  def show
     crunch_hash = JSON.parse(crunch42_data)
     @score = crunch_hash['score']
     @openapi = crunch_hash['openapiState']
@@ -18,8 +13,6 @@ class SecurityRulesetsController < ApplicationController
       lines = issue['issues'].pluck('pointer')
       [issue['criticality'],issue['description'], lines]
     end
-
-    render 'show'
   end
 
   private
@@ -27,7 +20,7 @@ class SecurityRulesetsController < ApplicationController
   def crunch42_data
     return File.read('fakecrunchresults.json') if ENV['BYPASS_API'] == 'true'
 
-    Linters::CrunchApi::Fetch.new(file: ruleset_params[:oas_file]).lint_to_json
+    Linters::CrunchApi::Fetch.new(file: session[:oas_file]).lint_to_json
   end
 
   def ruleset_params

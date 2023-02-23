@@ -9,7 +9,7 @@ class RulesetsController < ApplicationController
   end
 
   def create
-    redirect_to "/#{@ruleset_name}/new"
+    redirect_to "/#{@ruleset_name}/"
   end
 
 
