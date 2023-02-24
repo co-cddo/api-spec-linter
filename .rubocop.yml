@@ -14,6 +14,11 @@ Style/NumericLiterals:
   Exclude:
     - db/schema.rb
 
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Include:
+    - "app/**/*.rb"
+
 AllCops:
   Exclude:
     - spec/rails_helper.rb
