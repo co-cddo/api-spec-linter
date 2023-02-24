@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: "pages#home"
+  get "pages/home", to: "pages#home"
 
   resources :rulesets, only: %i[index create]
   resource :government_ruleset, only: %i[new create]
