@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: "pages#home"
+  get "pages/home", to: "pages#home"
 
   resources :uploads, only: %i[index create]
   resources :rulesets, only: %i[index create]

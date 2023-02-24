@@ -1,0 +1,8 @@
+en:
+  rulesets:
+    ruleset_one:
+      description: Ruleset One
+    ruleset_two:
+      description: Ruleset Two
+    ruleset_three:
+      description: Ruleset Three
