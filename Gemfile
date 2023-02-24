@@ -40,6 +40,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # add in additional gems below this line
+gem "activerecord-session_store"
 gem 'dotenv-rails', groups: [:development, :test]
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
