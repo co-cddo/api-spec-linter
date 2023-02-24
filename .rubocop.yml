@@ -17,7 +17,7 @@ Style/NumericLiterals:
 Style/FrozenStringLiteralComment:
   Enabled: true
   Include:
-    - "app/**/*.rb"
+    - app/**/*.rb
 
 AllCops:
   Exclude:
