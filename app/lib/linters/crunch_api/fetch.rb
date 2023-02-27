@@ -42,12 +42,12 @@ module Linters
           score: 0,
           openapiState: "invalid",
           issueCounter: 0,
-          criticality: 100,
+          criticality: 5,
           data: {
             issues: {
               badJson: {
                 description: "The document could not be parsed as JSON.",
-                criticality: 100,
+                criticality: 5,
                 issues: [
                   { pointer: 0 }
                 ]
