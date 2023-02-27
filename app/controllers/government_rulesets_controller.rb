@@ -5,8 +5,13 @@ class GovernmentRulesetsController < ApplicationController
   before_action :clear_errors
 
   def show
-    oas_file = session[:oas_file]
-    @spectral_results = JSON.parse(Linters::Spectral.new(file: oas_file).lint_to_json)
+    oas_file_body = session[:oas_file_body]
+    oas_file_name = session[:oas_file_name]
+    Tempfile.open(oas_file_name) do |oas_file|
+      oas_file.write(oas_file_body)
+      oas_file.rewind
+      @spectral_results = JSON.parse(Linters::Spectral.new(file: oas_file).lint_to_json)
+    end
   end
 
   private

@@ -14,7 +14,8 @@ class UploadsController < ApplicationController
   end
 
   def set_file
-    session[:oas_file] = file_params[:oas_file]
+    session[:oas_file_name] = file_params[:oas_file].original_filename
+    session[:oas_file_body] = file_params[:oas_file].read
   end
 
   def file_params

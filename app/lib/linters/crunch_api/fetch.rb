@@ -15,7 +15,10 @@ module Linters
 
       def lint_to_json
         created_api_id = api_creator.create_api_for_file(@file)
-        report_response = report_retriever.retrieve_report_for_api(created_api_id)
+        report_response = ""
+        with_retries(:max_tries => 10, :rescue => [RestClient::RequestFailed]) do
+          report_response = report_retriever.retrieve_report_for_api(created_api_id)
+        end
         Base64.decode64(JSON.parse(report_response)["data"])
       end
 
