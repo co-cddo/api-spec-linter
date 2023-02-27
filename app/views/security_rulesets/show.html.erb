@@ -43,6 +43,7 @@
 
     <br/><br/>
 
+    <% if @issues.count > 0 %>
     <table class="govuk-table">
       <caption class="govuk-table__caption govuk-table__caption--m">Results</caption>
       <thead class="govuk-table__head">
@@ -65,8 +66,11 @@
       <% end %>
       </tbody>
     </table>
+    <% end %>
 
     <%= govuk_link_to "Select Another Linter", rulesets_path %>
+    &nbsp;|&nbsp;
+    <%= govuk_link_to "Start Again", root_path %>
 
   </div>
 </div>
