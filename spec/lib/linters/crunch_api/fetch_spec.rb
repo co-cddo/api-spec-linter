@@ -22,6 +22,7 @@ RSpec.describe Linters::CrunchApi::Fetch do
     before do
       stub_const('Linters::CrunchApi::CRUNCH_BASE_URL', 'https://platform.42crunch.com')
       stub_const('Linters::CrunchApi::CRUNCH_API_KEY', 'api_key')
+      allow(File).to receive(:read).and_return('{ "fake_json_key": "fake_json_value"}')
     end
 
     context 'when an API is created and a report is retrieved' do
