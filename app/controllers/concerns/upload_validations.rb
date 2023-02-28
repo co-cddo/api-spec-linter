@@ -14,7 +14,7 @@ module UploadValidations
     # The upload button was clicked without choosing a file to upload
     if params[:oas_file].nil?
       flash[:error] = "No file was selected"
-      return render "index"
+      return render :index
     end
 
     # The file size exceeded the maximum allowed size
@@ -26,13 +26,13 @@ module UploadValidations
       logger = Rails.logger
       logger.info "A user tried to upload a file of #{params[:oas_file].size.kilobytes} kilobytes"
       flash[:error] = "Your file exceeds the maximum size of #{MAX_FILE_SIZE} kilobytes"
-      render "index"
+      render :index
     end
 
     # If the content-type is not JSON then we also reject the upload
     if params[:oas_file].content_type != "application/json"
       flash[:error] = "This is not a valid JSON file"
-      render "index"
+      render :index
     end
   end
 end
