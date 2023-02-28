@@ -6,7 +6,7 @@
 
       <div class="govuk-grid-column-two-thirds">
 
-        <div class="govuk-form-group  <% if flash[:error] %>govuk-form-group--error<% end %>">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if flash[:error] %>">
           <label class="govuk-label" for="file-upload-1">
             Upload an OpenAPI document
           </label>
