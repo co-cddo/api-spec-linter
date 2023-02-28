@@ -1,9 +1,8 @@
 # frozen_string_literal: true
-require 'rest-client'
-require 'retries'
-require 'base64'
+require "rest-client"
+require "retries"
+require "base64"
 module Linters
-
   module CrunchApi
     # A class for fetching a crunch 42 report and returning it as a Hash
     class Fetch
@@ -48,9 +47,7 @@ module Linters
               badJson: {
                 description: "The document could not be parsed as JSON.",
                 criticality: 5,
-                issues: [
-                  { pointer: 0 }
-                ]
+                issues: [{ pointer: 0 }]
               }
             }
           }
@@ -60,5 +57,4 @@ module Linters
       attr_reader :api_creator, :report_retriever
     end
   end
-
 end

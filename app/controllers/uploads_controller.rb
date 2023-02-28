@@ -25,5 +25,4 @@ class UploadsController < ApplicationController
   def clear_errors
     flash[:error] = nil
   end
-
 end

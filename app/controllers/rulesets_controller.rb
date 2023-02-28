@@ -12,7 +12,6 @@ class RulesetsController < ApplicationController
     redirect_to "/#{@ruleset_name}/"
   end
 
-
   private
 
   def set_ruleset_name
@@ -26,5 +25,4 @@ class RulesetsController < ApplicationController
   def clear_errors
     flash[:error] = nil
   end
-
 end

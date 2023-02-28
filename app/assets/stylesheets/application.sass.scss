@@ -6,33 +6,32 @@ $govuk-assets-path: "/";
 
 //Colours for criticality styling
 .criticality-1 {
-    background-color: gray;
+  background-color: gray;
 }
 
 .criticality-2 {
-    background-color: palegoldenrod;
+  background-color: palegoldenrod;
 }
 
 .criticality-3 {
-    background-color: orange;
+  background-color: orange;
 }
 
 .criticality-4 {
-    background-color: orangered;
+  background-color: orangered;
 }
 
 .criticality-5 {
-    background-color: darkred;
+  background-color: darkred;
 }
 
-
 [class*="criticality-"] {
-    text-align: center;
-    padding: 0px !important;
-    vertical-align: middle !important;
-    font-size: 1.5em !important;
+  text-align: center;
+  padding: 0px !important;
+  vertical-align: middle !important;
+  font-size: 1.5em !important;
 }
 
 .linting-results-table td {
-    padding: 10px !important;
+  padding: 10px !important;
 }

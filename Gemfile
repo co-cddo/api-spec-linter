@@ -31,7 +31,7 @@ gem "cssbundling-rails"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -41,27 +41,27 @@ gem "bootsnap", require: false
 
 # add in additional gems below this line
 gem "activerecord-session_store"
-gem 'dotenv-rails', groups: [:development, :test]
+gem "dotenv-rails", groups: %i[development test]
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "open3", "~> 0.1.2"
-gem 'rest-client'
-gem 'retries'
+gem "rest-client"
+gem "retries"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug", platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
-  gem 'annotate', require: false
-  gem 'prettier_print', require: false
-  gem 'rubocop-govuk', require: false
-  gem 'solargraph', require: false
-  gem 'solargraph-rails', require: false
-  gem 'syntax_tree', require: false
-  gem 'syntax_tree-haml', require: false
-  gem 'syntax_tree-rbs', require: false
+  gem "annotate", require: false
+  gem "prettier_print", require: false
+  gem "rubocop-govuk", require: false
+  gem "solargraph", require: false
+  gem "solargraph-rails", require: false
+  gem "syntax_tree", require: false
+  gem "syntax_tree-haml", require: false
+  gem "syntax_tree-rbs", require: false
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
@@ -77,7 +77,7 @@ group :test do
   gem "capybara"
   gem "rails-controller-testing"
   gem "selenium-webdriver"
-  gem 'simplecov', require: false
+  gem "simplecov", require: false
   gem "vcr"
   gem "webdrivers"
   gem "webmock"
