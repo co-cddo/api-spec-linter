@@ -42,6 +42,7 @@ gem "bootsnap", require: false
 # add in additional gems below this line
 gem "activerecord-session_store"
 gem "dotenv-rails", groups: %i[development test]
+gem 'file_validators'
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "open3", "~> 0.1.2"
