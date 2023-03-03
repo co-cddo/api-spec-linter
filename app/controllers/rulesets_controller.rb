@@ -9,9 +9,8 @@ class RulesetsController < ApplicationController
   end
 
   def create
-    redirect_to "/#{@ruleset_name}/new"
+    redirect_to "/#{@ruleset_name}/"
   end
-
 
   private
 
@@ -26,5 +25,4 @@ class RulesetsController < ApplicationController
   def clear_errors
     flash[:error] = nil
   end
-
 end

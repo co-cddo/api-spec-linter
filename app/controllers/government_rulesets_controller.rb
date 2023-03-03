@@ -1,25 +1,19 @@
 # frozen_string_literal: true
 
 class GovernmentRulesetsController < ApplicationController
-  include RulesetValidations
-
-  before_action :validate_file_upload!, only: [:create]
   before_action :clear_errors
 
-  def new
-  end
+  def show
+    upload = Upload.find(session[:upload_id])
+    return redirect_to root_path, alert: "Please re upload your file" if upload.nil?
 
-  def create
-    @spectral_results = JSON.parse(Linters::Spectral.new(file: ruleset_params[:oas_file]).lint_to_json)
-
-    render 'show'
+    @spectral_results =
+      JSON.parse(
+        Linters::Spectral.new(upload:).lint_to_json
+      )
   end
 
   private
-
-  def ruleset_params
-    params.permit(:oas_file)
-  end
 
   def clear_errors
     flash[:error] = nil

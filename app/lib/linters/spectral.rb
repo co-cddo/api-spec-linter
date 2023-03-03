@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 module Linters
-  class SpectralLinterError < StandardError; end
+  class SpectralLinterError < StandardError
+  end
   class Spectral
-
-    def initialize(file:, system_command: Open3)
-      @file = file
+    def initialize(upload:, system_command: Open3)
+      @upload = upload
       @system_command = system_command
     end
 
     def lint_to_json
-      stdout_str, stderr_str = system_command.capture3("npx spectral lint -f json #{file.path}")
+      path = ActiveStorage::Blob.service.path_for(upload.oas_file.key)
+      # We can get rid of this once we use the database and active storage to store the file
+      stdout_str, stderr_str = system_command.capture3("npx spectral lint -f json #{path}")
       raise SpectralLinterError stderr_str if stderr_str.present?
       stdout_str
     rescue StandardError => e
@@ -20,6 +22,6 @@ module Linters
 
     private
 
-    attr_reader :file, :system_command
+    attr_reader :upload, :system_command
   end
 end

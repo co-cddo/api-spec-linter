@@ -1,2 +1,2 @@
 extends:
-  - '@govuk-data-standards/spectral-ruleset-govuk-public'
+  - "@govuk-data-standards/spectral-ruleset-govuk-public"

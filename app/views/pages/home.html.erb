@@ -4,14 +4,9 @@
     <p>Info about what this service is providing</p>
 
     <p>
-      <a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="govuk-button" draggable="false" href="/rulesets" data-govuk-button-module-started="true">
-        Start now
-        <svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" focusable="false" aria-hidden="true">
-          <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
-        </svg>
-      </a>
+      <%= govuk_start_button(text: "Start now", href: new_upload_path) %>
     </p>
     <p class="govuk-body">Link to
-      <a href="#" class="govuk-link">Remediation Wiki</a>.</p>
+      <a href="<%= ENV["WIKI_URL"] %>" class="govuk-link">Remediation Wiki</a>.</p>
   </div>
 </div>
