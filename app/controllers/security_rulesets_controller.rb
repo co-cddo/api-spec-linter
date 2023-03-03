@@ -5,7 +5,10 @@ class SecurityRulesetsController < ApplicationController
   before_action :clear_errors
 
   def show
-    crunch_hash = JSON.parse(crunch42_data)
+    upload = Upload.find(session[:upload_id])
+    return redirect_to root_path, alert: "Please re upload your file" if upload.nil?
+
+    crunch_hash = JSON.parse(crunch42_data(upload))
     @score = crunch_hash["score"]
     @openapi = crunch_hash["openapiState"]
     @counter = crunch_hash["issueCounter"]
@@ -19,13 +22,11 @@ class SecurityRulesetsController < ApplicationController
 
   private
 
-  def crunch42_data
+  def crunch42_data(upload)
     return File.read("fakecrunchresults.json") if ENV["BYPASS_API"] == "true"
 
-    oas_file_body = session[:oas_file_body]
-    oas_file_name = session[:oas_file_name]
-    Tempfile.open(oas_file_name) do |oas_file|
-      oas_file.write(oas_file_body)
+    Tempfile.open(upload.oas_file.key) do |oas_file|
+      oas_file.write(upload.oas_file.download)
       oas_file.rewind
       Linters::CrunchApi::Fetch.new(file: oas_file).lint_to_json
     end

@@ -6,24 +6,24 @@
 
       <div class="govuk-grid-column-two-thirds">
 
-        <div class="govuk-form-group <%= 'govuk-form-group--error' if flash[:error] %>">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' unless @upload.errors.empty? %>">
           <label class="govuk-label" for="file-upload-1">
             Upload an OpenAPI document
           </label>
-          <p id="file-upload-1-error" class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> <%= flash[:error] %>
-          </p>
-          <%= form_tag(uploads_path, method: :post, multipart: true) do %>
-            <%= file_field_tag "oas_file", class: "govuk-file-upload", label: { text: flash[:error] }, id: "oas_file", name: "oas_file",  accept: "application/json" %>
+          <%= form_for(@upload, method: :post, multipart: true) do %>
+            <p id="file-upload-1-error" class="govuk-error-message">
+              <% @upload.errors.each do |error| %>
+                <span class="govuk-visually-hidden">Error:</span> <%= error.message %>
+              <% end %>
+            </p>
+            <%= file_field_tag "oas_file", class: "govuk-file-upload", id: "oas_file", name: "oas_file",  accept: "application/json" %>
             <br>
             <br>
             <%= hidden_field_tag "ruleset_name", @ruleset_name %>
             <%= submit_tag "Submit", class: "govuk-button", data: {module: "govuk-button" } %>
           <% end %>
         </div>
-
       </div>
-
   </div>
 </div>
 

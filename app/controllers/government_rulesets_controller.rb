@@ -5,9 +5,12 @@ class GovernmentRulesetsController < ApplicationController
   before_action :clear_errors
 
   def show
+    upload = Upload.find(session[:upload_id])
+    return redirect_to root_path, alert: "Please re upload your file" if upload.nil?
+
     @spectral_results =
       JSON.parse(
-        Linters::Spectral.new(file_name: session[:oas_file_name], file_body: session[:oas_file_body]).lint_to_json
+        Linters::Spectral.new(upload: upload).lint_to_json
       )
   end
 
