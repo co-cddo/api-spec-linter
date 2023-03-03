@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class SecurityRulesetsController < ApplicationController
-  include RulesetValidations
-  before_action :clear_errors
 
   def show
     upload = Upload.find(session[:upload_id])
@@ -34,9 +32,5 @@ class SecurityRulesetsController < ApplicationController
 
   def ruleset_params
     params.permit(:oas_file)
-  end
-
-  def clear_errors
-    flash[:error] = nil
   end
 end

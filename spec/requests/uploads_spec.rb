@@ -15,6 +15,7 @@ RSpec.describe UploadsController, type: :request do
       it "returns an error message" do
         post uploads_path, params: { oas_file: upload }
         expect(response).to render_template("new")
+        expect(response.body).to include("This is not a valid JSON file")
       end
     end
 
@@ -22,6 +23,7 @@ RSpec.describe UploadsController, type: :request do
       it "returns an error message" do
         post uploads_path
         expect(response).to render_template("new")
+        expect(response.body).to include("No file was selected")
       end
     end
   end

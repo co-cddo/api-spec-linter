@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class GovernmentRulesetsController < ApplicationController
-  include RulesetValidations
   before_action :clear_errors
 
   def show
