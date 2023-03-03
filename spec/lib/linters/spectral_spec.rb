@@ -11,9 +11,12 @@ describe Linters::Spectral do
 
   context "When the command successfully runs" do
     it "executes the spectral lint command" do
-      expect(system_command).to receive(:capture3).with("npx spectral lint -f json #{ActiveStorage::Blob.service.path_for(upload.oas_file.key)}").and_return(
+      expect(system_command).to(
+        receive(:capture3)
+          .with("npx spectral lint -f json #{ActiveStorage::Blob.service.path_for(upload.oas_file.key)}")
+          .and_return(
         ["{}", ""]
-      )
+      ))
       output = subject.lint_to_json
       expect(output).to eq("{}")
     end
@@ -22,7 +25,9 @@ describe Linters::Spectral do
   context "When the command fails" do
     it "raises an error" do
       expect(system_command).to(
-        receive(:capture3).with("npx spectral lint -f json #{ActiveStorage::Blob.service.path_for(upload.oas_file.key)}").and_raise(StandardError)
+        receive(:capture3)
+          .with("npx spectral lint -f json #{ActiveStorage::Blob.service.path_for(upload.oas_file.key)}")
+          .and_raise(StandardError)
       )
       expect { subject.lint_to_json }.to raise_error(Linters::SpectralLinterError)
     end

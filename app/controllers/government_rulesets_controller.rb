@@ -10,7 +10,7 @@ class GovernmentRulesetsController < ApplicationController
 
     @spectral_results =
       JSON.parse(
-        Linters::Spectral.new(upload: upload).lint_to_json
+        Linters::Spectral.new(upload:).lint_to_json
       )
   end
 
