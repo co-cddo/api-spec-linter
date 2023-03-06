@@ -11,15 +11,13 @@ RSpec.describe Linters::CrunchApi::Fetch do
     let(:subject) { described_class.new(api_creator:, report_retriever:, deleter:, file:) }
 
     before do
-      stub_const("Linters::CrunchApi::CRUNCH_BASE_URL", "https://platform.42crunch.com")
-      stub_const("Linters::CrunchApi::CRUNCH_API_KEY", "api_key")
       allow(File).to receive(:read).and_return('{ "fake_json_key": "fake_json_value"}')
     end
 
     context "when an API is created and a report is retrieved" do
       it "creates an API and retrieves the report" do
         described_class.new(api_creator:, report_retriever:, deleter:, file:)
-        
+
         expect(subject.lint_to_json).to eq("test data")
         expect(api_creator).to have_received(:create_api_for_file).with(file)
         expect(report_retriever).to have_received(:retrieve_report_for_api).with("api_id")
