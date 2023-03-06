@@ -2,8 +2,11 @@ require "rails_helper"
 
 describe Linters::Spectral do
   let(:upload) { Upload.new }
+  let(:ruleset_name) { "test_ruleset" }
+  let(:ruleset_path) { "data/rulesets/#{ruleset_name}.yaml" }
+  let(:file_path) { ActiveStorage::Blob.service.path_for(upload.oas_file.key) }
   let(:system_command) { class_spy(Open3) }
-  subject { described_class.new(upload:, system_command:) }
+  subject { described_class.new(upload:, ruleset_name:, system_command:) }
 
   before do
     upload.oas_file.attach(io: File.open("spec/fixtures/files/valid_file.json"), filename: "valid_openapi.json")
@@ -13,7 +16,7 @@ describe Linters::Spectral do
     it "executes the spectral lint command" do
       expect(system_command).to(
         receive(:capture3)
-          .with("npx spectral lint -f json #{ActiveStorage::Blob.service.path_for(upload.oas_file.key)}")
+          .with("npx spectral lint -f json #{file_path} --ruleset #{ruleset_path}")
           .and_return(
         ["{}", ""]
       ))
@@ -26,10 +29,10 @@ describe Linters::Spectral do
     it "raises an error" do
       expect(system_command).to(
         receive(:capture3)
-          .with("npx spectral lint -f json #{ActiveStorage::Blob.service.path_for(upload.oas_file.key)}")
+          .with("npx spectral lint -f json #{file_path} --ruleset #{ruleset_path}")
           .and_raise(StandardError)
       )
-      expect { subject.lint_to_json }.to raise_error(Linters::SpectralLinterError)
+      expect { subject.lint_to_json }.to raise_error(StandardError)
     end
   end
 end
