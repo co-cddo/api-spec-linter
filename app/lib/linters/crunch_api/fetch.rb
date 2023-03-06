@@ -6,9 +6,10 @@ module Linters
   module CrunchApi
     # A class for fetching a crunch 42 report and returning it as a Hash
     class Fetch
-      def initialize(file:, api_creator: IdCreator.new, report_retriever: ReportRetriever.new)
+      def initialize(file:, api_creator: IdCreator.new, report_retriever: ReportRetriever.new, deleter: Deleter.new)
         @api_creator = api_creator
         @report_retriever = report_retriever
+        @deleter = deleter
         @file = file
       end
 
@@ -29,6 +30,10 @@ module Linters
         with_retries(max_tries: 10, rescue: [RestClient::RequestFailed]) do
           report_response = report_retriever.retrieve_report_for_api(created_api_id)
         end
+
+        #Delete everything we have created on 42Crunch to avoid hitting service limits
+        deleter.delete_api(created_api_id)
+
         Base64.decode64(JSON.parse(report_response)["data"])
       end
 
@@ -54,7 +59,7 @@ module Linters
         }.to_json
       end
 
-      attr_reader :api_creator, :report_retriever
+      attr_reader :api_creator, :report_retriever, :deleter
     end
   end
 end

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
   get "pages/home", to: "pages#home"
 
-  resources :uploads, only: %i[index create]
+  resources :uploads, only: %i[new create]
   resources :rulesets, only: %i[index create]
   resource :government_ruleset, only: %i[show create]
   resource :security_ruleset, only: %i[show create]

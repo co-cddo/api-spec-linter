@@ -1,5 +1,14 @@
 # frozen_string_literal: true
-class Upload
+
+# == Schema Information
+#
+# Table name: uploads
+#
+#  id         :bigint           not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+class Upload < ApplicationRecord
   include ActiveModel::Validations
   # Sets the maximum file size allowed as a constant
   # If no value is specified in the environment variables we
@@ -7,9 +16,9 @@ class Upload
   # Note: The web server configuration may enforce a lower limit
   MAX_FILE_SIZE = Integer(ENV["MAX_FILE_SIZE"] || 100_000)
 
-  attr_accessor :file
+  has_one_attached :oas_file
 
-  validates :file,
+  validates :oas_file,
             presence: {
               message: "No file was selected"
             },
@@ -21,8 +30,4 @@ class Upload
               allow: ["application/json"],
               message: "This is not a valid JSON file"
             }
-
-  def initialize(file:)
-    @file = file
-  end
 end
