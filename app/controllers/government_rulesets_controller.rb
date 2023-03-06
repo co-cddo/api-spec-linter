@@ -4,8 +4,8 @@ class GovernmentRulesetsController < ApplicationController
   before_action :clear_errors
 
   def show
-    upload = Upload.find(session[:upload_id])
-    return redirect_to root_path, alert: "Please re upload your file" if upload.nil?
+    @upload = Upload.find(session[:upload_id])
+    return redirect_to root_path, alert: "Please re-upload your file" if upload.nil?
 
     @issues = []
     @score = 100
@@ -31,8 +31,10 @@ class GovernmentRulesetsController < ApplicationController
 
   private
 
+  attr_accessor :upload
+
   def spectral_output
-    Linters::Spectral.new(file_name: session[:oas_file_name], file_body: session[:oas_file_body]).lint_to_json
+    Linters::Spectral.new(upload:).lint_to_json
   end
 
   def clear_errors
