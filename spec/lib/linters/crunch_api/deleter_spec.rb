@@ -3,7 +3,7 @@ require "rest-client"
 require "rails_helper"
 
 describe Linters::CrunchApi::Deleter do
-  let(:rest_client) { class_spy(RestClient, delete: "test_report") }
+  let(:rest_client) { class_spy(RestClient, delete: "ok") }
   let(:crunch_base_url) { "https://api.crunch.com" }
   let(:api_id) { "123" }
   let(:api_key) { "api_key" }
@@ -21,7 +21,7 @@ describe Linters::CrunchApi::Deleter do
       it "returns the response from the API" do
         deleter = described_class.new(rest_client:, base_url: crunch_base_url)
 
-        expect(deleter.delete_api(api_id)).to eq("test_report")
+        expect(deleter.delete_api(api_id)).to eq("ok")
         expect(rest_client).to have_received(:delete).with(url, { "X-API-KEY": api_key })
       end
     end
