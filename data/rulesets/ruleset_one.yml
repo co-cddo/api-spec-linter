@@ -1,0 +1,3 @@
+extends:
+  - "@govuk-data-standards/spectral-ruleset-govuk-public"
+

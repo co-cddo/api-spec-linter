@@ -9,7 +9,9 @@ class RulesetsController < ApplicationController
   end
 
   def create
-    redirect_to "/#{@ruleset_name}/"
+    return redirect_to "/security_ruleset" if @ruleset_name == "security_ruleset"
+
+    redirect_to government_ruleset_path(ruleset_name: @ruleset_name)
   end
 
   private
