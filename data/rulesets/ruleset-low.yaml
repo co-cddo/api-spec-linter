@@ -1,0 +1,70 @@
+extends:
+  - [spectral:oas, all]
+rules:
+  oas3-always-use-https:
+    severity: error
+    message: Servers must use the HTTPS protocol except when using localhost
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "(http:\/\/localhost)|(https).*"
+    formats: ["oas3"]
+  oas2-always-use-https:
+    severity: error
+    given: "$.schemes.*"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - 'https'
+    message: Servers must use the HTTPS protocol
+    formats: ["oas2"]
+  no-x-headers:
+    severity: error
+    message: Headers should not use the X- prefix
+    given: "$..parameters[?(@.in === 'header')].name"
+    then:
+      function: pattern
+      functionOptions:
+        match:
+          "^([^xX]|.[^-])"
+  no-x-response-headers:
+    severity: error
+    message: Headers should not use the X- prefix
+    given: "$..headers.*~"
+    then:
+      function: pattern
+      functionOptions:
+        match:
+          "^([^xX]|.[^-])"
+  description:
+    severity: error
+    given: "$"
+    description: "The info object must contain a description"
+    then:
+      field: "info.description"
+      function: truthy
+  contact:
+    severity: error
+    given: "$"
+    description: "The info object must contain either a contact email or contact url"
+    then:
+      field: "info.contact"
+      function: truthy
+  domain-name-length:
+    severity: error
+    given: "$.servers[*].url"
+    description: "The domain name must be between 3 and 63 characters long."
+    then:
+      function: pattern
+      functionOptions:
+        match: '(http:\/\/localhost$)|(https:\/\/([^\.]{3,63}\.)+[^\.]{2,63}$)'
+  domain-name-characters:
+    severity: error
+    given: "$.servers[*].url"
+    description: "The domain name must contain only alphanumeric characters (0-9 and a-z) and the ‘-’ (dash) symbol."
+    then:
+      function: pattern
+      functionOptions:
+        match: '(http:\/\/localhost$)|(https:\/\/([a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9]\.)+([a-zA-Z]{2,})$)'
