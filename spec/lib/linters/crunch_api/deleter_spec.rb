@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "rest-client"
+require "rails_helper"
 
 describe Linters::CrunchApi::Deleter do
   let(:rest_client) { class_spy(RestClient, delete: "test_report") }
