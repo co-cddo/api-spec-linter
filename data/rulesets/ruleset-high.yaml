@@ -1,0 +1,46 @@
+extends:
+  - 'ruleset-medium.yaml'
+rules:
+  oas3-strict:
+    severity: error
+    message: OpenAPI version must be 3.1.0
+    given: "$"
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: '3\.1\.0'
+
+  license-strict:
+    severity: error
+    message: "The licence should be Apache 2.0"
+    given: $.info.license.identifier
+    then:
+      function: pattern
+      functionOptions:
+        match: 'Apache-2\.0'
+
+  license-url:
+    severity: error
+    message: "The licence url should link to the correct Apache 2.0 site."
+    given: $.info.license.url
+    then:
+      function: pattern
+      functionOptions:
+        match: 'https://www\.apache\.org/licenses/LICENSE-2\.0'
+
+  not-acceptable:
+    severity: error
+    given: "$.paths.[*][get,put,post,delete,patch].responses"
+    description: "Resources that can provide a response body must declare a response for an HTTP 406 Not Acceptable"
+    then:
+      field: "406"
+      function: truthy
+
+  unsupported-media-type:
+    severity: error
+    given: "$.paths.[*][put,post,patch].responses"
+    description: "Resources that consume a request body must declare a response for an HTTP 415 Unsupported Media Type"
+    then:
+      field: "415"
+      function: truthy

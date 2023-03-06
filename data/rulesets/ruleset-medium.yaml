@@ -1,0 +1,60 @@
+extends:
+  - 'ruleset-low.yaml'
+rules:
+  oas3-minimum:
+    severity: error
+    message: OpenAPI version must be 3 or higher
+    given: "$"
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: '3\.[0-9]?\.[0-9]'
+
+  license:
+    severity: error
+    message: "The license should be a popular open source licence, for example: https://opensource.org/licenses/?categories=popular-strong-community"
+    given: $.info.license.identifier
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - "Apache-2.0"
+          - "CDDL-1.0"
+          - "EPL-2.0"
+          - "GPL-2.0"
+          - "GPL-3.0-only"
+          - "LGPL-2.1"
+          - "LGPL-3.0-only"
+          - "LGPL-2.0-only"
+          - "MPL-2.0"
+          - "BSD-2-Clause"
+          - "BSD-3-Clause"
+          - "MIT"
+
+  operation-id:
+    severity: error
+    message: "Every endpoint must have a unique operationId specified."
+    given: "$.paths.*.*"
+    then:
+      function: truthy
+      field: operationId
+
+  semver:
+    severity: error
+    message: Version should use semantic versioning. {{value}} is not a valid version.
+    given: $.info.version
+    then:
+      function: pattern
+      functionOptions:
+        match: '^([0-9]+\.[0-9]+\.[0-9]+)$'
+
+  paths-kebab-case:
+    severity: error
+    given: $.paths[*]~
+    message: "Paths should use kebab case."
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(\/[a-z0-9-.]+|\/{[a-zA-Z0-9_]+})+$'
+
