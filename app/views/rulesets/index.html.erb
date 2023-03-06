@@ -16,11 +16,9 @@
                 <%= text_field_tag("ruleset_name", ruleset_name, class: "govuk-radios__input", type: "radio", name: "ruleset_name", checked: true) %>
                 <%= label_tag("gov-ruleset", t("rulesets.#{ruleset_name}.description"), class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
               </div>
-              <%#= radio_button_tag :ruleset, ruleset_name %>
-              <%#= label_tag "ruleset_#{ruleset_name}", t("rulesets.#{ruleset_name}.description") %>
             <% end %>
             <div class="govuk-radios__item">
-              <%= text_field_tag("ruleset_name", "government_ruleset", class: "govuk-radios__input", type: "radio", name: "ruleset_name", checked: true) %>
+              <%= text_field_tag("ruleset_name", "spectral", class: "govuk-radios__input", type: "radio", name: "ruleset_name", checked: true) %>
               <%= label_tag("gov-ruleset", "UK government ruleset", class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
             </div>
             <div class="govuk-radios__item">
