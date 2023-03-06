@@ -2,6 +2,6 @@
 
 module Linters
   module Rulesets
-    ACTIVE_RULESETS = %w[ruleset_one ruleset_two ruleset_three].freeze
+    ACTIVE_RULESETS = %w[ruleset_low ruleset_medium ruleset_high].freeze
   end
 end

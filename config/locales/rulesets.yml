@@ -1,8 +1,8 @@
 en:
   rulesets:
-    ruleset_one:
-      description: Ruleset One
-    ruleset_two:
-      description: Ruleset Two
-    ruleset_three:
-      description: Ruleset Three
+    ruleset_low:
+      description: Ruleset Low
+    ruleset_medium:
+      description: Ruleset Medium
+    ruleset_high:
+      description: Ruleset High

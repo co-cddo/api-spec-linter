@@ -1,5 +1,5 @@
 extends:
-  - 'ruleset-low.yaml'
+  - 'ruleset_low.yaml'
 rules:
   oas3-minimum:
     severity: error
