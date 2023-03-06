@@ -19,7 +19,7 @@ RSpec.describe Linters::CrunchApi::Fetch do
     context "when an API is created and a report is retrieved" do
       it "creates an API and retrieves the report" do
         described_class.new(api_creator:, report_retriever:, deleter:, file:)
-
+        
         expect(subject.lint_to_json).to eq("test data")
         expect(api_creator).to have_received(:create_api_for_file).with(file)
         expect(report_retriever).to have_received(:retrieve_report_for_api).with("api_id")
