@@ -10,8 +10,8 @@ class GovernmentRulesetsController < ApplicationController
     @issues = []
     @score = 100
     @counter = 0
-    spectral_hash = JSON.parse(spectral_output)
-    spectral_hash.each do |issue|
+    issues = JSON.parse(spectral_output)
+    issues.each do |issue|
       newissue = {
         code: issue["code"],
         path: issue["path"],
