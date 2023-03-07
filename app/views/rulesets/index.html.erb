@@ -18,10 +18,6 @@
               </div>
             <% end %>
             <div class="govuk-radios__item">
-              <%= text_field_tag("ruleset_name", "spectral", class: "govuk-radios__input", type: "radio", name: "ruleset_name", checked: true) %>
-              <%= label_tag("gov-ruleset", "UK government ruleset", class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
-            </div>
-            <div class="govuk-radios__item">
               <%= text_field_tag("ruleset_name", "security_ruleset", class: "govuk-radios__input", type: "radio", name: "ruleset_name" ) %>
               <%= label_tag("security_ruleset", "Security ruleset", class: "govuk-label govuk-radios__label", for: "security-ruleset") %>
             </div>
