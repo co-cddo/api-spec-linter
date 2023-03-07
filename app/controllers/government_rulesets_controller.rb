@@ -23,7 +23,7 @@ class GovernmentRulesetsController < ApplicationController
       @issues << newissue
     end
     @score = 0 if @score.negative?
-    @issues.sort_by{|s| -s[:criticality]}
+    @issues = @issues.sort_by{|s| -s[:criticality]}
     @criticality = @issues.first[:criticality]
 
   end
