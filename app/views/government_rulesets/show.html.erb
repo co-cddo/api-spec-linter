@@ -2,42 +2,103 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">Check your OpenAPI documents correspond with UK government API linting rules.</h1>
   </div>
+  <div class="govuk-grid-column-full">
 
-  <div class="govuk-grid-column-two-thirds">
-    <table class="govuk-table">
-      <caption class="govuk-table__caption govuk-table__caption--m">Linting Results</caption>
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        GOV.UK API Check Complete
+      </h1>
+      <div class="govuk-panel__body">
+        Score: <strong><%= @score.round(0) %> / 100</strong>
+      </div>
+    </div>
+    <br/><br/>
+    <h2 class="govuk-heading-m">Summary</h2>
+    <dl class="govuk-summary-list">
+      <% if @openapi %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          OpenAPI Validity:
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @openapi.capitalize %>
+        </dd>
+      </div>
+      <% end %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Issue Count:
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @issues.count %>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Criticality:
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= @criticality %>
+        </dd>
+      </div>
+    </dl>
+
+    <br/><br/>
+
+    <% if @issues.count > 0 %>
+    <table class="govuk-table linting-results-table">
+      <caption class="govuk-table__caption govuk-table__caption--m">Results</caption>
       <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">Code</th>
+        <th scope="col" class="govuk-table__header">Criticality</th>
+        <th scope="col" class="govuk-table__header">Issue</th>
         <th scope="col" class="govuk-table__header">Line</th>
         <th scope="col" class="govuk-table__header">Character</th>
-        <th scope="col" class="govuk-table__header">Problem</th>
         <th scope="col" class="govuk-table__header">Remedy</th>
       </tr>
       </thead>
       <tbody class="govuk-table__body">
-      <% @spectral_results.each do |result| %>
+      <% @issues.each do |issue| %>
         <tr class="govuk-table__row">
-          <th scope="row" class="govuk-table__header"><%= result['code'] %></th>
-          <td class="govuk-table__cell"><%= result['range']['start']['line'] %></td>
-          <td class="govuk-table__cell"><%= result['range']['start']['character'] %></td>
-          <td class="govuk-table__cell"><%= result['message'] %></td>
+          <td class="govuk-table__cell criticality-<%= issue[:criticality] %>"><%= issue[:criticality] %></td>
+          <td class="govuk-table__cell"><%= issue[:message] %></td>
+          <td class="govuk-table__cell"><%= issue[:line] %></td>
+          <td class="govuk-table__cell"><%= issue[:character] %></td>
           <td class="govuk-table__cell">
-            <a href="https://cddo-api-spec-tech-docs.herokuapp.com/api-linting-remediation.html ">Details</a>
-          </td>
+          <a href="<%= issue[:remediation] %>">Details</a></td>
         </tr>
       <% end %>
       </tbody>
     </table>
+    <% end %>
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half">
+    <div class="govuk-grid-row no-print">
+      <div class="govuk-grid-column-one-third">
         <%= govuk_link_to "Select Another Linter", rulesets_path %>
       </div>
-      <div class="govuk-grid-column-one-half">
+      <div class="govuk-grid-column-one-third">
         <%= govuk_link_to "Start Again", root_path %>
       </div>
+      <div class="govuk-grid-column-one-third">
+          <button class="govuk-button" data-module="govuk-button" onclick="window.print();">
+            Print or Save
+          </button>
+      </div>
     </div>
+
+    <details class="govuk-details no-print" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Help with printing or saving
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            The "Print or Save" button uses your web browser's built in print functionality.<br/>
+            You can choose to print it out on your printer, and most browsers will also allow you to "Save as PDF".<br/>
+            If this does not work for you, try a recent version of Google Chrome and ensure JavaScript is enabled in the settings.<br/>
+            <%= govuk_link_to "How to print to PDF from Google Chrome", "https://www.adobe.com/uk/acrobat/resources/chrome-to-pdf.html" %>
+          </div>
+    </details>
 
   </div>
 

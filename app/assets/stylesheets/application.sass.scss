@@ -35,3 +35,13 @@ $govuk-assets-path: "/";
 .linting-results-table td {
   padding: 10px !important;
 }
+
+// Ensures that the background colours are shown when printing or saving
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
