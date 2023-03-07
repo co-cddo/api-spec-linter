@@ -9,7 +9,6 @@ class GovernmentRulesetsController < ApplicationController
 
     @issues = []
     @score = 100
-    @counter = 0
     issues = JSON.parse(spectral_output)
     issues.each do |issue|
       newissue = {
@@ -20,9 +19,7 @@ class GovernmentRulesetsController < ApplicationController
         range: issue["range"],
         remediation: URI.join(ENV["WIKI_URL"], issue["code"]).to_s
       }
-      @counter += 1
       @score -= newissue[:criticality]
-
       @issues << newissue
     end
     @score = 0 if @score.negative?
