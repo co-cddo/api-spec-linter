@@ -14,7 +14,7 @@
             <% Linters::Rulesets::ACTIVE_RULESETS.each do |ruleset_name| %>
               <div class="govuk-radios__item">
                 <%= text_field_tag("ruleset_name", ruleset_name, class: "govuk-radios__input", type: "radio", name: "ruleset_name", checked: true) %>
-                <%= label_tag("gov-ruleset", t("rulesets.#{ruleset_name}.description"), class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
+                <%= label_tag("gov-ruleset", t("rulesets.#{ruleset_name}.description"), class: "govuk-label govuk-radios__label", for: "ruleset_name_#{ruleset_name}") %>
               </div>
             <% end %>
             <div class="govuk-radios__item">
