@@ -38,9 +38,10 @@ $govuk-assets-path: "/";
 
 // Ensures that the background colours are shown when printing or saving
 @media print {
-  body {-webkit-print-color-adjust: exact;}
-}
-
-.no-print {
-  display: none !important;
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+  .no-print {
+    display: none !important;
+  }
 }
