@@ -52,7 +52,8 @@
       <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header">Criticality</th>
         <th scope="col" class="govuk-table__header">Issue</th>
-        <th scope="col" class="govuk-table__header">Line Numbers</th>
+        <th scope="col" class="govuk-table__header">Line</th>
+        <th scope="col" class="govuk-table__header">Character</th>
         <th scope="col" class="govuk-table__header">Remedy</th>
       </tr>
       </thead>
@@ -61,7 +62,8 @@
         <tr class="govuk-table__row">
           <td class="govuk-table__cell criticality-<%= issue[:criticality] %>"><%= issue[:criticality] %></td>
           <td class="govuk-table__cell"><%= issue[:message] %></td>
-          <td class="govuk-table__cell">0</td>
+          <td class="govuk-table__cell"><%= issue[:line] %></td>
+          <td class="govuk-table__cell"><%= issue[:character] %></td>
           <td class="govuk-table__cell">
           <a href="<%= issue[:remediation] %>">Details</a></td>
         </tr>

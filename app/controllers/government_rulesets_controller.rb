@@ -16,7 +16,8 @@ class GovernmentRulesetsController < ApplicationController
         path: issue["path"],
         message: issue["message"],
         criticality: 5 - issue["severity"],
-        range: issue["range"],
+        line: issue["range"]["start"]["line"],
+        character: issue["range"]["start"]["character"],
         remediation: URI.join(ENV["WIKI_URL"], issue["code"]).to_s
       }
       @score -= newissue[:criticality]
