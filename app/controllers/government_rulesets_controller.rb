@@ -17,15 +17,18 @@ class GovernmentRulesetsController < ApplicationController
         path: issue["path"],
         message: issue["message"],
         criticality: 5 - issue["severity"],
-        range: issue["range"]
+        range: issue["range"],
+        remediation: URI.join(ENV["WIKI_URL"], issue["code"]).to_s
       }
       @counter += 1
       @score -= newissue[:criticality]
+
       @issues << newissue
     end
     @score = 0 if @score.negative?
     @issues.sort_by{|s| -s[:criticality]}
     @criticality = @issues.first[:criticality]
+
   end
 
 

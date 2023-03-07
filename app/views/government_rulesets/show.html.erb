@@ -63,7 +63,7 @@
           <td class="govuk-table__cell"><%= issue[:message] %></td>
           <td class="govuk-table__cell">0</td>
           <td class="govuk-table__cell">
-          <a href="<%= ENV["WIKI_URL"] %>">Details</a></td>
+          <a href="<%= issue[:remediation] %>">Details</a></td>
         </tr>
       <% end %>
       </tbody>
