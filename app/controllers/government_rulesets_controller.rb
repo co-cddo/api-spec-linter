@@ -5,6 +5,7 @@ class GovernmentRulesetsController < ApplicationController
 
   def show
     @upload = Upload.find(session[:upload_id])
+    @ruleset_name = params[:ruleset_name]
     return redirect_to root_path, alert: "Please re-upload your file" if upload.nil?
 
     @issues = []
@@ -32,10 +33,10 @@ class GovernmentRulesetsController < ApplicationController
 
   private
 
-  attr_accessor :upload
+  attr_accessor :upload, :ruleset_name
 
   def spectral_output
-    Linters::Spectral.new(upload:).lint_to_json
+    Linters::Spectral.new(upload:, ruleset_name:).lint_to_json
   end
 
   def clear_errors

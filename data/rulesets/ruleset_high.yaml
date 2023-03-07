@@ -1,5 +1,5 @@
 extends:
-  - 'ruleset-medium.yaml'
+  - 'ruleset_medium.yaml'
 rules:
   oas3-strict:
     severity: error

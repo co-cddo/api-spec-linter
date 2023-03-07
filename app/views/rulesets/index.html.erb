@@ -11,10 +11,12 @@
             </h1>
           </legend>
           <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-              <%= text_field_tag("ruleset_name", "government_ruleset", class: "govuk-radios__input", type: "radio", name: "ruleset_name", checked: true) %>
-              <%= label_tag("gov-ruleset", "UK government ruleset", class: "govuk-label govuk-radios__label", for: "gov-ruleset") %>
-            </div>
+            <% Linters::Rulesets::ACTIVE_RULESETS.each do |ruleset_name| %>
+              <div class="govuk-radios__item">
+                <%= text_field_tag("ruleset_name", ruleset_name, class: "govuk-radios__input", type: "radio", name: "ruleset_name", checked: true) %>
+                <%= label_tag("gov-ruleset", t("rulesets.#{ruleset_name}.description"), class: "govuk-label govuk-radios__label", for: "ruleset_name_#{ruleset_name}") %>
+              </div>
+            <% end %>
             <div class="govuk-radios__item">
               <%= text_field_tag("ruleset_name", "security_ruleset", class: "govuk-radios__input", type: "radio", name: "ruleset_name" ) %>
               <%= label_tag("security_ruleset", "Security ruleset", class: "govuk-label govuk-radios__label", for: "security-ruleset") %>
