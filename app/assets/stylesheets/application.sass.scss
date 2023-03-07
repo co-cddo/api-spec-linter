@@ -40,3 +40,7 @@ $govuk-assets-path: "/";
 @media print {
   body {-webkit-print-color-adjust: exact;}
 }
+
+.no-print {
+  display: none !important;
+}
