@@ -25,3 +25,5 @@ tmp/pids/*
 !tmp/pids/.keep
 
 coverage
+
+storage/*
