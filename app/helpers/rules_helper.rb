@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module RulesHelper
-  require "govspeak"
-  
   def govspeak_to_html(govspeak)
     return if govspeak.blank?
 
