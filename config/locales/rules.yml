@@ -1,0 +1,98 @@
+---
+en:
+  rules:
+    # Please enter the description of the rule below using the rule code as the key.
+    # (Use a pipe after each key so that linefeeds are preserved in the output.)
+
+    # The values use Govspeak markdown to enable rich content.
+    # See: https://govspeak-preview.publishing.service.gov.uk/guide
+
+    oas3-strict: |
+      OpenAPI Specification 3 - Strict
+      ----------
+      OpenAPI version must be 3.1.0
+
+    license-strict: |
+      License strict
+      --------------
+      The licence should be Apache 2.0
+
+    license-url: |
+      License URL
+      -----------
+      The licence url should link to the correct Apache 2.0 site.
+
+    not-acceptable: |
+      Not acceptable
+      -----------
+      Resources that can provide a response body must declare a response for an HTTP 406 Not Acceptable
+
+    unsupported-media-type: |
+      Unsupported media type
+      ----------------------
+      Resources that consume a request body must declare a response for an HTTP 415 Unsupported Media Type
+
+    oas3-minimum: |
+      OpenAPI Specification 3 - minimum
+      ---------------------------------
+      OpenAPI version must be 3 or higher
+
+    license: |
+      License
+      -------
+      The license should be a popular open source licence, for example: https://opensource.org/licenses/?categories=popular-strong-community
+
+    operation-id: |
+      Operation ID
+      ------------
+      Every endpoint must have a unique operationId specified.
+
+    semver: |
+      Semantic Versioning
+      -------------------
+      Version should use semantic versioning. {{value}} is not a valid version.
+
+    paths-kebab-case: |
+      Paths kebab case
+      ----------------
+      Paths should use kebab case.
+
+    oas3-always-use-https: |
+      OpenAPI Specification 3 - Always use HTTPS
+      ------------------------------------------
+      Servers must use the HTTPS protocol except when using localhost
+
+    oas2-always-use-https: |
+      OpenAPI Specification 2 - Always use HTTPS
+      ------------------------------------------
+      Servers must use the HTTPS protocol
+
+    no-x-headers: |
+      No X-Headers
+      ------------
+      Headers should not use the X- prefix
+
+    no-x-response-headers: |
+      No X response headers
+      ---------------------
+      message: Headers should not use the X- prefix
+
+    description: |
+      Description
+      -----------
+      The info object must contain a description
+
+    contact: |
+      Contact
+      -------
+      The info object must contain either a contact email or contact url
+
+    domain-name-length: |
+      Domain name length
+      ------------------
+      The domain name must be between 3 and 63 characters long.
+
+    domain-name-characters: |
+      Domain name characters
+      ----------------------
+      The domain name must contain only alphanumeric characters (0-9 and a-z) and the ‘-’ (dash) symbol.

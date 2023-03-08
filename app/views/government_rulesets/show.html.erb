@@ -64,8 +64,7 @@
           <td class="govuk-table__cell"><%= issue[:message] %></td>
           <td class="govuk-table__cell"><%= issue[:line] %></td>
           <td class="govuk-table__cell"><%= issue[:character] %></td>
-          <td class="govuk-table__cell">
-          <a href="<%= issue[:remediation] %>">Details</a></td>
+          <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
         </tr>
       <% end %>
       </tbody>
