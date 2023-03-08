@@ -13,9 +13,44 @@ en:
       OpenAPI version must be 3.1.0
 
     license-strict: |
-      License strict
-      --------------
-      The licence should be Apache 2.0
+      License must be Apache 2.0
+      ==========================
+
+      Description
+      -----------
+
+      The license should be the Apache 2.0 license, a popular open source license.
+
+      Example
+      -------
+
+      The following is an example of an OpenAPI document which is referencing a closed source license type:
+
+
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+            license:
+              name: EULA
+              identifier: EULA
+          paths: {}
+
+
+      Remediation
+      -----------
+
+      The following is an example of an OpenAPI document which uses the correct license type:
+
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+            license:
+              name: Apache 2.0
+              identifier: Apache-2.0
+          paths: {}
+
 
     license-url: |
       License URL
