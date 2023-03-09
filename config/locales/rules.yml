@@ -9,8 +9,33 @@ en:
 
     oas3-strict: |
       OpenAPI Specification 3 - Strict
-      ----------
-      OpenAPI version must be 3.1.0
+      ================================
+      
+      Description
+      -----------
+
+      The version of the OpenAPI document must be version 3.1.0. OpenAPI v3.1.0 is the most recent official version.
+      It contains more features than the previous versions. You can read more about the differences in a [blog post on the Stoplight site](https://blog.stoplight.io/difference-between-open-v2-v3-v31).
+
+      Example
+      -------
+
+      The following is an example of how your OpenAPI document that is using an old version:
+
+          openapi: 3.0.0
+          info:
+            title: ''
+            version: '1.0.0'
+
+      Remediation
+      -----------
+
+      The following is an example of an OpenAPI document using the latest version of OpenAPI:
+
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
 
     license-strict: |
       License must be Apache 2.0
@@ -24,8 +49,7 @@ en:
       Example
       -------
 
-      The following is an example of an OpenAPI document which is referencing a closed source license type:
-
+      The following is an example of an OpenAPI document which is referencing a proprietary license type:
 
           openapi: 3.1.0
           info:
@@ -35,7 +59,6 @@ en:
               name: EULA
               identifier: EULA
           paths: {}
-
 
       Remediation
       -----------
@@ -54,80 +77,614 @@ en:
 
     license-url: |
       License URL
+      ===========
+      
+      Description
       -----------
-      The licence url should link to the correct Apache 2.0 site.
+
+      The license URL should point to the Apache 2.0 license, a popular open source license.
+
+      Example
+      -------
+
+      The following is an example of an OpenAPI document which has the wrong url for the license:
+  
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+            license:
+              name: Apache 2.0
+              identifier: Apache-2.0
+              url: https://www.example.com
+          paths: {}
+
+      Remediation
+      -----------
+
+      The following is an example of an OpenAPI document which uses the correct license url:
+
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+            license:
+              name: Apache 2.0
+              identifier: Apache-2.0
+              url: https://www.apache.org/licenses/LICENSE-2.0
+          paths: {}
 
     not-acceptable: |
       Not acceptable
+      ==============
+      
+      Description
       -----------
-      Resources that can provide a response body must declare a response for an HTTP 406 Not Acceptable
+      A 406 Not Acceptable error is returned when the consumer makes a request with a value in a content negotiation header that the producer can't handle. For example the consumer might request a version, a media type or a language etc. that the producer does not support. Declaring a 406 as a response makes it clear to the consumer why their request failed.
+
+      Example
+      ------- 
+      
+      The following is an example of how an operation missing a 406 response might look:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            "/":
+              post:
+                responses:
+                  '200': {}
+      
+      Remediation
+      -----------
+      
+      The following is how an example of how an operation that does declare a 406 response:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            "/":
+              post:
+                responses:
+                  '406': {}
 
     unsupported-media-type: |
       Unsupported media type
-      ----------------------
-      Resources that consume a request body must declare a response for an HTTP 415 Unsupported Media Type
+      ======================
+      
+      Description
+      -----------
+      A 415 Unsupported Media Type error is returned when the consumer makes a request with a payload in a format that is not supported by the provider. Declaring a 415 as a response makes it clear to the consumer why their request failed. PUT, POST and PATCH operations should all declare a 415 as a response.
+
+      Example
+      ------- 
+      
+      The following is an example of how an operation missing a 415 response might look:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            "/":
+              post:
+                responses:
+                  '200': {}
+      
+      Remediation
+      -----------
+      
+      The following is how an example of how an operation that does declare a 415 response:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            "/":
+              post:
+                responses:
+                  '415': {}
 
     oas3-minimum: |
       OpenAPI Specification 3 - minimum
-      ---------------------------------
-      OpenAPI version must be 3 or higher
+      =================================
+      
+      Description
+      -----------
+      The version of the OpenAPI document must be version 3 or higher. OpenAPI v3.0 is the most recent official major release version.
+      It contains more features than the previous major version. You can read more about the differences in a [blog post on the Stoplight site](https://blog.stoplight.io/difference-between-open-v2-v3-v31).
+
+      Example
+      ------- 
+      
+      The following is an example of how your OpenAPI document that is using an old version:
+      
+          openapi: 2.0.0
+          info:
+            title: ''
+            version: '1.0.0'
+      
+      Remediation
+      -----------
+      
+      The following is an example of an OpenAPI document using the latest major version of OpenAPI:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
 
     license: |
       License
-      -------
-      The license should be a popular open source licence, for example: https://opensource.org/licenses/?categories=popular-strong-community
+      =======
+      
+      Description
+      -----------
+      The license should be a popular open source licence, for example one of the popular licenses [listed on the opensource site](https://opensource.org/licenses/?categories=popular-strong-community).
+
+      Example
+      ------- 
+      
+      The following is an example of an OpenAPI document which is referencing a closed source license type:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+            license:
+              name: EULA
+              identifier: EULA
+          paths: {}
+      
+      Remediation
+      -----------
+      
+      The following is an example of an OpenAPI document which uses one of the popular licenses listed on the opensource site:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+            license:
+              name: Apache 2.0
+              identifier: Apache-2.0
+          paths: {}
 
     operation-id: |
       Operation ID
-      ------------
-      Every endpoint must have a unique operationId specified.
+      ============
+
+      Description
+      -----------
+      The operationID is a Unique string used to identify the operation. The id MUST be unique among all operations described in the API.
+      Every endpoint must have an operationId specified.
+  
+      The operationId will be used to name methods in the API clients. As such, changes to the names should be treated as breaking changes, and so we should be careful and explicit with our naming of them
+  
+      This ID will become the method name in the SDK.
+
+      note: The operationId value is case-sensitive. Tools and libraries MAY use the operationId to uniquely identify an operation, therefore, it is RECOMMENDED to follow common programming naming conventions.
+
+      Example
+      ------- 
+      
+      The following is an example of an OpenAPI document which defines an operation that is missing an operationId:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            /ping:
+              get:
+                summary: Checks if the server is alive
+      
+      Remediation
+      -----------
+      
+      The following is an example of an OpenAPI document which defines an operation that does have an operationId:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            /ping:
+              get:
+                summary: Checks if the server is alive
+                operationId: ping
 
     semver: |
       Semantic Versioning
-      -------------------
-      Version should use semantic versioning. {{value}} is not a valid version.
+      ===================
+      
+      Description
+      -----------
+      Releasing new versions of an OpenAPI document can cause issues for consumers. The semantic versioning specification outlines rules which are designed to make it clear to consumers if a new version contains a breaking change.
+
+      Example
+      ------- 
+      
+      Semantic versioning numbers should have a major, minor and patch number. The following is an example of how an incorrect version number could look in your API definition (the following is missing a patch number):
+        
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0'
+          paths: {}
+      
+      Remediation
+      -----------
+      
+      The following is how a correctly versioned OpenAPI document could look:
+              
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths: {}
 
     paths-kebab-case: |
       Paths kebab case
-      ----------------
-      Paths should use kebab case.
+      ================
+      
+      Description
+      -----------
+      It is best practice to use kebab case (words separated by a hyphen) for URL names, rather than other cases such as camel case or snake case.
+
+      Example
+      ------- 
+      
+      The following is an example of an OpenAPI document which has a path name that does not use kebab case:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            /path_parameter:
+              get:
+                summary: Checks if the server is alive
+                operationId: ping
+      
+      Remediation
+      -----------
+      
+      The following is an example of an OpenAPI document which has a path name that does use kebab case:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            /path-parameter:
+              get:
+                summary: Checks if the server is alive
+                operationId: ping
 
     oas3-always-use-https: |
       OpenAPI Specification 3 - Always use HTTPS
-      ------------------------------------------
-      Servers must use the HTTPS protocol except when using localhost
+      ==========================================
+      
+      Description
+      -----------
+      Use of HTTPS is recommended in the [API guidance on gov.uk](https://www.gov.uk/guidance/gds-api-technical-and-data-standards#use-https).
+
+      Example
+      ------- 
+      
+      The following is an example of how this type of risk could look in your API definition:
+      
+          openapi: 3.1.0
+            info:
+            title: ''
+            version: '1.0.0'
+            paths: {}
+            servers:
+              - url: http://api.example.com
+      
+      
+      Possible Exploit Scenario
+      -----------
+      
+      Many services collect personal information from users or present information to them which they then use to make important decisions.
+  
+      It’s important that you build a service that does not allow this information to be intercepted or modified by malicious third parties as it travels over the internet.
+      
+      This means you must make sure your service (including APIs) is only accessible through secure connections. For web-based services this means HTTPS only, with an HTTP Strict Transport Security (HSTS) configuration as explained in this guide.
+      
+      (HTTPS describes the use of TLS, a lower level protocol previously known as SSL, to secure HTTP requests.)
+      
+      Remediation
+      -----------
+      
+      The following is how this should look in your API definition:
+      
+          openapi: 3.1.0
+            info:
+            title: ''
+            version: '1.0.0'
+            paths: {}
+            servers:
+              - url: https://api.example.com
 
     oas2-always-use-https: |
       OpenAPI Specification 2 - Always use HTTPS
-      ------------------------------------------
-      Servers must use the HTTPS protocol
+      ==========================================
+
+      Description
+      -----------
+      Use of HTTPS is recommended in the [API guidance on gov.uk](https://www.gov.uk/guidance/gds-api-technical-and-data-standards#use-https).
+
+      Example
+      ------- 
+      
+      The following is an example of how this type of risk could look in your API definition:
+      
+          openapi: 3.1.0
+            info:
+            title: ''
+            version: '1.0.0'
+            paths: {}
+            servers:
+              - url: http://api.example.com
+      
+      
+      Possible Exploit Scenario
+      -----------
+      
+      Many services collect personal information from users or present information to them which they then use to make important decisions.
+      
+      It’s important that you build a service that does not allow this information to be intercepted or modified by malicious third parties as it travels over the internet.
+      
+      This means you must make sure your service (including APIs) is only accessible through secure connections. For web-based services this means HTTPS only, with an HTTP Strict Transport Security (HSTS) configuration as explained in this guide.
+      
+      (HTTPS describes the use of TLS, a lower level protocol previously known as SSL, to secure HTTP requests.)
+      
+      Remediation
+      -----------
+      
+      The following is how this should look in your API definition:
+      
+          openapi: 3.1.0
+            info:
+            title: ''
+            version: '1.0.0'
+            paths: {}
+            servers:
+              - url: https://api.example.com
 
     no-x-headers: |
       No X-Headers
-      ------------
-      Headers should not use the X- prefix
+      ============
+      
+      Description
+      -----------
+      X- was originally used as a prefix for experimental HTTP headers, however it led to unstandardised headers being used in production. Therefore [rfc6648](https://datatracker.ietf.org/doc/html/rfc6648) deprecates this convention.
+
+      Example
+      ------- 
+      
+      The following is an example of how this might look in your OpenAPI document:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            "/ping":
+              get:
+                parameters:
+                  - in: header
+                    name: X-Request-ID
+                    schema:
+                      type: string
+        
+      Remediation
+      -----------
+      
+      The following is how the request header would look without the `X-` prefix:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+            /ping:
+              get:
+                summary: Checks if the server is alive
+                parameters:
+                  - in: header
+                    name: Request-ID
+                    schema:
+                      type: string
 
     no-x-response-headers: |
       No X response headers
-      ---------------------
-      message: Headers should not use the X- prefix
-
-    description: |
+      =====================
+      
       Description
       -----------
-      The info object must contain a description
+      X- was originally used as a prefix for experimental HTTP headers, however it led to unstandardised headers being used in production. Therefore [rfc6648](https://datatracker.ietf.org/doc/html/rfc6648) deprecates this convention.
+
+      Example
+      ------- 
+      
+      The following is an example of how this might look in your OpenAPI document:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+          "/ping":
+            get:
+              summary: Checks if the server is alive.
+              responses:
+                '200':
+                  description: OK
+                  headers:
+                    X-RateLimit-Limit:
+                      schema:
+                        type: integer
+      
+      Remediation
+      -----------
+      
+      The following is how the request header would look without the `X-` prefix:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths:
+          "/ping":
+            get:
+              summary: Checks if the server is alive.
+              responses:
+                '200':
+                  description: OK
+                  headers:
+                    RateLimit-Limit:
+                      schema:
+                        type: integer
+
+    description: |
+      
+      Description
+      ===========
+      
+      Description
+      -----------
+      A description helps people understand what the API can be used for and is useful for making your API more discoverable. The [gov.uk API standards](https://www.gov.uk/guidance/gds-api-technical-and-data-standards) recommends putting your API on the cross-government API catalogue, and description is one of the required fields in our [proposed metadata model](https://github.com/co-cddo/federated-api-model/blob/main/schemas/v1alpha/api-metadata.json) for the catalogue. Having the description field present could also be helpful in generating catalogue entries from OpenAPI documents in the future.
+
+      Example
+      ------- 
+      
+      The following is an example of how your OpenAPI document might look if it's missing a description:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths: {}
+      
+      Remediation
+      -----------
+      
+      The following is an example of an OpenAPI document with a description:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+            description: 'A description of the API.'
+          paths: {}
 
     contact: |
       Contact
-      -------
-      The info object must contain either a contact email or contact url
+      =======
+      
+      Description
+      -----------
+      The info object must contain either a contact email or contact url. A contact email or url allows people to contact the maintainers of the API and is useful for cataloguing purposes. The [gov.uk API standards](https://www.gov.uk/guidance/gds-api-technical-and-data-standards) recommends putting your API on the cross-government API catalogue, and contact is one of the required fields in our [proposed metadata model](https://github.com/co-cddo/federated-api-model/blob/main/schemas/v1alpha/api-metadata.json) for the catalogue. Having the contact field present could also be helpful in generating catalogue entries from OpenAPI documents in the future.
+
+      Example
+      ------- 
+      
+      The following is an example of how your OpenAPI document might look if it's missing contact information:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths: {}
+      
+      Remediation
+      -----------
+      
+      The following is an example of an OpenAPI document with contact information included:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+            contact: {
+              "name": "API Support",
+              "url": "https://www.example.com/support",
+              "email": "support@example.com"
+            }
+          paths: {}
 
     domain-name-length: |
       Domain name length
-      ------------------
-      The domain name must be between 3 and 63 characters long.
+      ==================
+      
+      Description
+      -----------
+      The [guidance on gov.uk](https://www.gov.uk/guidance/get-an-api-domain-on-govuk) specifies that an API domain should be between 3 and 63 characters long.
+
+      Example
+      ------- 
+      
+      The following is an example of a domain name which would fail this rule because it is too long:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths: {}
+          servers:
+            - url: 'https://vehicle-registration-number-vehicle-registration-number-vehicles.api.gov.uk'
+      
+      Remediation
+      -----------
+      
+      The following is an example of a valid domain name:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths: {}
+          servers:
+            - url: 'https://vehicle-registration-number.api.gov.uk'
 
     domain-name-characters: |
       Domain name characters
-      ----------------------
-      The domain name must contain only alphanumeric characters (0-9 and a-z) and the ‘-’ (dash) symbol.
+      ======================
+      
+      Description
+      -----------
+      The [guidance on gov.uk](https://www.gov.uk/guidance/get-an-api-domain-on-govuk) specifies that an API domain name must contain only alphanumeric characters (0-9 and a-z) and the ‘-’ (dash) symbol.
+
+      Example
+      ------- 
+      
+      The following is an example of a domain name which would fail this rule because it contains an invalid character:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths: {}
+          servers:
+            - url: 'https://vehicle-registration-number-*.api.gov.uk'
+      
+      Remediation
+      -----------
+      
+      The following is an example of a valid domain name:
+      
+          openapi: 3.1.0
+          info:
+            title: ''
+            version: '1.0.0'
+          paths: {}
+          servers:
+            - url: 'https://vehicle-registration-number.api.gov.uk'
