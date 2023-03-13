@@ -1,8 +1,14 @@
 en:
   rulesets:
     ruleset_low:
-      description: Ruleset Low
+      name: Ruleset Low
+      description: Ruleset Low Description
     ruleset_medium:
-      description: Ruleset Medium
+      name: Ruleset Medium
+      description: Ruleset Medium Description
     ruleset_high:
-      description: Ruleset High
+      name: Ruleset High
+      description: Ruleset High Description
+    security_ruleset:
+      name: Security Ruleset
+      description: Security Ruleset Description (Crunch42)
