@@ -4,6 +4,7 @@ class GovernmentRulesetsController < ApplicationController
   before_action :clear_errors
 
   def show
+    @breadcrumbs = { Home: root_path, Uploads: new_upload_path, Rulesets: rulesets_path, Report:"#"}
     @upload = Upload.find(session[:upload_id])
     @ruleset_name = params[:ruleset_name]
     return redirect_to root_path, alert: "Please re-upload your file" if upload.nil?
