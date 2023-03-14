@@ -6,6 +6,7 @@ class RulesetsController < ApplicationController
   before_action :clear_errors
 
   def index
+    @breadcrumbs = { Home: root_path, Uploads: new_upload_path, Rulesets: rulesets_path}
   end
 
   def create

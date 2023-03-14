@@ -2,6 +2,7 @@
 
 class UploadsController < ApplicationController
   def new
+    @breadcrumbs = { Home: root_path, Uploads: new_upload_path}
     @upload = Upload.new
   end
 
