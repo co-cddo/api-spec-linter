@@ -1,56 +1,79 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Check your OpenAPI documents correspond with UK government API linting rules.</h1>
+    <h1 class="govuk-heading-xl">Your results</h1>
   </div>
   <div class="govuk-grid-column-full">
-
-    <div class="govuk-panel govuk-panel--confirmation">
-      <h1 class="govuk-panel__title">
-        GOV.UK API Check Complete
-      </h1>
-      <div class="govuk-panel__body">
-        Score: <strong><%= @score.round(0) %> / 100</strong>
-      </div>
-    </div>
-    <br/><br/>
     <h2 class="govuk-heading-m">Summary</h2>
     <dl class="govuk-summary-list">
-      <% if @openapi %>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          OpenAPI Validity:
+          Filename:
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @openapi.capitalize %>
-        </dd>
-      </div>
-      <% end %>
-      <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          Issue Count:
-        </dt>
-        <dd class="govuk-summary-list__value">
-          <%= @issues.count %>
+          <%= @filename %>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Criticality:
+          Ruleset:
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @criticality %>
+          <%= @ruleset_name %>
         </dd>
       </div>
     </dl>
 
-    <br/><br/>
+    <h2 class="govuk-heading-m">Issues</h2>
 
-    <% if @issues.count > 0 %>
+    <% if @errors.count > 0 %>
+      <div class="govuk-error-summary" data-module="govuk-error-summary">
+        <div role="alert">
+          <h2 class="govuk-error-summary__title">
+            Your document has errors
+          </h2>
+          <div class="govuk-error-summary__body">
+            <p>
+              There are <%= @errors.count %> errors in this document that need fixing.
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @warnings.count > 0 %>
+      <%= govuk_notification_banner(
+        title_text: "Your document has warnings",
+        text: "There are #{@warnings.count} warnings in this document that need fixing.")
+      %>
+    <% end %>
+
+    <% if @errors.count == 0 and @warnings.count == 0%>
+      <div class="govuk-notification-banner govuk-notification-banner--success" data-module="govuk-notification-banner" role="alert" aria-labelledby="govuk-notification-banner-title">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Success
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <div class="govuk-notification-banner__heading">
+            Document has passed. No issues require action.
+          </div>
+            <% if @issues.count > 0 %>
+              <p>Issues noted as "information" or "hint" can be addressed to further
+              better compliance to standards.</p>
+            <% else %>
+              <p>Your document is fully compliant with all rules in the chosen ruleset.</p>
+            <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @errors.count > 0 %>
     <table class="govuk-table linting-results-table">
-      <caption class="govuk-table__caption govuk-table__caption--m">Results</caption>
+    <caption class="govuk-table__caption govuk-table__caption--m">Errors</caption>
       <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">Criticality</th>
+        <th scope="col" class="govuk-table__header">Code</th>
         <th scope="col" class="govuk-table__header">Issue</th>
         <th scope="col" class="govuk-table__header">Line</th>
         <th scope="col" class="govuk-table__header">Character</th>
@@ -58,9 +81,9 @@
       </tr>
       </thead>
       <tbody class="govuk-table__body">
-      <% @issues.each do |issue| %>
+      <% @errors.each do |issue| %>
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell criticality-<%= issue[:criticality] %>"><%= issue[:criticality] %></td>
+          <td class="govuk-table__cell"><%= issue[:code] %></td>
           <td class="govuk-table__cell"><%= issue[:message] %></td>
           <td class="govuk-table__cell"><%= issue[:line] %></td>
           <td class="govuk-table__cell"><%= issue[:character] %></td>
@@ -70,6 +93,85 @@
       </tbody>
     </table>
     <% end %>
+
+    <% if @warnings.count > 0 %>
+    <table class="govuk-table linting-results-table">
+    <caption class="govuk-table__caption govuk-table__caption--m">Warnings</caption>
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Code</th>
+        <th scope="col" class="govuk-table__header">Issue</th>
+        <th scope="col" class="govuk-table__header">Line</th>
+        <th scope="col" class="govuk-table__header">Character</th>
+        <th scope="col" class="govuk-table__header">Remedy</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      <% @warnings.each do |issue| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><%= issue[:code] %></td>
+          <td class="govuk-table__cell"><%= issue[:message] %></td>
+          <td class="govuk-table__cell"><%= issue[:line] %></td>
+          <td class="govuk-table__cell"><%= issue[:character] %></td>
+          <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% end %>
+
+    <% if @information.count > 0 %>
+    <table class="govuk-table linting-results-table">
+    <caption class="govuk-table__caption govuk-table__caption--m">Information</caption>
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Code</th>
+        <th scope="col" class="govuk-table__header">Issue</th>
+        <th scope="col" class="govuk-table__header">Line</th>
+        <th scope="col" class="govuk-table__header">Character</th>
+        <th scope="col" class="govuk-table__header">Remedy</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      <% @information.each do |issue| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><%= issue[:code] %></td>
+          <td class="govuk-table__cell"><%= issue[:message] %></td>
+          <td class="govuk-table__cell"><%= issue[:line] %></td>
+          <td class="govuk-table__cell"><%= issue[:character] %></td>
+          <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% end %>
+
+    <% if @hints.count > 0 %>
+    <table class="govuk-table linting-results-table">
+    <caption class="govuk-table__caption govuk-table__caption--m">Hints</caption>
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Code</th>
+        <th scope="col" class="govuk-table__header">Issue</th>
+        <th scope="col" class="govuk-table__header">Line</th>
+        <th scope="col" class="govuk-table__header">Character</th>
+        <th scope="col" class="govuk-table__header">Remedy</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      <% @hints.each do |issue| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><%= issue[:code] %></td>
+          <td class="govuk-table__cell"><%= issue[:message] %></td>
+          <td class="govuk-table__cell"><%= issue[:line] %></td>
+          <td class="govuk-table__cell"><%= issue[:character] %></td>
+          <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% end %>
+
 
     <div class="govuk-grid-row no-print">
       <div class="govuk-grid-column-one-third">
