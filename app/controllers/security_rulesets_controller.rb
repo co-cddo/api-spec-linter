@@ -3,6 +3,7 @@
 class SecurityRulesetsController < ApplicationController
 
   def show
+    @breadcrumbs = { Home: root_path, Uploads: new_upload_path, Rulesets: rulesets_path, Report:"#"}
     upload = Upload.find(session[:upload_id])
     return redirect_to root_path, alert: "Please re upload your file" if upload.nil?
 
