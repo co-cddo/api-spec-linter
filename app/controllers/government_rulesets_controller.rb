@@ -10,24 +10,27 @@ class GovernmentRulesetsController < ApplicationController
     return redirect_to root_path, alert: "Please re-upload your file" if upload.nil?
 
     @issues = []
-    @score = 100
     issues = JSON.parse(spectral_output)
     issues.each do |issue|
-      newissue = {
-        code: issue["code"],
-        path: issue["path"],
-        message: issue["message"],
-        criticality: 4 - issue["severity"],
-        line: issue["range"]["start"]["line"],
-        character: issue["range"]["start"]["character"]
-      }
-      @score -= newissue[:criticality]
-      @issues << newissue
+      #Check if the issue already exists in the list
+      existing = @issues.find_index{ |i| i[:code] == issue["code"] }
+      if existing
+        #If the issue exists, just add the line number and sort
+        @issues[existing][:lines].push(issue["range"]["start"]["line"]).sort
+      else
+        #If the issue doesn't exist, create a new one from this template
+        newissue = {
+          code: issue["code"],
+          path: issue["path"],
+          message: issue["message"],
+          criticality: 4 - issue["severity"],
+          lines: [issue["range"]["start"]["line"]]
+        }
+        @issues << newissue
+      end
     end
     @filename = @upload.oas_file.filename
-    @score = 0 if @score.negative?
     @issues = @issues.sort_by{|s| -s[:criticality]}
-    @criticality = @issues.first[:criticality]
 
     @errors = @issues.select{ |issue| issue[:criticality] == 4 }
     @warnings = @issues.select{ |issue| issue[:criticality] == 3 }
