@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Check your OpenAPI documents for security issues</h1>
+    <h1 class="govuk-heading-xl">Upload your OpenAPI specification</h1>
   </div>
   <div class="govuk-grid-column-full">
 
@@ -8,7 +8,7 @@
 
         <div class="govuk-form-group <%= 'govuk-form-group--error' unless @upload.errors.empty? %>">
           <label class="govuk-label" for="file-upload-1">
-            Upload an OpenAPI document
+            Upload your JSON file. It must conform with the OpenAPI standard.
           </label>
           <%= form_for(@upload, method: :post, multipart: true) do %>
             <p id="file-upload-1-error" class="govuk-error-message">

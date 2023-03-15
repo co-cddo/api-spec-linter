@@ -45,3 +45,17 @@ $govuk-assets-path: "/";
     display: none !important;
   }
 }
+
+//This is used in lots of GDS example but there doesn't seem to be
+//a proper component for it
+.sidebar {
+  color: #0b0c0c;
+  border-top: 2px solid #1d70b8;
+  margin-bottom: 30px;
+  padding-top: 10px;
+}
+
+//Sidebar links are a bit smaller than usual
+.sidebar a {
+ font-size: smaller;
+}
