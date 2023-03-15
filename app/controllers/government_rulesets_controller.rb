@@ -9,26 +9,8 @@ class GovernmentRulesetsController < ApplicationController
     @ruleset_name = params[:ruleset_name]
     return redirect_to root_path, alert: "Please re-upload your file" if upload.nil?
 
-    @issues = []
-    issues = JSON.parse(spectral_output)
-    issues.each do |issue|
-      #Check if the issue already exists in the list
-      existing = @issues.find_index{ |i| i[:code] == issue["code"] }
-      if existing
-        #If the issue exists, just add the line number and sort
-        @issues[existing][:lines].push(issue["range"]["start"]["line"]).sort
-      else
-        #If the issue doesn't exist, create a new one from this template
-        new_issue = {
-          code: issue["code"],
-          path: issue["path"],
-          message: issue["message"],
-          criticality: 4 - issue["severity"],
-          lines: [issue["range"]["start"]["line"]]
-        }
-        @issues << new_issue
-      end
-    end
+    @issues = build_issues_array
+
     @filename = @upload.oas_file.filename
     @issues = @issues.sort_by{|s| -s[:criticality]}
 
@@ -48,6 +30,30 @@ class GovernmentRulesetsController < ApplicationController
   private
 
   attr_accessor :upload, :ruleset_name
+
+  def build_issues_array
+    issue_array = []
+    issues = JSON.parse(spectral_output)
+    issues.each do |issue|
+      #Check if the issue already exists in the list
+      existing = issue_array.find_index{ |i| i[:code] == issue["code"] }
+      if existing
+        #If the issue exists, just add the line number and sort
+        issue_array[existing][:lines].push(issue["range"]["start"]["line"]).sort
+      else
+        #If the issue doesn't exist, create a new one from this template
+        new_issue = {
+          code: issue["code"],
+          path: issue["path"],
+          message: issue["message"],
+          criticality: 4 - issue["severity"],
+          lines: [issue["range"]["start"]["line"]]
+        }
+        issue_array << new_issue
+      end
+    end
+    issue_array
+  end
 
   def spectral_output
     Linters::Spectral.new(upload:, ruleset_name:).lint_to_json
