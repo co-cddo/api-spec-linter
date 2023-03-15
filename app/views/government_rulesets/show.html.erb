@@ -68,101 +68,10 @@
       </div>
     <% end %>
 
-    <% if @errors.count > 0 %>
-    <table class="govuk-table linting-results-table">
-    <caption class="govuk-table__caption govuk-table__caption--m">Errors</caption>
-      <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">Code</th>
-        <th scope="col" class="govuk-table__header">Message</th>
-        <th scope="col" class="govuk-table__header">Line</th>
-        <th scope="col" class="govuk-table__header">Remedy</th>
-      </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-      <% @errors.each do |issue| %>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><%= issue[:code] %></td>
-          <td class="govuk-table__cell"><%= issue[:message] %></td>
-          <td class="govuk-table__cell"><%= issue[:line] %></td>
-          <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <% end %>
-
-    <% if @warnings.count > 0 %>
-    <table class="govuk-table linting-results-table">
-    <caption class="govuk-table__caption govuk-table__caption--m">Warnings</caption>
-      <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">Code</th>
-        <th scope="col" class="govuk-table__header">Message</th>
-        <th scope="col" class="govuk-table__header">Line</th>
-        <th scope="col" class="govuk-table__header">Remedy</th>
-      </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-      <% @warnings.each do |issue| %>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><%= issue[:code] %></td>
-          <td class="govuk-table__cell"><%= issue[:message] %></td>
-          <td class="govuk-table__cell"><%= issue[:line] %></td>
-          <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <% end %>
-
-    <% if @information.count > 0 %>
-    <table class="govuk-table linting-results-table">
-    <caption class="govuk-table__caption govuk-table__caption--m">Information</caption>
-      <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">Code</th>
-        <th scope="col" class="govuk-table__header">Message</th>
-        <th scope="col" class="govuk-table__header">Line</th>
-        <th scope="col" class="govuk-table__header">Remedy</th>
-      </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-      <% @information.each do |issue| %>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><%= issue[:code] %></td>
-          <td class="govuk-table__cell"><%= issue[:message] %></td>
-          <td class="govuk-table__cell"><%= issue[:line] %></td>
-          <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <% end %>
-
-    <% if @hints.count > 0 %>
-    <table class="govuk-table linting-results-table">
-    <caption class="govuk-table__caption govuk-table__caption--m">Hints</caption>
-      <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">Code</th>
-        <th scope="col" class="govuk-table__header">Message</th>
-        <th scope="col" class="govuk-table__header">Line</th>
-        <th scope="col" class="govuk-table__header">Remedy</th>
-      </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-      <% @hints.each do |issue| %>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell"><%= issue[:code] %></td>
-          <td class="govuk-table__cell"><%= issue[:message] %></td>
-          <td class="govuk-table__cell"><%= issue[:line] %></td>
-          <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <% end %>
+    <%= render "issue_table", issues: @errors, caption: "Errors" %>
+    <%= render "issue_table", issues: @warnings, caption: "Warnings" %>
+    <%= render "issue_table", issues: @information, caption: "Information" %>
+    <%= render "issue_table", issues: @hints, caption: "Hints" %>
 
 
     <div class="govuk-grid-row no-print">
