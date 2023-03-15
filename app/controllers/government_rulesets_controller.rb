@@ -37,6 +37,11 @@ class GovernmentRulesetsController < ApplicationController
     @information = @issues.select{ |issue| issue[:criticality] == 2 }
     @hints = @issues.select{ |issue| issue[:criticality] == 1 }
 
+    @errors = @issues.select{ |issue| issue[:criticality] == 4 }
+    @warnings = @issues.select{ |issue| issue[:criticality] == 3 }
+    @information = @issues.select{ |issue| issue[:criticality] == 2 }
+    @hints = @issues.select{ |issue| issue[:criticality] == 1 }
+
   end
 
 
