@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Your results</h1>
+    <h1 class="govuk-heading-xl">Your Assessment Report</h1>
   </div>
   <div class="govuk-grid-column-full">
     <h2 class="govuk-heading-m">Summary</h2>
@@ -74,9 +74,8 @@
       <thead class="govuk-table__head">
       <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header">Code</th>
-        <th scope="col" class="govuk-table__header">Issue</th>
+        <th scope="col" class="govuk-table__header">Message</th>
         <th scope="col" class="govuk-table__header">Line</th>
-        <th scope="col" class="govuk-table__header">Character</th>
         <th scope="col" class="govuk-table__header">Remedy</th>
       </tr>
       </thead>
@@ -86,7 +85,6 @@
           <td class="govuk-table__cell"><%= issue[:code] %></td>
           <td class="govuk-table__cell"><%= issue[:message] %></td>
           <td class="govuk-table__cell"><%= issue[:line] %></td>
-          <td class="govuk-table__cell"><%= issue[:character] %></td>
           <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
         </tr>
       <% end %>
@@ -100,9 +98,8 @@
       <thead class="govuk-table__head">
       <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header">Code</th>
-        <th scope="col" class="govuk-table__header">Issue</th>
+        <th scope="col" class="govuk-table__header">Message</th>
         <th scope="col" class="govuk-table__header">Line</th>
-        <th scope="col" class="govuk-table__header">Character</th>
         <th scope="col" class="govuk-table__header">Remedy</th>
       </tr>
       </thead>
@@ -112,7 +109,6 @@
           <td class="govuk-table__cell"><%= issue[:code] %></td>
           <td class="govuk-table__cell"><%= issue[:message] %></td>
           <td class="govuk-table__cell"><%= issue[:line] %></td>
-          <td class="govuk-table__cell"><%= issue[:character] %></td>
           <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
         </tr>
       <% end %>
@@ -126,9 +122,8 @@
       <thead class="govuk-table__head">
       <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header">Code</th>
-        <th scope="col" class="govuk-table__header">Issue</th>
+        <th scope="col" class="govuk-table__header">Message</th>
         <th scope="col" class="govuk-table__header">Line</th>
-        <th scope="col" class="govuk-table__header">Character</th>
         <th scope="col" class="govuk-table__header">Remedy</th>
       </tr>
       </thead>
@@ -138,7 +133,6 @@
           <td class="govuk-table__cell"><%= issue[:code] %></td>
           <td class="govuk-table__cell"><%= issue[:message] %></td>
           <td class="govuk-table__cell"><%= issue[:line] %></td>
-          <td class="govuk-table__cell"><%= issue[:character] %></td>
           <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
         </tr>
       <% end %>
@@ -152,9 +146,8 @@
       <thead class="govuk-table__head">
       <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header">Code</th>
-        <th scope="col" class="govuk-table__header">Issue</th>
+        <th scope="col" class="govuk-table__header">Message</th>
         <th scope="col" class="govuk-table__header">Line</th>
-        <th scope="col" class="govuk-table__header">Character</th>
         <th scope="col" class="govuk-table__header">Remedy</th>
       </tr>
       </thead>
@@ -164,7 +157,6 @@
           <td class="govuk-table__cell"><%= issue[:code] %></td>
           <td class="govuk-table__cell"><%= issue[:message] %></td>
           <td class="govuk-table__cell"><%= issue[:line] %></td>
-          <td class="govuk-table__cell"><%= issue[:character] %></td>
           <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
         </tr>
       <% end %>
@@ -175,7 +167,7 @@
 
     <div class="govuk-grid-row no-print">
       <div class="govuk-grid-column-one-third">
-        <%= govuk_link_to "Select Another Linter", rulesets_path %>
+        <%= govuk_link_to "Select Another Ruleset", rulesets_path %>
       </div>
       <div class="govuk-grid-column-one-third">
         <%= govuk_link_to "Start Again", root_path %>
