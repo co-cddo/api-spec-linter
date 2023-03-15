@@ -4,8 +4,8 @@
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
     <th scope="col" class="govuk-table__header">Code</th>
-    <th scope="col" class="govuk-table__header">Message</th>
-    <th scope="col" class="govuk-table__header">Line</th>
+    <th scope="col" class="govuk-table__header govuk-!-width-one-third">Message</th>
+    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Line(s)</th>
     <th scope="col" class="govuk-table__header">Remedy</th>
     </tr>
     </thead>
@@ -14,7 +14,7 @@
     <tr class="govuk-table__row">
         <td class="govuk-table__cell"><%= issue[:code] %></td>
         <td class="govuk-table__cell"><%= issue[:message] %></td>
-        <td class="govuk-table__cell"><%= issue[:line] %></td>
+        <td class="govuk-table__cell"><%= issue[:lines].join(", ") %></td>
         <td class="govuk-table__cell"><%= link_to_rule "Details", issue[:code] %></td>
     </tr>
     <% end %>
