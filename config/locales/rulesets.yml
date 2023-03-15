@@ -1,14 +1,14 @@
 en:
   rulesets:
     ruleset_low:
-      name: Ruleset Low
-      description: A very relaxed ruleset
+      name: Gov.UK Baseline ruleset
+      description: This static analysis ensures some basic checks on the design, including that the file is a valid OpenAPI specification and contains mandatory data for a catalogue submission.
     ruleset_medium:
-      name: Ruleset Medium
-      description: A more opinionated ruleset
+      name: Project A Ruleset
+      description: This static analysis extends the Gov.UK Baseline ruleset and applies Project A's styleguide in addition. This adds extra checks for licensing models and error reponses.
     ruleset_high:
-      name: Ruleset High
-      description: A highly opinionated ruleset
+      name: Project B Ruleset
+      description: This static analysis extends the Gov.UK Baseline ruleset and applies Project B's styleguide in addition. This adds extra checks for naming consistency and endpoint versioning.
     security_ruleset:
-      name: Security Ruleset
-      description: A ruleset for security using 42Crunch
+      name: Security Best Practice Ruleset
+      description: This static analysis of your design specification captures known potential vulnerabilities in the Open API Contract such as mass assignment, data/exception leakage, weak authentication schemes, injection vulnerabilities and lack of resource control, and is based on OWASP API Security Top 10.
