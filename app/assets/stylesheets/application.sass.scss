@@ -4,26 +4,26 @@ $govuk-assets-path: "/";
 
 @import "govuk-frontend/govuk/all";
 
-//Colours for criticality styling
-.criticality-1 {
-  background-color: gray;
-}
+//Colours for criticality styling (No longer used but kept "hot" in case UR decides some colouration is preferred)
+// .criticality-1 {
+//   background-color: gray;
+// }
 
-.criticality-2 {
-  background-color: palegoldenrod;
-}
+// .criticality-2 {
+//   background-color: palegoldenrod;
+// }
 
-.criticality-3 {
-  background-color: orange;
-}
+// .criticality-3 {
+//   background-color: orange;
+// }
 
-.criticality-4 {
-  background-color: orangered;
-}
+// .criticality-4 {
+//   background-color: orangered;
+// }
 
-.criticality-5 {
-  background-color: darkred;
-}
+// .criticality-5 {
+//   background-color: darkred;
+// }
 
 [class*="criticality-"] {
   text-align: center;
