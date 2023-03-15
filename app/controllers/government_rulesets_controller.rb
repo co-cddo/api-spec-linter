@@ -17,16 +17,22 @@ class GovernmentRulesetsController < ApplicationController
         code: issue["code"],
         path: issue["path"],
         message: issue["message"],
-        criticality: 5 - issue["severity"],
+        criticality: 4 - issue["severity"],
         line: issue["range"]["start"]["line"],
         character: issue["range"]["start"]["character"]
       }
       @score -= newissue[:criticality]
       @issues << newissue
     end
+    @filename = @upload.oas_file.filename
     @score = 0 if @score.negative?
     @issues = @issues.sort_by{|s| -s[:criticality]}
     @criticality = @issues.first[:criticality]
+
+    @errors = @issues.select{ |issue| issue[:criticality] == 4 }
+    @warnings = @issues.select{ |issue| issue[:criticality] == 3 }
+    @information = @issues.select{ |issue| issue[:criticality] == 2 }
+    @hints = @issues.select{ |issue| issue[:criticality] == 1 }
 
   end
 
