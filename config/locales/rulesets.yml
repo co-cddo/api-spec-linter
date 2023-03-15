@@ -2,13 +2,13 @@ en:
   rulesets:
     ruleset_low:
       name: Ruleset Low
-      description: Ruleset Low Description
+      description: A very relaxed ruleset
     ruleset_medium:
       name: Ruleset Medium
-      description: Ruleset Medium Description
+      description: A more opinionated ruleset
     ruleset_high:
       name: Ruleset High
-      description: Ruleset High Description
+      description: A highly opinionated ruleset
     security_ruleset:
       name: Security Ruleset
-      description: Security Ruleset Description (Crunch42)
+      description: A ruleset for security using 42Crunch
