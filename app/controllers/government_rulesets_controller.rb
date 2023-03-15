@@ -19,14 +19,14 @@ class GovernmentRulesetsController < ApplicationController
         @issues[existing][:lines].push(issue["range"]["start"]["line"]).sort
       else
         #If the issue doesn't exist, create a new one from this template
-        newissue = {
+        new_issue = {
           code: issue["code"],
           path: issue["path"],
           message: issue["message"],
           criticality: 4 - issue["severity"],
           lines: [issue["range"]["start"]["line"]]
         }
-        @issues << newissue
+        @issues << new_issue
       end
     end
     @filename = @upload.oas_file.filename
