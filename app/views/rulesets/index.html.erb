@@ -1,15 +1,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">GOV.UK OpenAPI Linting Service</h1>
+    <h1 class="govuk-heading-xl">Which ruleset would you like to test your OpenAPI document against?</h1>
 
     <%= form_tag(rulesets_path, method: :post) do %>
       <div class="govuk-form-group" name="which-linter">
         <fieldset class="govuk-fieldset">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
-              Which ruleset would you like to test your OpenAPI document against?
-            </h1>
-          </legend>
           <div class="govuk-radios" data-module="govuk-radios">
             <% Linters::Rulesets::ACTIVE_RULESETS.each do |ruleset_name| %>
               <div class="govuk-radios__item">
