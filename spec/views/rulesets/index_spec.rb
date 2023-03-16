@@ -5,7 +5,7 @@ RSpec.describe "rulesets/index.html.erb", type: :view do
   end
 
   it "displays the page title" do
-    assert_select("h1.govuk-heading-xl", text: "GOV.UK OpenAPI Linting Service")
+    assert_select("h1.govuk-heading-xl", text: "Which ruleset would you like to test your OpenAPI document against?")
   end
 
   it "displays the ruleset options" do
