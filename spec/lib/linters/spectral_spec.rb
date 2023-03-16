@@ -5,7 +5,8 @@ describe Linters::Spectral do
   let(:ruleset_name) { "test_ruleset" }
   let(:ruleset_path) { "data/rulesets/#{ruleset_name}.yaml" }
   let(:file_path) { ActiveStorage::Blob.service.path_for(upload.oas_file.key) }
-  let(:system_command) { class_spy(Open3) }
+  let(:system_command) { class_spy(PTY) }
+  let(:command) { "npx spectral lint -f json #{file_path} --ruleset #{ruleset_path}" }
   subject { described_class.new(upload:, ruleset_name:, system_command:) }
 
   before do
@@ -14,12 +15,10 @@ describe Linters::Spectral do
 
   context "When the command successfully runs" do
     it "executes the spectral lint command" do
-      expect(system_command).to(
-        receive(:capture3)
-          .with("npx spectral lint -f json #{file_path} --ruleset #{ruleset_path}")
-          .and_return(
-        ["{}", ""]
-      ))
+      expect(system_command).to receive(:spawn).with(command) do |&block|
+        block.call(StringIO.new("{}"), StringIO.new, 12_345)
+      end
+
       output = subject.lint_to_json
       expect(output).to eq("{}")
     end
@@ -28,7 +27,7 @@ describe Linters::Spectral do
   context "When the command fails" do
     it "raises an error" do
       expect(system_command).to(
-        receive(:capture3)
+        receive(:spawn)
           .with("npx spectral lint -f json #{file_path} --ruleset #{ruleset_path}")
           .and_raise(StandardError)
       )

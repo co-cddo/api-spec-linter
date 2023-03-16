@@ -1,8 +1,12 @@
 # frozen_string_literal: true
+# pty is a library that can help mitigate output buffering issues where as Open3 cuts of the stdout stream if
+# it is too long
+require 'pty'
+
 module Linters
   class Spectral
 
-    def initialize(upload:, ruleset_name:, system_command: Open3)
+    def initialize(upload:, ruleset_name:, system_command: PTY)
       @upload = upload
       @ruleset_name = ruleset_name
       @system_command = system_command
@@ -10,16 +14,19 @@ module Linters
 
     def lint_to_json
       path = ActiveStorage::Blob.service.path_for(upload.oas_file.key)
-      # We can get rid of this once we use the database and active storage to store the file
-      stdout_str, stderr_str = system_command.capture3(
-        "npx spectral lint -f json #{path} --ruleset data/rulesets/#{ruleset_name}.yaml"
-      )
-      raise stderr_str if stderr_str.present?
+      command = "npx spectral lint -f json #{path} --ruleset data/rulesets/#{ruleset_name}.yaml"
+      stdout_str = ""
+
+      system_command.spawn(command) do |stdout, _stdin, _pid|
+        stdout.each do |line|
+          stdout_str += line
+        end
+      end
+
       stdout_str
     rescue StandardError => e
-      Rails.logger.error("npx spectral command failed: #{stderr_str}")
-      Rails.logger.error(stdout_str)
-      raise "npx spectral command failed: #{e.message}"
+      Rails.logger.error("Failed to run npx spectral command against file: #{path} with error: #{e.message}")
+      raise
     end
 
     private
