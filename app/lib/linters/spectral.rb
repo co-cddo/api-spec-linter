@@ -17,13 +17,9 @@ module Linters
       command = "npx spectral lint -f json #{path} --ruleset data/rulesets/#{ruleset_name}.yaml"
       stdout_str = ""
 
-      system_command.spawn(command) do |stdout, _stdin, pid|
-        begin
-          stdout.each do |line|
-            stdout_str += line
-          end
-        ensure
-          Process.wait(pid)
+      system_command.spawn(command) do |stdout, _stdin, _pid|
+        stdout.each do |line|
+          stdout_str += line
         end
       end
 
