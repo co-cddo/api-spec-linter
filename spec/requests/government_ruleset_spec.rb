@@ -5,6 +5,10 @@ RSpec.describe GovernmentRulesetsController, type: :request do
     let(:file_upload) { fixture_file_upload("land-registry.json", "application/json") }
 
     it "renders the show template" do
+      allow(PTY).to receive(:spawn).with(any_args) do |&block|
+        block.call(StringIO.new("{}"), StringIO.new, 12_345)
+      end
+
       post uploads_path, params: { oas_file: file_upload }
       get government_ruleset_path(ruleset_name: "ruleset_low")
 
