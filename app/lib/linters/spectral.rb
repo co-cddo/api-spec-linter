@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# pty is a library that can help mitigate output buffering issues where as Open3 cuts of the stdout stream if
+# pty is a library that can help mitigate output buffering issues where as Open3 cuts off the stdout stream if
 # it is too long
 require 'pty'
 
