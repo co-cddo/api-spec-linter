@@ -17,7 +17,7 @@ module Linters
       stdout_str = ""
       status = nil
 
-      Tempfile.open('spectral_output') do |tempfile|
+      Tempfile.open("spectral_output_#{SecureRandom.uuid}") do |tempfile|
         process_id = system_command.spawn(command, out: tempfile.path, err: tempfile.path)
 
         _, status = Process.wait2(process_id)
@@ -28,9 +28,6 @@ module Linters
       end
 
       stdout_str
-    rescue StandardError => e
-      Rails.logger.error("npx spectral command failed: #{command}")
-      raise "npx spectral command failed: #{e.message}"
     end
 
 

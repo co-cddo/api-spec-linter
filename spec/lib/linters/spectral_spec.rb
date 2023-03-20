@@ -8,6 +8,7 @@ describe Linters::Spectral do
   let(:system_command) { class_spy(Kernel) }
   let(:command) { "npx spectral lint -f json #{file_path} --ruleset #{ruleset_path}" }
   let(:tempfile) { instance_spy(Tempfile) }
+  let(:uuid) { "test_uuid"}
   subject { described_class.new(upload:, ruleset_name:, system_command:) }
 
   before do
@@ -18,7 +19,8 @@ describe Linters::Spectral do
     it "executes the spectral lint command" do
       expect(system_command).to receive(:spawn).with(command, any_args).and_return(12_345)
       expect(Process).to receive(:wait2).with(12_345).and_return([12_345, double("status", exited?: true)])
-      expect(Tempfile).to receive(:open).with("spectral_output").and_yield(tempfile)
+      expect(SecureRandom).to receive(:uuid).and_return(uuid)
+      expect(Tempfile).to receive(:open).with("spectral_output_#{uuid}").and_yield(tempfile)
       expect(tempfile).to receive(:read).and_return("{}")
 
       output = subject.lint_to_json
