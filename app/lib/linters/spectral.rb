@@ -15,7 +15,6 @@ module Linters
       path = ActiveStorage::Blob.service.path_for(upload.oas_file.key)
       command = "npx spectral lint -f json #{path} --ruleset data/rulesets/#{ruleset_name}.yaml"
       stdout_str = ""
-      stderr_str = ""
       status = nil
 
       Tempfile.open('spectral_output') do |tempfile|
@@ -30,7 +29,7 @@ module Linters
 
       stdout_str
     rescue StandardError => e
-      Rails.logger.error("npx spectral command failed: #{stderr_str}")
+      Rails.logger.error("npx spectral command failed: #{command}")
       raise "npx spectral command failed: #{e.message}"
     end
 
