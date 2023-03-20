@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Linters
-  # In this class we output the spectral output to a temfile to get around buffering issues when returning output
+  # In this class we output the spectral output to a tempfile to get around buffering issues when returning output
   # from the npx command
   class Spectral
 
