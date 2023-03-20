@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-# pty is a library that can help mitigate output buffering issues where as Open3 cuts off the stdout stream if
-# it is too long
 
 module Linters
+  # In this class we output the spectral output to a temfile to get around buffering issues when returning output
+  # from the npx command
   class Spectral
 
     def initialize(upload:, ruleset_name:, system_command: Kernel)
@@ -22,6 +22,8 @@ module Linters
         process_id = system_command.spawn(command, out: tempfile.path, err: tempfile.path)
 
         _, status = Process.wait2(process_id)
+
+        raise unless status.exited?
 
         stdout_str = tempfile.read
       end

@@ -17,7 +17,7 @@ describe Linters::Spectral do
   context "When the command successfully runs" do
     it "executes the spectral lint command" do
       expect(system_command).to receive(:spawn).with(command, any_args).and_return(12_345)
-      expect(Process).to receive(:wait2).with(12_345).and_return([12_345, double("status", success?: true)])
+      expect(Process).to receive(:wait2).with(12_345).and_return([12_345, double("status", exited?: true)])
       expect(Tempfile).to receive(:open).with("spectral_output").and_yield(tempfile)
       expect(tempfile).to receive(:read).and_return("{}")
 
@@ -31,8 +31,9 @@ describe Linters::Spectral do
       expect(system_command).to(
         receive(:spawn)
           .with(command, any_args)
-          .and_raise(StandardError)
+          .and_return(12_345)
       )
+      expect(Process).to receive(:wait2).with(12_345).and_return([12_345, double("status", exited?: false)])
       expect { subject.lint_to_json }.to raise_error(StandardError)
     end
   end
