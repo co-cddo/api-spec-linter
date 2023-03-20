@@ -1,8 +1,11 @@
 # frozen_string_literal: true
+
 module Linters
+  # In this class we output the spectral output to a tempfile to get around buffering issues when returning output
+  # from the npx command
   class Spectral
 
-    def initialize(upload:, ruleset_name:, system_command: Open3)
+    def initialize(upload:, ruleset_name:, system_command: Kernel)
       @upload = upload
       @ruleset_name = ruleset_name
       @system_command = system_command
@@ -10,17 +13,23 @@ module Linters
 
     def lint_to_json
       path = ActiveStorage::Blob.service.path_for(upload.oas_file.key)
-      # We can get rid of this once we use the database and active storage to store the file
-      stdout_str, stderr_str = system_command.capture3(
-        "npx spectral lint -f json #{path} --ruleset data/rulesets/#{ruleset_name}.yaml"
-      )
-      raise stderr_str if stderr_str.present?
+      command = "npx spectral lint -f json #{path} --ruleset data/rulesets/#{ruleset_name}.yaml"
+      stdout_str = ""
+      status = nil
+
+      Tempfile.open("spectral_output_#{SecureRandom.uuid}") do |tempfile|
+        process_id = system_command.spawn(command, out: tempfile.path, err: tempfile.path)
+
+        _, status = Process.wait2(process_id)
+
+        raise unless status.exited?
+
+        stdout_str = tempfile.read
+      end
+
       stdout_str
-    rescue StandardError => e
-      Rails.logger.error("npx spectral command failed: #{stderr_str}")
-      Rails.logger.error(stdout_str)
-      raise "npx spectral command failed: #{e.message}"
     end
+
 
     private
 
