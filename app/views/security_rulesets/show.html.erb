@@ -51,7 +51,6 @@
         <th scope="col" class="govuk-table__header">Criticality</th>
         <th scope="col" class="govuk-table__header">Issue</th>
         <th scope="col" class="govuk-table__header">Line Numbers</th>
-        <th scope="col" class="govuk-table__header">Remedy</th>
       </tr>
       </thead>
       <tbody class="govuk-table__body">
@@ -60,8 +59,6 @@
           <td class="govuk-table__cell criticality-<%= issue[0] %>"><%= issue[0] %></td>
           <td class="govuk-table__cell"><%= issue[1] %></td>
           <td class="govuk-table__cell"><%= issue[2].join(", ") %></td>
-          <td class="govuk-table__cell">
-          <a href="<%= ENV["WIKI_URL"] %>">Details</a></td>
         </tr>
       <% end %>
       </tbody>
