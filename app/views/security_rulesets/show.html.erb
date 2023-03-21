@@ -1,23 +1,16 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Check your OpenAPI documents for security issues</h1>
+    <h1 class="govuk-heading-xl">Your security report</h1>
   </div>
   <div class="govuk-grid-column-full">
 
-    <div class="govuk-panel govuk-panel--confirmation">
-      <h1 class="govuk-panel__title">
-        API Security Check Complete
-      </h1>
-      <div class="govuk-panel__body">
-        Score: <strong><%= @score.round(0) %> / 100</strong>
-      </div>
-    </div>
-    <br/><br/>
+    <%= govuk_notification_banner(title_text: "Overall score", text: "Your document scored #{@score.round(0)} / 100 for overall compliance with the security ruleset.") %>
+
     <h2 class="govuk-heading-m">Summary</h2>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          OpenAPI Validity:
+          OpenAPI validity:
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @openapi.capitalize %>
@@ -25,7 +18,7 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Issue Count:
+          Issue count:
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @counter %>
@@ -33,10 +26,10 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Criticality:
+          Time:
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @criticality %>
+          <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %>
         </dd>
       </div>
     </dl>
@@ -51,7 +44,6 @@
         <th scope="col" class="govuk-table__header">Criticality</th>
         <th scope="col" class="govuk-table__header">Issue</th>
         <th scope="col" class="govuk-table__header">Line Numbers</th>
-        <th scope="col" class="govuk-table__header">Remedy</th>
       </tr>
       </thead>
       <tbody class="govuk-table__body">
@@ -60,22 +52,40 @@
           <td class="govuk-table__cell criticality-<%= issue[0] %>"><%= issue[0] %></td>
           <td class="govuk-table__cell"><%= issue[1] %></td>
           <td class="govuk-table__cell"><%= issue[2].join(", ") %></td>
-          <td class="govuk-table__cell">
-          <a href="<%= ENV["WIKI_URL"] %>">Details</a></td>
         </tr>
       <% end %>
       </tbody>
     </table>
     <% end %>
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half">
-        <%= govuk_link_to "Select Another Linter", rulesets_path %>
+
+    <div class="govuk-grid-row no-print">
+      <div class="govuk-grid-column-one-third">
+        <%= govuk_link_to "Select another ruleset", rulesets_path %>
       </div>
-      <div class="govuk-grid-column-one-half">
-        <%= govuk_link_to "Start Again", root_path %>
+      <div class="govuk-grid-column-one-third">
+        <%= govuk_link_to "Start again", root_path %>
+      </div>
+      <div class="govuk-grid-column-one-third">
+          <button class="govuk-button" data-module="govuk-button" onclick="window.print();">
+            Print or save
+          </button>
       </div>
     </div>
+
+    <details class="govuk-details no-print" data-module="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Help with printing or saving
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            The "Print or Save" button uses your web browser's built in print functionality.<br/>
+            You can choose to print it out on your printer, and most browsers will also allow you to "Save as PDF".<br/>
+            If this does not work for you, try a recent version of Google Chrome and ensure JavaScript is enabled in the settings.<br/>
+            <%= govuk_link_to "How to print to PDF from Google Chrome", "https://www.adobe.com/uk/acrobat/resources/chrome-to-pdf.html" %>
+          </div>
+    </details>
 
   </div>
 

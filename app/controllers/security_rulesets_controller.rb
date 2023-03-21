@@ -14,9 +14,10 @@ class SecurityRulesetsController < ApplicationController
     @criticality = crunch_hash["criticality"]
     @issues =
       crunch_hash["data"]["issues"].map do |_key, issue|
-        lines = issue["issues"].pluck("pointer")
-        [issue["criticality"], issue["description"], lines]
+        lines = issue["issues"].pluck("pointer").sort
+        [issue["criticality"].to_i, issue["description"], lines]
       end
+      @issues = @issues.sort_by{|s| -s[0]}
   end
 
   private
