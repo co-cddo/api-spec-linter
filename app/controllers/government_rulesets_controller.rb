@@ -19,11 +19,6 @@ class GovernmentRulesetsController < ApplicationController
     @information = @issues.select{ |issue| issue[:criticality] == 2 }
     @hints = @issues.select{ |issue| issue[:criticality] == 1 }
 
-    @errors = @issues.select{ |issue| issue[:criticality] == 4 }
-    @warnings = @issues.select{ |issue| issue[:criticality] == 3 }
-    @information = @issues.select{ |issue| issue[:criticality] == 2 }
-    @hints = @issues.select{ |issue| issue[:criticality] == 1 }
-
   end
 
 
@@ -39,7 +34,8 @@ class GovernmentRulesetsController < ApplicationController
       existing = issue_array.find_index{ |i| i[:code] == issue["code"] }
       if existing
         #If the issue exists, just add the line number and sort
-        issue_array[existing][:lines].push(issue["range"]["start"]["line"]).sort
+        line = issue["range"]["start"]["line"]
+        issue_array[existing][:lines].push(line).sort unless issue_array[existing][:lines].include?(line)
       else
         #If the issue doesn't exist, create a new one from this template
         new_issue = {
