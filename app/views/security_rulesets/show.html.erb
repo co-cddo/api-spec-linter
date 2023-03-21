@@ -1,23 +1,16 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Check your OpenAPI documents for security issues</h1>
+    <h1 class="govuk-heading-xl">Your security report</h1>
   </div>
   <div class="govuk-grid-column-full">
 
-    <div class="govuk-panel govuk-panel--confirmation">
-      <h1 class="govuk-panel__title">
-        API Security Check Complete
-      </h1>
-      <div class="govuk-panel__body">
-        Score: <strong><%= @score.round(0) %> / 100</strong>
-      </div>
-    </div>
-    <br/><br/>
+    <%= govuk_notification_banner(title_text: "Overall score", text: "Your document scored #{@score.round(0)} / 100 for overall compliance with the security ruleset.") %>
+
     <h2 class="govuk-heading-m">Summary</h2>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          OpenAPI Validity:
+          OpenAPI validity:
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @openapi.capitalize %>
@@ -25,7 +18,7 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Issue Count:
+          Issue count:
         </dt>
         <dd class="govuk-summary-list__value">
           <%= @counter %>
@@ -33,10 +26,10 @@
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Criticality:
+          Time:
         </dt>
         <dd class="govuk-summary-list__value">
-          <%= @criticality %>
+          <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %>
         </dd>
       </div>
     </dl>
