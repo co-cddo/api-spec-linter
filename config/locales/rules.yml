@@ -14,15 +14,15 @@ en:
       Description
       -----------
 
-      The version of the OpenAPI document must be version 3.1.0. OpenAPI v3.1.0 is the most recent official version.
+      The version of the OpenAPI document must be version 3.1.0. This is the most recent official version.
       It contains more features than the previous versions. You can read more about the differences in a [blog post on the Stoplight site](https://blog.stoplight.io/difference-between-open-v2-v3-v31).
 
       Example
       -------
 
-      The following is an example of how your OpenAPI document that is using an old version:
+      The following is an example of an OpenAPI document that is using an old version. 3.1.0 is the current latest minor version, so 3.0.0 is out of date:
 
-          openapi: 3.0.0
+          **openapi: 3.0.0**
           info:
             title: ''
             version: '1.0.0'
@@ -32,7 +32,7 @@ en:
 
       The following is an example of an OpenAPI document using the latest version of OpenAPI:
 
-          openapi: 3.1.0
+          **openapi: 3.1.0**
           info:
             title: ''
             version: '1.0.0'
@@ -55,23 +55,23 @@ en:
           info:
             title: ''
             version: '1.0.0'
-            license:
-              name: EULA
-              identifier: EULA
+            **license:**
+              **name: EULA**
+              **identifier: EULA**
           paths: {}
 
       Remediation
       -----------
 
-      The following is an example of an OpenAPI document which uses the correct license type:
+      The following is an example of an OpenAPI document which uses the correct license type. Apache 2.0 is an example of an open source license:
 
           openapi: 3.1.0
           info:
             title: ''
             version: '1.0.0'
-            license:
-              name: Apache 2.0
-              identifier: Apache-2.0
+            **license:**
+              **name: Apache 2.0**
+              **identifier: Apache-2.0**
           paths: {}
 
 
@@ -96,7 +96,7 @@ en:
             license:
               name: Apache 2.0
               identifier: Apache-2.0
-              url: https://www.example.com
+              **url: https://www.example.com**
           paths: {}
 
       Remediation
@@ -111,7 +111,7 @@ en:
             license:
               name: Apache 2.0
               identifier: Apache-2.0
-              url: https://www.apache.org/licenses/LICENSE-2.0
+              **url: https://www.apache.org/licenses/LICENSE-2.0**
           paths: {}
 
     not-acceptable: |
@@ -150,7 +150,7 @@ en:
             "/":
               post:
                 responses:
-                  '406': {}
+                  **'406': {}**
 
     unsupported-media-type: |
       Unsupported media type
@@ -188,7 +188,7 @@ en:
             "/":
               post:
                 responses:
-                  '415': {}
+                  **'415': {}**
 
     oas3-minimum: |
       OpenAPI Specification 3 - minimum
@@ -202,9 +202,9 @@ en:
       Example
       ------- 
       
-      The following is an example of how your OpenAPI document that is using an old version:
+      The following is an example of an OpenAPI document not using an up-to-date version. In this example version 2.0.0 is used, which is an old version:
       
-          openapi: 2.0.0
+          **openapi: 2.0.0**
           info:
             title: ''
             version: '1.0.0'
@@ -212,9 +212,9 @@ en:
       Remediation
       -----------
       
-      The following is an example of an OpenAPI document using the latest major version of OpenAPI:
+      The following is an example of an OpenAPI document using the latest major version of OpenAPI, which is currently 3.1.0:
       
-          openapi: 3.1.0
+          **openapi: 3.1.0**
           info:
             title: ''
             version: '1.0.0'
@@ -236,9 +236,9 @@ en:
           info:
             title: ''
             version: '1.0.0'
-            license:
-              name: EULA
-              identifier: EULA
+            **license:**
+              **name: EULA**
+              **identifier: EULA**
           paths: {}
       
       Remediation
@@ -250,9 +250,9 @@ en:
           info:
             title: ''
             version: '1.0.0'
-            license:
-              name: Apache 2.0
-              identifier: Apache-2.0
+            **license:**
+              **name: Apache 2.0**
+              **identifier: Apache-2.0**
           paths: {}
 
     operation-id: |
@@ -273,7 +273,7 @@ en:
       Example
       ------- 
       
-      The following is an example of an OpenAPI document which defines an operation that is missing an operationId:
+      The following is an example of an OpenAPI document which defines an operation that is missing an `operationId`. The `ping` path has a `get` operation which doesn't have an `operationId`:
       
           openapi: 3.1.0
           info:
@@ -297,7 +297,7 @@ en:
             /ping:
               get:
                 summary: Checks if the server is alive
-                operationId: ping
+                **operationId: ping**
 
     semver: |
       Semantic Versioning
@@ -310,12 +310,12 @@ en:
       Example
       ------- 
       
-      Semantic versioning numbers should have a major, minor and patch number. The following is an example of how an incorrect version number could look in your API definition (the following is missing a patch number):
+      Semantic versioning numbers should have a major, minor and patch number. The following is an example of how an incorrect version number could look in your API definition as it is missing a patch number:
         
           openapi: 3.1.0
           info:
             title: ''
-            version: '1.0'
+            **version: '1.0'**
           paths: {}
       
       Remediation
@@ -326,7 +326,7 @@ en:
           openapi: 3.1.0
           info:
             title: ''
-            version: '1.0.0'
+            **version: '1.0.0'**
           paths: {}
 
     paths-kebab-case: |
@@ -340,14 +340,14 @@ en:
       Example
       ------- 
       
-      The following is an example of an OpenAPI document which has a path name that does not use kebab case:
+      The following is an example of an OpenAPI document which has a path name that does not use kebab case. In this example, the `path_parameter` class is using snake case (words separated by underscores) rather than kebab case (works separated by hyphens):    
       
           openapi: 3.1.0
           info:
             title: ''
             version: '1.0.0'
           paths:
-            /path_parameter:
+            **/path_parameter:**
               get:
                 summary: Checks if the server is alive
                 operationId: ping
@@ -362,7 +362,7 @@ en:
             title: ''
             version: '1.0.0'
           paths:
-            /path-parameter:
+            **/path-parameter:**
               get:
                 summary: Checks if the server is alive
                 operationId: ping
@@ -378,7 +378,7 @@ en:
       Example
       ------- 
       
-      The following is an example of how this type of risk could look in your API definition:
+      The following is an example of how this type of risk could look in your API definition, as the url is using `http` rather than `https`:
       
           openapi: 3.1.0
             info:
@@ -386,7 +386,7 @@ en:
             version: '1.0.0'
             paths: {}
             servers:
-              - url: http://api.example.com
+              - **url: http://api.example.com**
       
       
       Possible Exploit Scenario
@@ -403,7 +403,7 @@ en:
       Remediation
       -----------
       
-      The following is how this should look in your API definition:
+      The following is how using `https` should look in your API definition:
       
           openapi: 3.1.0
             info:
@@ -411,7 +411,7 @@ en:
             version: '1.0.0'
             paths: {}
             servers:
-              - url: https://api.example.com
+              - **url: https://api.example.com**
 
     oas2-always-use-https: |
       OpenAPI Specification 2 - Always use HTTPS
@@ -424,7 +424,7 @@ en:
       Example
       ------- 
       
-      The following is an example of how this type of risk could look in your API definition:
+      The following is an example of how this type of risk could look in your API definition, as the url is using `http` rather than `https`:
       
           openapi: 3.1.0
             info:
@@ -432,7 +432,7 @@ en:
             version: '1.0.0'
             paths: {}
             servers:
-              - url: http://api.example.com
+              - **url: http://api.example.com**
       
       
       Possible Exploit Scenario
@@ -449,7 +449,7 @@ en:
       Remediation
       -----------
       
-      The following is how this should look in your API definition:
+      The following is how using `https` should look in your API definition:
       
           openapi: 3.1.0
             info:
@@ -457,7 +457,7 @@ en:
             version: '1.0.0'
             paths: {}
             servers:
-              - url: https://api.example.com
+              - **url: https://api.example.com**
 
     no-x-headers: |
       No X-Headers
@@ -470,7 +470,7 @@ en:
       Example
       ------- 
       
-      The following is an example of how this might look in your OpenAPI document:
+      The following is an example of how this might look in your OpenAPI document. In this example the name of the header begins with `X-`:
       
           openapi: 3.1.0
           info:
@@ -481,7 +481,7 @@ en:
               get:
                 parameters:
                   - in: header
-                    name: X-Request-ID
+                    **name: X-Request-ID**
                     schema:
                       type: string
         
@@ -500,7 +500,7 @@ en:
                 summary: Checks if the server is alive
                 parameters:
                   - in: header
-                    name: Request-ID
+                    **name: Request-ID**
                     schema:
                       type: string
 
@@ -515,7 +515,7 @@ en:
       Example
       ------- 
       
-      The following is an example of how this might look in your OpenAPI document:
+      The following is an example of how this might look in your OpenAPI document. This would be invalid because the name of the response header begins with `X-`:
       
           openapi: 3.1.0
           info:
@@ -529,7 +529,7 @@ en:
                 '200':
                   description: OK
                   headers:
-                    X-RateLimit-Limit:
+                    **X-RateLimit-Limit:**
                       schema:
                         type: integer
       
@@ -550,7 +550,7 @@ en:
                 '200':
                   description: OK
                   headers:
-                    RateLimit-Limit:
+                    **RateLimit-Limit:**
                       schema:
                         type: integer
 
@@ -566,7 +566,7 @@ en:
       Example
       ------- 
       
-      The following is an example of how your OpenAPI document might look if it's missing a description:
+      The following is an example of how your OpenAPI document might look if it's missing a `description` from the `info` section:
       
           openapi: 3.1.0
           info:
@@ -583,7 +583,7 @@ en:
           info:
             title: ''
             version: '1.0.0'
-            description: 'A description of the API.'
+            **description: 'A description of the API.'**
           paths: {}
 
     contact: |
@@ -597,7 +597,7 @@ en:
       Example
       ------- 
       
-      The following is an example of how your OpenAPI document might look if it's missing contact information:
+      The following is an example of how your OpenAPI document might look if contact information is missing from the `info` object:
       
           openapi: 3.1.0
           info:
@@ -614,11 +614,11 @@ en:
           info:
             title: ''
             version: '1.0.0'
-            contact: {
-              "name": "API Support",
-              "url": "https://www.example.com/support",
-              "email": "support@example.com"
-            }
+            **contact: {**
+              **"name": "API Support",**
+              **"url": "https://www.example.com/support",**
+              **"email": "support@example.com"**
+            **}**
           paths: {}
 
     domain-name-length: |
@@ -640,12 +640,12 @@ en:
             version: '1.0.0'
           paths: {}
           servers:
-            - url: 'https://vehicle-registration-number-vehicle-registration-number-vehicles.api.gov.uk'
+            - **url: 'https://vehicle-registration-number-vehicle-registration-number-vehicles.api.gov.uk'**
       
       Remediation
       -----------
       
-      The following is an example of a valid domain name:
+      The following is an example of a valid domain name, which is between 3 and 63 characters long:
       
           openapi: 3.1.0
           info:
@@ -653,7 +653,7 @@ en:
             version: '1.0.0'
           paths: {}
           servers:
-            - url: 'https://vehicle-registration-number.api.gov.uk'
+            - **url: 'https://vehicle-registration-number.api.gov.uk'**
 
     domain-name-characters: |
       Domain name characters
@@ -666,7 +666,7 @@ en:
       Example
       ------- 
       
-      The following is an example of a domain name which would fail this rule because it contains an invalid character:
+      The following is an example of a domain name which would fail this rule because it contains an asterisk, which is an invalid character:
       
           openapi: 3.1.0
           info:
@@ -674,12 +674,12 @@ en:
             version: '1.0.0'
           paths: {}
           servers:
-            - url: 'https://vehicle-registration-number-*.api.gov.uk'
+            - **url: 'https://vehicle-registration-number-*.api.gov.uk'**
       
       Remediation
       -----------
       
-      The following is an example of a valid domain name:
+      The following is an example of a valid domain name, which does not contain invalid characters:
       
           openapi: 3.1.0
           info:
@@ -687,4 +687,4 @@ en:
             version: '1.0.0'
           paths: {}
           servers:
-            - url: 'https://vehicle-registration-number.api.gov.uk'
+            - **url: 'https://vehicle-registration-number.api.gov.uk'**
