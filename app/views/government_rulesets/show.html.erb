@@ -21,6 +21,14 @@
           <%= @ruleset_name %>
         </dd>
       </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Time:
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <%= DateTime.now.strftime("%d/%m/%Y %H:%M") %>
+        </dd>
+      </div>
     </dl>
 
     <h2 class="govuk-heading-m">Issues</h2>
@@ -76,14 +84,14 @@
 
     <div class="govuk-grid-row no-print">
       <div class="govuk-grid-column-one-third">
-        <%= govuk_link_to "Select Another Ruleset", rulesets_path %>
+        <%= govuk_link_to "Select another ruleset", rulesets_path %>
       </div>
       <div class="govuk-grid-column-one-third">
-        <%= govuk_link_to "Start Again", root_path %>
+        <%= govuk_link_to "Start again", root_path %>
       </div>
       <div class="govuk-grid-column-one-third">
           <button class="govuk-button" data-module="govuk-button" onclick="window.print();">
-            Print or Save
+            Print or save
           </button>
       </div>
     </div>
