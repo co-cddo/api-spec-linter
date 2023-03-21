@@ -41,7 +41,7 @@
           </h2>
           <div class="govuk-error-summary__body">
             <p>
-              There are <%= @errors.count %> unique types of error across <%= @errors.sum { |error| error[:lines].count } %> lines of your document.
+              There are <%= @errors.count %> unique types of error across <%= line_count(@errors) %> lines of your document.
             </p>
           </div>
         </div>
@@ -51,7 +51,7 @@
     <% if @warnings.count > 0 %>
       <%= govuk_notification_banner(
         title_text: "Your document has warnings",
-        text: "There are #{ @warnings.count } unique types of warning across #{ @warnings.sum { |warning| warning[:lines].count }} lines of your document.")
+        text: "There are #{ @warnings.count } unique types of warning across #{ line_count(@warnings) } lines of your document.")
       %>
     <% end %>
 
