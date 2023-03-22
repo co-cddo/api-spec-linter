@@ -21,4 +21,15 @@ RSpec.describe "Rules", type: :request do
     end
   end
 
+  describe "GET rules/" do
+    it "returns http success" do
+      get rules_path
+      expect(response).to have_http_status(:success)
+    end
+
+    it "lists the rules" do
+      get rules_path
+      expect(response.body).to include(RuleText.rules.values.first)
+    end
+  end
 end
