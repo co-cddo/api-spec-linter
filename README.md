@@ -40,12 +40,36 @@ will use:
 ASDF_POSTGRES_VERSION=13.5 bundle install
 ```
 
+### Rails Server Setup
+```bash
+bundle install
+rake db:create db:migrate
+bin/dev
+```
+
+To reset the database you can use:
+```bash
+rake db:reset db:migrate
+```
+
+To completely drop and recreate your database
+```bash
+rake db:drop db:create db:migrate
+```
+
 ### Linting
 
 To run the linters:
 
 ```bash
 bin/lint
+```
+
+### Testing
+To run the tests:
+
+```bash
+bundle exec rspec
 ```
 
 ### Intellisense
