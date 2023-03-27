@@ -1,4 +1,16 @@
-# README
+# GOV.UK API Linting Web Service
+
+## Overview
+
+This repository contains the source code for the GOV.UK API Linting Web Service.
+
+It is a Ruby on Rails web application that provides a simple and easy-to-use web interface that allows API developers to upload the OpenAPI specification for their API implementation and have it checked against various different linting rulesets.
+
+Behind the scene, it uses the open-source tool Spectral to perform the actual linting, supplemented with GOV.UK specific rules.
+
+An experimental code path also exists for testing the API specification against the commercial 42crunch service, which checks specifically for security issues.
+
+The application can easily be installed and run on any machine that can run Ruby on Rails. (Windows, Linux or Mac OS X are all supported).
 
 ## Setup
 
