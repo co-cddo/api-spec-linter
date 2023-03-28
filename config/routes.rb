@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :rulesets, only: %i[index create]
   resource :government_ruleset, only: %i[show create]
   resource :security_ruleset, only: %i[show create]
-  resources :rules, only: %i[show]
+  resources :rules, only: %i[show index]
 
   scope via: :all do
     get "/404", to: "errors#not_found"

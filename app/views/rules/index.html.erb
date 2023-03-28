@@ -1,0 +1,14 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl">GOV.UK OpenAPI Linting Rules</h1>
+
+    <p class="govuk-body">Information on the following rules are available here:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <% @rules.each do |rule, text| %>
+        <li>
+          <%= govuk_link_to "#{text} (#{rule})", rule_path(rule) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
