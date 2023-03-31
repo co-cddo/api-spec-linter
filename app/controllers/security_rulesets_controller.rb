@@ -26,7 +26,8 @@ class SecurityRulesetsController < ApplicationController
     return File.read("fakecrunchresults.json") if ENV["BYPASS_API"] == "true"
 
     Tempfile.open(upload.oas_file.key) do |oas_file|
-      oas_file.write(upload.oas_file.download)
+      content = upload.oas_file.download.encode('utf-8', 'binary', invalid: :replace, undef: :replace)
+      oas_file.write content
       oas_file.rewind
       Linters::CrunchApi::Fetch.new(file: oas_file).lint_to_json
     end
