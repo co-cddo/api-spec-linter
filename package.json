@@ -4,7 +4,7 @@
   "dependencies": {
     "esbuild": "^0.17.4",
     "govuk-frontend": "4.0.1",
-    "sass": "^1.57.1",
+    "sass": "^1.64.1",
     "@stoplight/spectral-cli": "^6.2.0",
     "@govuk-data-standards/spectral-ruleset-govuk-public": "^0.1.0"
   },
