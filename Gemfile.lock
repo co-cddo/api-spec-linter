@@ -299,7 +299,7 @@ GEM
     retries (0.0.5)
     reverse_markdown (2.1.1)
       nokogiri
-    rexml (3.2.5)
+    rexml (3.2.6)
     rinku (2.0.6)
     rouge (4.1.0)
     rspec (3.12.0)
@@ -354,7 +354,7 @@ GEM
     sanitize (6.0.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    selenium-webdriver (4.8.0)
+    selenium-webdriver (4.11.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
